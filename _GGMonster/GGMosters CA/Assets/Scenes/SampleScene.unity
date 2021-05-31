@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPointArr: 0a0000000a0000000a0000000a000000
   hp: 100
-  myType: 0
+  myType: 1
 --- !u!114 &1681262338
 MonoBehaviour:
   m_ObjectHideFlags: 0
