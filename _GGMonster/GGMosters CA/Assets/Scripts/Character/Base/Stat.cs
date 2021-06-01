@@ -14,7 +14,8 @@ public class Stat : MonoBehaviour
     // 이전 enum 이꼭 데미지 부스트 주는 타입이어야 함
     // NOTYPE 이후에는 타 타입 영향이 없는 enum 이어야 함
 
-    [HideInInspector] public int  hp           = 100;   // HP
+    [HideInInspector] public int  hp           = 100;   // 최대 HP
+    [HideInInspector] public int  curHp        = 100;   // 현제 HP
     [HideInInspector] public int  sp_a         = -1;    // A 스킬 포인트
     [HideInInspector] public int  sp_b         = -1;    // B 스킬 포인트
     [HideInInspector] public int  sp_c         = -1;    // C 스킬 포인트

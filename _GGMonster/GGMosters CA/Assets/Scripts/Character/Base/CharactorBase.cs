@@ -66,7 +66,8 @@ abstract public class CharactorBase : MonoBehaviour
         stat.sp_d = skillPointArr[3];
 
         // HP 초기화
-        stat.hp = hp;
+        stat.hp    = hp;
+        stat.curHp = hp;
 
         // myType 초기화
         stat.myType = myType;
@@ -134,7 +135,7 @@ abstract public class CharactorBase : MonoBehaviour
         //        Debug.LogError("알 수 없는 타입입니다.");
         //        break;
         //}
-        #endregion
+        #endregion // Do not use
     }
 
     #region 유니티 에디터에서만 실행됨
