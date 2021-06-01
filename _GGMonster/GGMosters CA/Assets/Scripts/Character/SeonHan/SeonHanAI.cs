@@ -20,7 +20,7 @@ public class SeonHanAI : AIBase
     private void Awake()
     {
         Debug.Log("SeonHanAI");
-        //Init(skillPointArr, hp, myType); <= AI 라서 먼저 적이 있어야 함
+        Init(skillPointArr, hp, myType); //<= AI 라서 먼저 적이 있어야 함
     }
 
 
