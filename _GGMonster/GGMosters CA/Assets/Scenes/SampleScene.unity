@@ -246,6 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1681262339}
   - component: {fileID: 1681262338}
+  - component: {fileID: 1681262337}
   - component: {fileID: 1681262336}
   m_Layer: 0
   m_Name: SeonHanTeacher
@@ -269,6 +270,29 @@ MonoBehaviour:
   skillPointArr: 0a0000000a0000000a0000000a000000
   hp: 100
   myType: 1
+--- !u!114 &1681262337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681262335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ef0460e7fd9f14b9526a1c02dfce54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  advantage: 0
+  disAdvantage: 0
+  lowHpAmount: 0
+  lowHp: 0
+  enemyLowHpAmount: 0
+  enemyLowHp: 0
+  lowSpAmount: 0
+  lowSp: 0
+  enemyLowSpAmount: 0
+  enemyLowSp: 0
+  isHighProvoke: 0
 --- !u!114 &1681262338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  curHp: 100
   sp_a: -1
   sp_b: -1
   sp_c: -1
