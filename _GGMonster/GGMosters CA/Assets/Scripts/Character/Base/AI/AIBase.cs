@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AIBase : CharactorBase
 {
-    protected Stat enemyStat = null;
-    protected AIStat aiStat = null;
+    protected AIStat aiStat     = null;
 
     // lowHpAmount 위한 상수
     private const float LOW_MUL = 0.2f;
@@ -13,34 +12,20 @@ public class AIBase : CharactorBase
     // 적 생성 후에 돌아가야 함
     // 안그러면 널레퍼런스
 
-    sealed protected override void Init(int[] skillPointArr, int hp, Stat.ClassType myType)
+    protected override void Init(int hp, Stat.ClassType myType)
     {
-        base.Init(skillPointArr, hp, myType);
-        
-        // 적 stat 받아옴
-        GetEnemyStat();
+        base.Init(hp, myType);
 
         // 본인 AIStat 받아오고 값 초기화
         InitAIStat();
 
-
+        // 타입 효과 적용
+        ApplyTypeBenefit();
     }
 
 
     #region Init Functions
-    private void GetEnemyStat()
-    {
-        enemyStat = GameObject.FindGameObjectWithTag("Player").GetComponent<Stat>();
-        #region null 체크
-#if UNITY_EDITOR
-        if(enemyStat == null)
-        {
-            Debug.LogError("AIBase: enemyStat 을 찾을 수 없습니다.");
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-#endif
-        #endregion
-    }
+
 
     private void InitAIStat()
     {
@@ -55,14 +40,63 @@ public class AIBase : CharactorBase
 #endif
         #endregion
 
-        aiStat.lowHpAmount = (int)(stat.hp * LOW_MUL);
-        aiStat.enemyLowHpAmount = (int)(enemyStat.hp * LOW_MUL);
+        aiStat.lowHpAmount = (int)(stat.maxHp * LOW_MUL);
+        aiStat.enemyLowHpAmount = (int)(stat.enemyStat.maxHp * LOW_MUL);
 
-        // 다시 변수 설정해야 함
+        // stat.sp => 다시 변수 설정해야 함
         //aiStat.lowSpAmount = (int)(stat.sp_a * LOW_MUL);
         //aiStat.enemyLowSpAmount = (int)(enemyStat.sp_a * LOW_MUL);
     }
 
+    protected override void ApplyTypeBenefit()
+    {
+        base.ApplyTypeBenefit();
+
+        #region 적 타입 미입력 체크
+        #if UNITY_EDITOR
+        if(stat.enemyStat.myType == Stat.ClassType.NOTYPE)
+        {
+            Debug.LogError("AI: Enemy has no type, quitting");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        #endif
+        #endregion
+
+        Debug.Log($"AI: My type is {stat.myType}, enemy type is {stat.enemyType}");
+
+
+        // 유 불리 체크
+        if (stat.damageBoost)
+        {
+            if (stat.myType == Stat.ClassType.TEACHER)
+            {
+                aiStat.advantage = true;
+                aiStat.disAdvantage = true;
+                Debug.Log("AI: Teacher battle");
+            }
+            else
+            {
+                aiStat.advantage = true;
+                aiStat.disAdvantage = false;
+                Debug.Log("AI: Advantage battle");
+            }
+        }
+        else
+        {
+            if (stat.myType == stat.enemyType || stat.myType == Stat.ClassType.TEACHER)
+            {
+                aiStat.advantage = false;
+                aiStat.disAdvantage = false;
+                Debug.Log("AI: No benefit battle");
+            }
+            else
+            {
+                aiStat.advantage = false;
+                aiStat.disAdvantage = true;
+                Debug.Log("AI: Disadvantage battle");
+            }
+        }
+    }
 
     #endregion
 

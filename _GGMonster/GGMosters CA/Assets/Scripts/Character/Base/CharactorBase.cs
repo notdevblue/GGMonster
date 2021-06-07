@@ -4,8 +4,11 @@ using UnityEngine;
 
 abstract public class CharactorBase : MonoBehaviour
 {
-    private   Stat.ClassType[] typeArr;
+    private   Stat.ClassType[] typeArr; // 있는 모든 타입 가져옴
     protected Stat             stat;
+
+
+    protected const int SKILLPOINTARRSIZE = 4; // skillPointArr의 크기는 무조건 4 이어야 함
 
     #region 초기화 함수
     protected void getStat()
@@ -41,44 +44,30 @@ abstract public class CharactorBase : MonoBehaviour
     /// <param name="skillPointArr">스킬포인트 배열</param>
     /// <param name="hp">HP</param>
     /// <param name="myType">자신의 타입</param>
-    protected virtual void Init(int[] skillPointArr, int hp, Stat.ClassType myType)
+    protected virtual void Init(int hp, Stat.ClassType myType)
     {
         // stat GetComponent;
         getStat();
 
-        #region 배열 길이 잘못 입력 체크
-#if UNITY_EDITOR
-        if (skillPointArr.Length < 4)
-        {
-            Debug.LogError("skillPoint 배열 길이가 잘못되었습니다. 배열 길이는 무조건 4 이어야 합니다.");
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-#endif
-        #endregion
+        // 적 스텟 받아옴
+        GetEnemyStat();
 
         // 타입 저장 배열 초기화
         InitTypeArr();
 
-        // 스킬포인트 초기화
-        stat.sp_a = skillPointArr[0];
-        stat.sp_b = skillPointArr[1];
-        stat.sp_c = skillPointArr[2];
-        stat.sp_d = skillPointArr[3];
-
         // HP 초기화
-        stat.hp    = hp;
+        stat.maxHp    = hp;
         stat.curHp = hp;
 
         // myType 초기화
-        stat.myType = myType;
+        stat.myType     = myType;
+        stat.enemyType  = stat.enemyStat.myType;
 
         #region 잘못된 값 또는 미입력 체크
 #if UNITY_EDITOR
-        CheckSP();
+        CheckValue();
 #endif
         #endregion
-
-        ApplyTypeBenefit();
     }
 
     // 상대 타입 따라 데미지 버프 또는 페시브
@@ -88,93 +77,64 @@ abstract public class CharactorBase : MonoBehaviour
         {
             stat.damageBoost = true;
         }
-        else if(stat.myType == stat.enemyType && stat.myType == Stat.ClassType.TEACHER) // 뭔가 불편함
+        else if(stat.myType == Stat.ClassType.TEACHER && stat.myType == stat.enemyType) // 뭔가 불편함
         {
             stat.damageBoost = true;
         }
+        else
+        {
+            stat.damageBoost = false;
+        }
+    }
 
-        #region Archive: switch comparing
-        // TODO : 타입이 늘어날 때 마다 코드를 수정해야 함
-        // 반복되는 작업이 많음
-        // 불필요해보이는 코드가 많음
-        // 줄일수는 있을거같음
-        // 타입이 추가될 거 같지는 않지만 흠흠
-        // IDEA : 배열?
-
-        //switch (myType)
-        //{
-        //    case Stat.ClassType.DIRECTOR:
-        //        if (stat.enemyType == Stat.ClassType.PROGRAMMER)
-        //        {
-        //            stat.damageBoost = true;
-        //        }
-        //        break;
-
-        //    case Stat.ClassType.PROGRAMMER:
-        //        if (stat.enemyType == Stat.ClassType.ARTIST)
-        //        {
-        //            stat.damageBoost = true;
-        //        }
-        //        break;
-
-        //    case Stat.ClassType.ARTIST:
-        //        if (stat.enemyType == Stat.ClassType.DIRECTOR)
-        //        {
-        //            stat.damageBoost = true;
-        //        }
-        //        break;
-
-        //    case Stat.ClassType.TEACHER:
-        //        if (stat.enemyType == Stat.ClassType.TEACHER)
-        //        {
-        //            stat.damageBoost = true;
-        //        }
-        //        break;
-
-        //    default:
-        //        Debug.LogError("알 수 없는 타입입니다.");
-        //        break;
-        //}
-        #endregion // Do not use
+    private void GetEnemyStat()
+    {
+        stat.enemyStat = GameObject.FindGameObjectWithTag("Player").GetComponent<Stat>();
+        #region null 체크
+#if UNITY_EDITOR
+        if (stat.enemyStat == null)
+        {
+            Debug.LogError("AIBase: enemyStat 을 찾을 수 없습니다.");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+#endif
+        #endregion
     }
 
     #region 유니티 에디터에서만 실행됨
 #if UNITY_EDITOR
 
-    void CheckSP()
+    void CheckValue()
     {
         // SP
         bool[] statEmpty = { false, false, false, false };
-
-        if (stat.sp_a < 0)
-        {
-            statEmpty[0] = true;
-        }
-        if (stat.sp_b < 0)
-        {
-            statEmpty[1] = true;
-        }
-        if (stat.sp_c < 0)
-        {
-            statEmpty[2] = true;
-        }
-        if (stat.sp_d < 0)
-        {
-            statEmpty[3] = true;
-        }
-
         bool stop = false;
-        for (int i = 0; i < statEmpty.Length; ++i)
+
+        for (int i = 0; i < 4; ++i)
         {
-            if (statEmpty[i])
+            if (stat.sp_arr[i] < 0)
             {
-                Debug.LogError(i + " 번째 스킬포인트가 잘못 입력되었거나 입력되지 않았습니다.");
+                statEmpty[i] = true;
                 stop = true;
+                Debug.LogError(i + " 번째 스킬포인트가 잘못 입력되었거나 입력되지 않았습니다.");
+            }
+        }
+        
+        // 스킬 데미지
+        bool[] dmgEmpty = { false, false, false, false };
+
+        for (int i = 0; i < 4; ++i)
+        {
+            if (stat.skillDmg[i] < 0)
+            {
+                dmgEmpty[i] = true;
+                stop = true;
+                Debug.LogError(i + " 번째 스킬 데미지가 잘못 입력되었거나 입력되지 않았습니다.");
             }
         }
 
         // HP
-        if (stat.hp < 0)
+        if (stat.maxHp < 0)
         {
             Debug.LogError("HP 가 잘못 입력되었거나 입력되지 않았습니다.");
             stop = true;

@@ -4,4 +4,6 @@ interface ISKill
     void SkillB();
     void SkillC();
     void SkillD();
+    void SkillE();
+    void Passive();
 }
