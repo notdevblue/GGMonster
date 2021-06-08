@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Stat : MonoBehaviour
 {
-    public Stat enemyStat;
+    [HideInInspector] public Stat enemyStat;
 
     public enum ClassType
     {
@@ -16,7 +16,7 @@ public class Stat : MonoBehaviour
     // NOTYPE 이후에는 타 타입 영향이 없는 enum 이어야 함
 
     [HideInInspector] public int   maxHp        = 100;                // 최대 HP
-    [HideInInspector] public int   curHp        = 100;                // 현제 HP
+                      public int   curHp        = 100;                // 현제 HP
                       public int[] sp_arr       = { -1, -1, -1, -1 }; // SP 상태 배열
                       public int[] skillDmg     = { -1, -1, -1, -1 }; // 스킬 데미지
     [HideInInspector] public bool  provoke      = false;              // 도발 상태

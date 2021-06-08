@@ -12,9 +12,9 @@ public class AIBase : CharactorBase
     // 적 생성 후에 돌아가야 함
     // 안그러면 널레퍼런스
 
-    protected override void Init(int hp, Stat.ClassType myType)
+    protected override void Init(int hp, Stat.ClassType myType, bool calledByAi = false)
     {
-        base.Init(hp, myType);
+        base.Init(hp, myType, calledByAi);
 
         // 본인 AIStat 받아오고 값 초기화
         InitAIStat();

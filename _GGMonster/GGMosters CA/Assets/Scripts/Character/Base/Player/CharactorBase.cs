@@ -44,13 +44,13 @@ abstract public class CharactorBase : MonoBehaviour
     /// <param name="skillPointArr">스킬포인트 배열</param>
     /// <param name="hp">HP</param>
     /// <param name="myType">자신의 타입</param>
-    protected virtual void Init(int hp, Stat.ClassType myType)
+    protected virtual void Init(int hp, Stat.ClassType myType, bool calledByAi = false)
     {
         // stat GetComponent;
         getStat();
 
         // 적 스텟 받아옴
-        GetEnemyStat();
+        GetEnemyStat(calledByAi);
 
         // 타입 저장 배열 초기화
         InitTypeArr();
@@ -87,9 +87,17 @@ abstract public class CharactorBase : MonoBehaviour
         }
     }
 
-    private void GetEnemyStat()
+    private void GetEnemyStat(bool calledByAi = false)
     {
-        stat.enemyStat = GameObject.FindGameObjectWithTag("Player").GetComponent<Stat>();
+        if(calledByAi)
+        {
+            stat.enemyStat = GameObject.FindGameObjectWithTag("Player").GetComponent<Stat>();
+        }
+        else
+        {
+            stat.enemyStat = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Stat>();
+        }
+        
         #region null 체크
 #if UNITY_EDITOR
         if (stat.enemyStat == null)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SeonHan : CharactorBase
 {
     #region 변수
-    [Header("HP")]
+    [Header("MaxHP")]
     [SerializeField] private int hp = 100;
 
     [Header("타입")]
@@ -18,9 +18,9 @@ public class SeonHan : CharactorBase
         Init(hp, myType);
     }
 
-    protected override void Init(int hp, Stat.ClassType myType)
+    protected override void Init(int hp, Stat.ClassType myType, bool calledByAi = false)
     {
-        base.Init(hp, myType);
+        base.Init(hp, myType, calledByAi);
         base.ApplyTypeBenefit(); // <= TODO : 수정해야 함, SeonHanAI 가 이 클레스를 상속받음
     }
 

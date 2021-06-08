@@ -5,7 +5,7 @@ using UnityEngine;
 public class SeonHanAI : AIBase
 {
     #region 변수
-    [Header("HP")]
+    [Header("MaxHP")]
     [SerializeField] private int hp = 100;
 
     [Header("타입")]
@@ -15,7 +15,7 @@ public class SeonHanAI : AIBase
 
     private void Awake()
     {
-        Init(hp, myType); //<= AI 라서 먼저 적이 있어야 함
+        Init(hp, myType, true); //<= AI 라서 먼저 적이 있어야 함
     }
 
 

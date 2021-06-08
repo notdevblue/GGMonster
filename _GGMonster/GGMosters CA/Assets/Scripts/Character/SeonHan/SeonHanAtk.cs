@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeonHanAtk : MonoBehaviour, ISKill
+public class SeonHanAtk : SkillBase, ISKill
 {
-    private Stat stat = null;
-    [SerializeField] private int  salaryTurn   = 10;
-    [SerializeField] private int  salaryHp     = 5;
+    // 코드 설계 욕하기
+    // 금융치료
+    // 강력한 어께 안마
+    // 나선환
+
+
+
+    [SerializeField] private int  salaryTurn   = 10; // 페시브 턴
+    [SerializeField] private int  salaryHp     = 5;  // 페시브 이득
 
     private void Awake()
     {
         stat = GetComponent<Stat>();
-
+        cvsBattle = GameObject.FindGameObjectWithTag("CVSBattle");
         #region null 체크
         #if UNITY_EDITOR
         if (stat == null)
@@ -19,24 +25,47 @@ public class SeonHanAtk : MonoBehaviour, ISKill
             Debug.LogError("SeonHanAtk: Stat 을 찾을 수 없습니다.");
             UnityEditor.EditorApplication.isPlaying = false;
         }
-        #endif
+        if(cvsBattle == null)
+        {
+            Debug.LogError("SeonHanAtk: cvsBattle 을 찾을 수 없습니다.");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+#endif
         #endregion
+
+
+        // AI가 아닐때만 실행되어야 함
+        // WARN , TODO : 멀티플레이 만들면 조건을 바꿔야 함
+        if(GetComponent<AIStat>() == null)
+        {
+            InitBattleCsv();
+            InitBtn();
+        }
+
     }
 
 
+    protected override void InitBtn()
+    {
+        btnSkillArr[0].onClick.AddListener(SkillA);
+        btnSkillArr[1].onClick.AddListener(SkillB);
+        btnSkillArr[2].onClick.AddListener(SkillC);
+        btnSkillArr[3].onClick.AddListener(SkillD);
+    }
 
     public void SkillA() // 코드 설계 욕하기
     {
         Debug.Log("SeonHanAtk: 코드 설계 욕하기");
-        if (!SkillSuccess()) // TODO : 중복됨
+        if (!SkillSuccess()) // TODO : 중복됨 
         {
-            Debug.Log("SeonHanAtk: 실패");
+            Debug.Log("SeonHanAtk A: 실패");
+            return;
         }
 
         switch (stat.enemyType)
         {
             case Stat.ClassType.PROGRAMMER:
-                stat.enemyStat.curHp -= (int)(stat.skillDmg[0] * stat.dmgBoostAmt);
+                stat.enemyStat.curHp -= (int)(stat.skillDmg[0] * stat.dmgBoostAmt); // TODO : <= 데미지 계산하고 변수에 담아야 함 (아마도)
                 break;
 
             case Stat.ClassType.TEACHER:
@@ -49,11 +78,13 @@ public class SeonHanAtk : MonoBehaviour, ISKill
         }
     }
 
-    public void SkillB() // 
+    public void SkillB() // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 힐 줌
     {
+        Debug.Log("SeonHanAtk: 금융치료");
         if (!SkillSuccess())
         {
-            Debug.Log("SeonHanAtk: 실패");
+            Debug.Log("SeonHanAtk B: 실패");
+            return;
         }
 
 
@@ -64,7 +95,8 @@ public class SeonHanAtk : MonoBehaviour, ISKill
         Debug.Log("SeonHanAtk: 강력한 어깨 안마");
         if(!SkillSuccess())
         {
-            Debug.Log("SeonHanAtk: 실패");
+            Debug.Log("SeonHanAtk C: 실패");
+            return;
         }
 
         // 공격
@@ -84,7 +116,8 @@ public class SeonHanAtk : MonoBehaviour, ISKill
     {
         if (!SkillSuccess())
         {
-            Debug.Log("SeonHanAtk: 실패");
+            Debug.Log("SeonHanAtk D: 실패");
+            return;
         }
 
 
@@ -143,8 +176,6 @@ public class SeonHanAtk : MonoBehaviour, ISKill
                 }
                 break;
         }
-
-        Debug.Log("SeonHanAtk: Skill failed");
         return false;
     }
 }
