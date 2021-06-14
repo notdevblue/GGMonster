@@ -25,7 +25,8 @@ public class Stat : MonoBehaviour
     [HideInInspector] public float dmgDecAmt    = 0.8f;               // 데미지 감소
     [HideInInspector] public int   provokeCount = 0;                  // 도발 스텟
     [HideInInspector] public bool  startFirst   = false;              // 먼저 시작하는지
-    [HideInInspector] public bool  turnEnded    = false;              // 턴 종료 여부
+    [HideInInspector] public bool  myturn       = false;              // 턴 상태
+    //[HideInInspector] public bool  turnEnded    = false;              // 턴 종료 여부
 
     [HideInInspector] public int   ProvMissRate = 15;                 // 도발 미스율
     [HideInInspector] public int   missRate     = 5;                 // 미스율

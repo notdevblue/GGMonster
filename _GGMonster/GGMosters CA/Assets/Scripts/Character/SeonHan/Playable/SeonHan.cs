@@ -30,7 +30,6 @@ public class SeonHan : CharactorBase
         if (Input.GetKeyDown(KeyCode.Space)) // <= TODO : ео а╬╥А
         {
             //Debug.Log("Player: Turn ended");
-            stat.turnEnded = true;
         }
     }
 

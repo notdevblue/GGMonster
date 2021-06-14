@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeonHanAtk : SkillBase, ISKill
+
+// 그저 생각 : 모든 스킬을 SkillBase 에 만들어버린 다음에 그냥 그걸 상속하게 하면 스킬 돌려쓸수잇지않을까
+
+public class SeonHanAtk : Skills, ISKill
 {
     // 코드 설계 욕하기
     // 금융치료
@@ -17,7 +20,7 @@ public class SeonHanAtk : SkillBase, ISKill
     private void Awake()
     {
         stat = GetComponent<Stat>();
-        cvsBattle = GameObject.FindGameObjectWithTag("CVSBattle");
+        cvsBattle = GameObject.FindGameObjectWithTag("CVSMain");
         #region null 체크
         #if UNITY_EDITOR
         if (stat == null)
@@ -27,7 +30,7 @@ public class SeonHanAtk : SkillBase, ISKill
         }
         if(cvsBattle == null)
         {
-            Debug.LogError("SeonHanAtk: cvsBattle 을 찾을 수 없습니다.");
+            Debug.LogError("SeonHanAtk: cvsMain 태그를 가진 게임 오브젝트를 찾을 수 없습니다.");
             UnityEditor.EditorApplication.isPlaying = false;
         }
 #endif
@@ -41,7 +44,10 @@ public class SeonHanAtk : SkillBase, ISKill
             InitBattleCsv();
             InitBtn();
         }
-
+        else
+        {
+            isAI = true;
+        }
     }
 
 
@@ -53,82 +59,57 @@ public class SeonHanAtk : SkillBase, ISKill
         btnSkillArr[3].onClick.AddListener(SkillD);
     }
 
+    #region 버튼으로 사용되는 스킬 함수들
+
     public void SkillA() // 코드 설계 욕하기
     {
-        Debug.Log("SeonHanAtk: 코드 설계 욕하기");
-        if (!SkillSuccess()) // TODO : 중복됨 
-        {
-            Debug.Log("SeonHanAtk A: 실패");
-            return;
-        }
-
-        switch (stat.enemyType)
-        {
-            case Stat.ClassType.PROGRAMMER:
-                stat.enemyStat.curHp -= (int)(stat.skillDmg[0] * stat.dmgBoostAmt); // TODO : <= 데미지 계산하고 변수에 담아야 함 (아마도)
-                break;
-
-            case Stat.ClassType.TEACHER:
-                stat.enemyStat.curHp -= (int)(stat.skillDmg[0] * stat.dmgDecAmt);
-                break;
-
-            default:
-                stat.enemyStat.curHp -= stat.skillDmg[0];
-                break;
-        }
+        if (!stat.myturn) { return; }
+        InsultCodeDesign(stat.skillDmg[0]);
+        TurnManager.instance.EndTurn();
     }
 
-    public void SkillB() // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 힐 줌
+    public void SkillB() // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
     {
-        Debug.Log("SeonHanAtk: 금융치료");
-        if (!SkillSuccess())
-        {
-            Debug.Log("SeonHanAtk B: 실패");
-            return;
-        }
-
-
+        if (!stat.myturn) { return; }
+        MoneyHeal(stat.skillDmg[1]);
+        TurnManager.instance.EndTurn();
     }
 
-    public void SkillC() // 강력한 어깨 안마
+    public void SkillC() // 강력한 어깨 안마 // n퍼센트의 확률로 상대 ++hp
     {
-        Debug.Log("SeonHanAtk: 강력한 어깨 안마");
-        if(!SkillSuccess())
-        {
-            Debug.Log("SeonHanAtk C: 실패");
-            return;
-        }
-
-        // 공격
-        switch (stat.enemyType == Stat.ClassType.TEACHER)
-        {
-            case true:
-                stat.enemyStat.curHp -= (int)(stat.skillDmg[3] * 0.8f);
-                break;
-
-            case false:
-                stat.enemyStat.curHp -= stat.skillDmg[3];
-                break;
-        }
+        if (!stat.myturn) { return; }
+        PowerfulShoulderMassage(stat.skillDmg[2]);
+        TurnManager.instance.EndTurn();
     }
 
     public void SkillD() // 나선환
     {
-        if (!SkillSuccess())
-        {
-            Debug.Log("SeonHanAtk D: 실패");
-            return;
-        }
-
-
+        if (!stat.myturn) { return; }
+        Naruto(stat.skillDmg[3]);
+        TurnManager.instance.EndTurn();
     }
+
+    #endregion
+
+
+
+    #region SP 전부 사용한 경우
 
     public void SkillE() // 샌드위치 구매하기 (SP 다 떨어진 경우)
     {
         Debug.Log("SeonHanAtk: 샌드위치 구매하기");
         BuySandwich();
     }
-    
+
+    // 렌덤한 스킬포인트 상승
+    private void BuySandwich()
+    {
+        int index = Random.Range(0, 4);
+        ++stat.sp_arr[index];
+    }
+
+    #endregion
+
     public void Passive()
     {
         if(TurnManager.instance.turn % salaryTurn == 0)
@@ -143,39 +124,9 @@ public class SeonHanAtk : SkillBase, ISKill
                 Debug.Log("SeonHanAtk: 앗 월급이 밀렸다...");
             }
         }
-
     }
 
-    // 렌덤한 스킬포인트 상승
-    private void BuySandwich()
-    {
-        int index = Random.Range(0, 4);
-        ++stat.sp_arr[index];
-    }
 
-    // 미스 여부
-    private bool SkillSuccess()
-    {
-        int rand = Random.Range(0, 100);
-        
-        switch(stat.provoke)
-        {
-            case true:
-                if (rand > stat.provokeCount * stat.ProvMissRate)
-                {
-                    Debug.Log("SeonHanAtk: Skill success");
-                    return true;
-                }
-                break;
-            
-            case false:
-                if(rand > stat.missRate)
-                {
-                    Debug.Log("SeonHanAtk: Skill success");
-                    return true;
-                }
-                break;
-        }
-        return false;
-    }
+
+
 }

@@ -11,15 +11,15 @@ abstract public class SkillBase : MonoBehaviour
     protected Text[]        txtSkillnameArr = new Text[4];
     protected Button[]      btnSkillArr     = new Button[4];
 
+    protected bool isAI = false;
+
     [SerializeField] protected string[] skillnameArr = new string[4];
 
     protected void InitBattleCsv()
     {
-        int childCount = cvsBattle.transform.childCount;
-
-        for (int index = 0; index < childCount; ++index)
+        for (int index = 0; index < 4; ++index)
         {
-            Transform temp          = cvsBattle.transform.GetChild(index);
+            Transform temp          = cvsBattle.transform.GetChild(0).GetChild(index);
             btnSkillArr[index]      = temp.GetComponent<Button>();
             txtSkillnameArr[index]  = temp.GetChild(0).GetComponent<Text>();
         }
@@ -29,7 +29,4 @@ abstract public class SkillBase : MonoBehaviour
             txtSkillnameArr[i].text = skillnameArr[i];
         }
     }
-
-    // btn.onClick.AddEventListener();
-    abstract protected void InitBtn();
 }

@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Enemy
   - CVSBattle
+  - CVSSkill
+  - CVSBattleMain
+  - CVSItem
+  - btnBack
+  - CVSMain
   layers:
   - Default
   - TransparentFX

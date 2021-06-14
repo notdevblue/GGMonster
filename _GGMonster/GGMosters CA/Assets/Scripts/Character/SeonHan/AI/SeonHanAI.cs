@@ -21,10 +21,10 @@ public class SeonHanAI : AIBase
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && stat.myturn)
         {
             Debug.Log("AI: Turn ended");
-            stat.turnEnded = true;
+            TurnManager.instance.EndTurn();
         }
     }
 }

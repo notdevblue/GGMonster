@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 그리 필요 없는 클래스 인줄 알았는데 이팩트 넣으려면 필요하네요.
 public class SeonHanDamage : MonoBehaviour, IDamageable
 {
     private Stat stat = null;
