@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-abstract public class SkillBase : MonoBehaviour
+abstract public class SkillBase : MonoBehaviour, ISKill
 {
     protected Stat stat = null;
 
@@ -11,7 +11,8 @@ abstract public class SkillBase : MonoBehaviour
     protected Text[]        txtSkillnameArr = new Text[4];
     protected Button[]      btnSkillArr     = new Button[4];
 
-    protected bool isAI = false;
+    protected bool   isAI = false;
+    protected bool[] noSP = new bool[4]; // SP 체크용
 
     [SerializeField] protected string[] skillnameArr = new string[4];
 
@@ -28,5 +29,44 @@ abstract public class SkillBase : MonoBehaviour
         {
             txtSkillnameArr[i].text = skillnameArr[i];
         }
+    }
+
+    abstract public void SkillA();
+    abstract public void SkillB();
+    abstract public void SkillC();
+    abstract public void SkillD();
+
+    abstract public void SkillE();
+    abstract public void Passive();
+
+    /// <summary>
+    /// Checks remain skillpoint
+    /// </summary>
+    /// <returns>false when all skillpoint is zero</returns>
+    public bool CheckSP()
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            noSP[i] = false;
+        }
+
+        for (int sp = 0; sp < 4; ++sp)
+        {
+            if (stat.sp_arr[sp] <= 0)
+            {
+                noSP[sp] = true;
+            }
+        }
+
+
+        foreach (bool sp in noSP)
+        {
+            if (!sp)
+            {
+                return true; // 어디 하나라도 스킬포인트가 남아있는 경우
+            }
+        }
+
+        return false;
     }
 }

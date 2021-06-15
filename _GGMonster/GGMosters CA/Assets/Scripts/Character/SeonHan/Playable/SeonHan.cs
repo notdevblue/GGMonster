@@ -13,7 +13,7 @@ public class SeonHan : CharactorBase
 
     #endregion
 
-    private void Awake()
+    private void Start()
     {
         Init(hp, myType);
     }

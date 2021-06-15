@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  myType: 2
+  myType: 4
 --- !u!114 &915199983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
   - "\uAC15\uB825\uD55C \uC5B4\uAED8 \uC548\uB9C8"
   - "\uB098\uC120\uD658"
   salaryTurn: 10
-  salaryHp: 5
+  salaryHp: 7
 --- !u!1 &1428687554
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  myType: 1
+  myType: 4
 --- !u!114 &1681262337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +516,7 @@ MonoBehaviour:
   ProvMissRate: 15
   missRate: 5
   myType: 4
-  enemyType: 1
+  enemyType: 3
 --- !u!4 &1681262339
 Transform:
   m_ObjectHideFlags: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   - "\uAC15\uB825\uD55C \uC5B4\uAED8 \uC548\uB9C8"
   - "\uB098\uC120\uD658"
   salaryTurn: 10
-  salaryHp: 17
+  salaryHp: 7
 --- !u!1 &1880956495
 GameObject:
   m_ObjectHideFlags: 0

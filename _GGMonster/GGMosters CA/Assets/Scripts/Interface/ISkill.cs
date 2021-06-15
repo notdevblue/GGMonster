@@ -1,9 +1,6 @@
 interface ISKill
 {
-    void SkillA();
-    void SkillB();
-    void SkillC();
-    void SkillD();
+    bool CheckSP();
     void SkillE();
     void Passive();
 }

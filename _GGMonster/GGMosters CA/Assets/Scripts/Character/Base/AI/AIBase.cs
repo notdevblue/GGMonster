@@ -83,7 +83,7 @@ public class AIBase : CharactorBase
         }
         else
         {
-            if (stat.myType == stat.enemyType || stat.myType == Stat.ClassType.TEACHER)
+            if (stat.myType == stat.enemyType || stat.myType == Stat.ClassType.TEACHER || stat.enemyType ==  Stat.ClassType.TEACHER)
             {
                 aiStat.advantage = false;
                 aiStat.disAdvantage = false;

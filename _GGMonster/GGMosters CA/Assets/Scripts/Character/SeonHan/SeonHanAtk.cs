@@ -5,17 +5,17 @@ using UnityEngine;
 
 // 그저 생각 : 모든 스킬을 SkillBase 에 만들어버린 다음에 그냥 그걸 상속하게 하면 스킬 돌려쓸수잇지않을까
 
-public class SeonHanAtk : Skills, ISKill
+public class SeonHanAtk : Skills
 {
     // 코드 설계 욕하기
     // 금융치료
     // 강력한 어께 안마
     // 나선환
 
-
-
     [SerializeField] private int  salaryTurn   = 10; // 페시브 턴
     [SerializeField] private int  salaryHp     = 5;  // 페시브 이득
+
+
 
     private void Awake()
     {
@@ -61,31 +61,35 @@ public class SeonHanAtk : Skills, ISKill
 
     #region 버튼으로 사용되는 스킬 함수들
 
-    public void SkillA() // 코드 설계 욕하기
+    public override void SkillA() // 코드 설계 욕하기
     {
         if (!stat.myturn) { return; }
-        InsultCodeDesign(stat.skillDmg[0]);
+        if (stat.sp_arr[0] < 1) { return; }
+        InsultCodeDesign(stat.skillDmg[0], ref stat.sp_arr[0]);
         TurnManager.instance.EndTurn();
     }
 
-    public void SkillB() // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
+    public override void SkillB() // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
     {
         if (!stat.myturn) { return; }
-        MoneyHeal(stat.skillDmg[1]);
+        if (stat.sp_arr[1] < 1) { return; }
+        MoneyHeal(stat.skillDmg[1], ref stat.sp_arr[1]);
         TurnManager.instance.EndTurn();
     }
 
-    public void SkillC() // 강력한 어깨 안마 // n퍼센트의 확률로 상대 ++hp
+    public override void SkillC() // 강력한 어깨 안마 // n퍼센트의 확률로 상대 ++hp
     {
         if (!stat.myturn) { return; }
-        PowerfulShoulderMassage(stat.skillDmg[2]);
+        if (stat.sp_arr[2] < 1) { return; }
+        PowerfulShoulderMassage(stat.skillDmg[2], ref stat.sp_arr[2]);
         TurnManager.instance.EndTurn();
     }
 
-    public void SkillD() // 나선환
+    public override void SkillD() // 나선환
     {
         if (!stat.myturn) { return; }
-        Naruto(stat.skillDmg[3]);
+        if (stat.sp_arr[3] < 1) { return; }
+        Naruto(stat.skillDmg[3], ref stat.sp_arr[3]);
         TurnManager.instance.EndTurn();
     }
 
@@ -95,7 +99,7 @@ public class SeonHanAtk : Skills, ISKill
 
     #region SP 전부 사용한 경우
 
-    public void SkillE() // 샌드위치 구매하기 (SP 다 떨어진 경우)
+    public override void SkillE() // 샌드위치 구매하기 (SP 다 떨어진 경우)
     {
         Debug.Log("SeonHanAtk: 샌드위치 구매하기");
         BuySandwich();
@@ -110,7 +114,7 @@ public class SeonHanAtk : Skills, ISKill
 
     #endregion
 
-    public void Passive()
+    public override void Passive()
     {
         if(TurnManager.instance.turn % salaryTurn == 0)
         {
@@ -125,8 +129,4 @@ public class SeonHanAtk : Skills, ISKill
             }
         }
     }
-
-
-
-
 }

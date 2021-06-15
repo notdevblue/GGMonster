@@ -18,7 +18,7 @@ public class TurnManager : MonoBehaviour
 
 
     #region Init Functions. Includes Awake
-    private void Awake()
+    private void Start()
     {
         SingleTon();
         SetFirstPlayer();
@@ -79,9 +79,9 @@ public class TurnManager : MonoBehaviour
 
     public void EndTurn()
     {
-        SetTurnStatus();
         NextTurn();
         CallPassiveSkill();
+        SetTurnStatus();
     }
 
     private void SetTurnStatus()
@@ -99,16 +99,24 @@ public class TurnManager : MonoBehaviour
     private void CallPassiveSkill()
     {
         skill = player.GetComponent<ISKill>();
-        if (skill != null)
-        {
-            skill.Passive();
-        }
+        TurnTask(skill);
 
         skill = null;
         
         skill = enemy.GetComponent<ISKill>();
+        TurnTask(skill);
+    }
+
+    // 턴 돌아갈때마다 헤야하는것들 모음집
+    private void TurnTask(ISKill skill)
+    {
         if (skill != null)
         {
+            if(!skill.CheckSP())
+            {
+                skill.SkillE();
+                return;
+            }
             skill.Passive();
         }
     }
