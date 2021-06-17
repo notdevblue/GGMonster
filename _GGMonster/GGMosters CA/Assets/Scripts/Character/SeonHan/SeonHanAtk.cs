@@ -36,6 +36,7 @@ public class SeonHanAtk : Skills
 #endif
         #endregion
 
+        InitDictionary();
 
         // AI가 아닐때만 실행되어야 함
         // WARN , TODO : 멀티플레이 만들면 조건을 바꿔야 함
@@ -65,7 +66,7 @@ public class SeonHanAtk : Skills
     {
         if (!stat.myturn) { return; }
         if (stat.sp_arr[0] < 1) { return; }
-        InsultCodeDesign(stat.skillDmg[0], ref stat.sp_arr[0]);
+        InsultCodeDesign(ref stat.sp_arr[0]);
         TurnManager.instance.EndTurn();
     }
 
@@ -73,7 +74,7 @@ public class SeonHanAtk : Skills
     {
         if (!stat.myturn) { return; }
         if (stat.sp_arr[1] < 1) { return; }
-        MoneyHeal(stat.skillDmg[1], ref stat.sp_arr[1]);
+        MoneyHeal(ref stat.sp_arr[1]);
         TurnManager.instance.EndTurn();
     }
 
@@ -81,7 +82,7 @@ public class SeonHanAtk : Skills
     {
         if (!stat.myturn) { return; }
         if (stat.sp_arr[2] < 1) { return; }
-        PowerfulShoulderMassage(stat.skillDmg[2], ref stat.sp_arr[2]);
+        PowerfulShoulderMassage(ref stat.sp_arr[2]);
         TurnManager.instance.EndTurn();
     }
 
@@ -89,7 +90,7 @@ public class SeonHanAtk : Skills
     {
         if (!stat.myturn) { return; }
         if (stat.sp_arr[3] < 1) { return; }
-        Naruto(stat.skillDmg[3], ref stat.sp_arr[3]);
+        Naruto(ref stat.sp_arr[3]);
         TurnManager.instance.EndTurn();
     }
 

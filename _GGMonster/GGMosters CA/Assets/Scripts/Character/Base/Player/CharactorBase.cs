@@ -127,19 +127,6 @@ abstract public class CharactorBase : MonoBehaviour
                 Debug.LogError(i + " 번째 스킬포인트가 잘못 입력되었거나 입력되지 않았습니다.");
             }
         }
-        
-        // 스킬 데미지
-        bool[] dmgEmpty = { false, false, false, false };
-
-        for (int i = 0; i < 4; ++i)
-        {
-            if (stat.skillDmg[i] < 0)
-            {
-                dmgEmpty[i] = true;
-                stop = true;
-                Debug.LogError(i + " 번째 스킬 데미지가 잘못 입력되었거나 입력되지 않았습니다.");
-            }
-        }
 
         // HP
         if (stat.maxHp < 0)

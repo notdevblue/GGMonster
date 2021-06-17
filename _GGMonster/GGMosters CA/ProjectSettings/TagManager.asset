@@ -11,6 +11,7 @@ TagManager:
   - CVSItem
   - btnBack
   - CVSMain
+  - CVSHealth
   layers:
   - Default
   - TransparentFX
