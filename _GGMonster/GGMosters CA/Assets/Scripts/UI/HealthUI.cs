@@ -53,6 +53,7 @@ public class HealthUI : MonoBehaviour
         hpBar[(int)ArrayEnum.Enemy].value  = stat.enemyStat.curHp;
 
         hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}";
+        hpTextArr[(int)ArrayEnum.Enemy].text  = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
     }
 
 
