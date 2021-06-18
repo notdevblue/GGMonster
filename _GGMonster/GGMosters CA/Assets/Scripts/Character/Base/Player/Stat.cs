@@ -33,4 +33,42 @@ public class Stat : MonoBehaviour
     [HideInInspector] public int    missRate      = 5;                  // 미스율
                       public ClassType myType     = ClassType.NOTYPE;   // 내 타입
     [HideInInspector] public ClassType enemyType  = ClassType.NOTYPE;   // 적 타입
+
+
+    #region TickDaamage
+
+    [HideInInspector] public bool isTickDamage    = false;  // 지속댐 여부
+    [HideInInspector] public int  tickDamageCount = 0;      // 지속댐 카운트
+    [HideInInspector] public int  tickDamage      = 0;      // 지속뎀 데미지
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="damage">damage amount</param>
+    /// <param name="count">repeat count</param>
+    public void SetTickDamage(int damage, int count)
+    {
+        isTickDamage = false;
+        tickDamage = damage;
+        tickDamageCount = count;
+    }
+
+    public void CheckTickDamage()
+    {
+        if (tickDamageCount < 0)
+        {
+            isTickDamage = false;
+        }
+        else
+        {
+            // TODO : DMGDEC
+        }
+    }
+
+    public void Start()
+    {
+        TurnManager.instance.turnEndTasks.Add(CheckTickDamage);
+    }
+
+    #endregion
 }

@@ -177,6 +177,19 @@ abstract public class Skills : SkillBase
         ++stat.enemyStat.provokeCount;
     }
 
+    public void ReTest(ref int skillPoint)
+    {
+        --skillPoint;
+        Debug.Log("재시험");
+        if (!SkillSuccess())
+        {
+            Debug.Log("실패");
+            return;
+        }
+
+
+    }
+
     #endregion
 
     #region 공용 스킬
