@@ -19,6 +19,7 @@ abstract public class Skills : SkillBase
     public delegate void SkillExample(ref int skillPoint);
     public Dictionary<SkillListEnum, SkillExample> seonHanSKills = new Dictionary<SkillListEnum, SkillExample>();
     public Dictionary<SkillListEnum, SkillExample> defaultSkills = new Dictionary<SkillListEnum, SkillExample>();
+    public Dictionary<SkillListEnum, SkillExample> haEunSkills   = new Dictionary<SkillListEnum, SkillExample>();
 
     private IDamageable damageable;
 
@@ -32,7 +33,7 @@ abstract public class Skills : SkillBase
 
     void InitInterface()
     {
-        damageable = stat.enemyStat.GetComponent<IDamageable>();
+        damageable = stat.enemyStat.gameObject.GetComponent<IDamageable>();
 
         #region null check
 #if UNITY_EDITOR
@@ -59,6 +60,11 @@ abstract public class Skills : SkillBase
     private void InitDefaultDictionary()
     {
         defaultSkills.Add(SkillListEnum.WaterAttack, WaterAttack);
+    }
+
+    private void InitHaEunDictionary()
+    {
+
     }
 
     #endregion
@@ -193,6 +199,14 @@ abstract public class Skills : SkillBase
 
     #endregion
 
+    #region 하은쌤
+
+    private void Foo(ref int skillPoint)
+    {
+
+    }
+
+    #endregion
 
     // 미스 여부
     private bool SkillSuccess()

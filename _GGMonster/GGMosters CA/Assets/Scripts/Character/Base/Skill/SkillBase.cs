@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-abstract public class SkillBase : MonoBehaviour, ISKill
+abstract public class SkillBase : MonoBehaviour, ISkill
 {
     protected Stat stat = null;
 
@@ -14,7 +14,7 @@ abstract public class SkillBase : MonoBehaviour, ISKill
     protected bool   isAI = false;
     protected bool[] noSP = new bool[4]; // SP 체크용
 
-    [SerializeField] protected string[] skillnameArr = new string[4];
+    [SerializeField] protected string[] skillnameArr = new string[4]; // TODO : 스킬에 따라 바꿔야 함
 
     protected void InitBattleCsv()
     {

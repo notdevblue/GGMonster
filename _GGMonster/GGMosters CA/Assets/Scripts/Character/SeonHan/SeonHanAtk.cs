@@ -17,7 +17,7 @@ public class SeonHanAtk : Skills
 
 
 
-    private void Awake()
+    private void Start()
     {
         stat = GetComponent<Stat>();
         cvsBattle = GameObject.FindGameObjectWithTag("CVSMain");
@@ -64,33 +64,29 @@ public class SeonHanAtk : Skills
 
     public override void SkillA() // ÄÚµå ¼³°è ¿åÇÏ±â
     {
-        if (!stat.myturn) { return; }
-        if (stat.sp_arr[0] < 1) { return; }
-        InsultCodeDesign(ref stat.sp_arr[0]);
+        if (!stat.myturn || stat.sp_arr[0] < 1) { return; }
+        seonHanSKills[SkillListEnum.InsultCodeDesign](ref stat.sp_arr[0]);
         TurnManager.instance.EndTurn();
     }
 
     public override void SkillB() // ±ÝÀ¶Ä¡·á // µ· ¹¶ÅÖÀÌ·Î ´øÀú¼­ µôÀÔÈû. »ó´ë°¡ ¼±»ý´ÔÀÌ¸é °ø°Ý·ÂÀÇ 50% ¸¸Å­ ÈúÀ» ÇØ ÁÜ
     {
-        if (!stat.myturn) { return; }
-        if (stat.sp_arr[1] < 1) { return; }
-        MoneyHeal(ref stat.sp_arr[1]);
+        if (!stat.myturn || stat.sp_arr[1] < 1) { return; }
+        seonHanSKills[SkillListEnum.MoneyHeal](ref stat.sp_arr[1]);
         TurnManager.instance.EndTurn();
     }
 
     public override void SkillC() // °­·ÂÇÑ ¾î±ú ¾È¸¶ // nÆÛ¼¾Æ®ÀÇ È®·ü·Î »ó´ë ++hp
     {
-        if (!stat.myturn) { return; }
-        if (stat.sp_arr[2] < 1) { return; }
-        PowerfulShoulderMassage(ref stat.sp_arr[2]);
+        if (!stat.myturn || stat.sp_arr[2] < 1) { return; }
+        seonHanSKills[SkillListEnum.PowerfulSholderMassage](ref stat.sp_arr[2]);
         TurnManager.instance.EndTurn();
     }
 
     public override void SkillD() // ³ª¼±È¯
     {
-        if (!stat.myturn) { return; }
-        if (stat.sp_arr[3] < 1) { return; }
-        Naruto(ref stat.sp_arr[3]);
+        if (!stat.myturn || stat.sp_arr[3] < 1) { return; }
+        seonHanSKills[SkillListEnum.Naruto](ref stat.sp_arr[3]);
         TurnManager.instance.EndTurn();
     }
 

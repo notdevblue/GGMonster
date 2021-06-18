@@ -5,16 +5,24 @@ using UnityEngine;
 public class AIBase : CharactorBase
 {
     protected AIStat aiStat     = null;
+    private   ISkill skill;
 
     // lowHpAmount 위한 상수
     private const float LOW_MUL = 0.2f;
 
-    // 적 생성 후에 돌아가야 함
-    // 안그러면 널레퍼런스
 
     protected override void Init(int hp, Stat.ClassType myType, bool calledByAi = false)
     {
         base.Init(hp, myType, calledByAi);
+
+        skill = GetComponent<ISkill>();
+        #region null 체크
+        if (skill == null)
+        {
+            Debug.LogError("AIBase: Cannot GetComponent ISkill.");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        #endregion
 
         // 본인 AIStat 받아오고 값 초기화
         InitAIStat();
@@ -25,7 +33,6 @@ public class AIBase : CharactorBase
 
 
     #region Init Functions
-
 
     private void InitAIStat()
     {
@@ -100,4 +107,43 @@ public class AIBase : CharactorBase
 
     #endregion
 
+
+    #region AI Base Function
+
+    // 랜덤 스킬 사용이지만 추후 바꿔야 함
+    protected void OnTurn()
+    {
+        Invoke(nameof(Delay), 2.0f);
+    }
+
+    private void UseRandomSkill()
+    {
+        int rndSkill = Random.Range(0, 4);
+
+        switch (rndSkill)
+        {
+            case 0:
+                skill.SkillA();
+                break;
+
+            case 1:
+                skill.SkillB();
+                break;
+
+            case 2:
+                skill.SkillC();
+                break;
+
+            case 3:
+                skill.SkillD();
+                break;
+        }
+    }
+
+    private void Delay()
+    {
+        UseRandomSkill();
+    }
+
+    #endregion
 }
