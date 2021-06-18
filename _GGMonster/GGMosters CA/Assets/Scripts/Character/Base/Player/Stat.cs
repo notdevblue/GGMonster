@@ -19,7 +19,6 @@ public class Stat : MonoBehaviour
 
 
                       public string charactorName = null;               // 캐릭터 이름
-                      public int    charactorAge  = -1;                 // 캐릭터 나이 인척 하는 레벨
     [HideInInspector] public int    maxHp         = 100;                // 최대 HP
                       public int    curHp         = 100;                // 현제 HP
                       public int[]  sp_arr        = { -1, -1, -1, -1 }; // SP 상태 배열

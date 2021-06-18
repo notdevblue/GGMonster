@@ -19,7 +19,7 @@ public class HealthUI : MonoBehaviour
     [Header("첫 원소에는 플레이어가 들어가야 합니다")]
     public Slider[] hpBar         = new Slider[2];
     public Text[]   nameTextArr   = new Text[2];
-    public Text[]   levelTextArr  = new Text[2];
+    public Text[]   hpTextArr     = new Text[2];
 
     private void Start()
     {
@@ -38,8 +38,8 @@ public class HealthUI : MonoBehaviour
         // Info text Init
         nameTextArr[(int)ArrayEnum.Player].text  = stat.charactorName;
         nameTextArr[(int)ArrayEnum.Enemy].text   = stat.enemyStat.charactorName;
-        levelTextArr[(int)ArrayEnum.Player].text = stat.charactorAge.ToString();
-        levelTextArr[(int)ArrayEnum.Enemy].text  = stat.enemyStat.charactorAge.ToString();
+        hpTextArr[(int)ArrayEnum.Player].text    = $"HP : {stat.curHp} / {stat.maxHp}";
+        hpTextArr[(int)ArrayEnum.Enemy].text     = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
 
 
     }
@@ -51,6 +51,8 @@ public class HealthUI : MonoBehaviour
     {
         hpBar[(int)ArrayEnum.Player].value = stat.curHp;
         hpBar[(int)ArrayEnum.Enemy].value  = stat.enemyStat.curHp;
+
+        hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}";
     }
 
 
@@ -80,7 +82,7 @@ public class HealthUI : MonoBehaviour
                 Debug.LogError($"HealthUI: nameTextArr[{i}] is null");
                 bStop = true;
             }
-            if(levelTextArr[i] == null)
+            if(hpTextArr[i] == null)
             {
                 Debug.LogError($"HealthUI: levelTextArr[{i}] is null");
                 bStop = true;
