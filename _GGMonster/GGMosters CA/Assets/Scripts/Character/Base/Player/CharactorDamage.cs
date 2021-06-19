@@ -22,7 +22,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
 
     public void OnDamage(int damage, bool isHeal = false)
     {
-        stat.curHp += isHeal ? damage : -damage;
+        stat.curHp = isHeal ? ((stat.curHp + damage > stat.maxHp) ? stat.maxHp : stat.curHp + damage) : stat.curHp - damage;
 
         // TODO : UI
         // TODO : Effects

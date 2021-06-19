@@ -6,23 +6,19 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject skillPannel;
-    [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject itemPanel;
+    [SerializeField] private GameObject mainMenuPanel;
 
     private Button[] exitButtons = new Button[2];
-    private Button btnToSkill;
-    private Button btnToItem;
-
-
 
     private void Awake()
     {
         skillPannel.SetActive(false);
-        //itemPanel.SetActive(false);
+        itemPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
 
         exitButtons[0] = skillPannel.transform.GetChild(4).GetComponent<Button>(); // TODO : 이것은 하드 코딩
-        //exitButtons[1] = itemPanel.transform.GetChild().GetComponent<Button>();
+        exitButtons[1] = itemPanel.transform.GetChild(2).GetComponent<Button>();
 
         // 메인 선택 화면으로 돌아감
         foreach(Button btn in exitButtons)
@@ -39,7 +35,7 @@ public class UIManager : MonoBehaviour
     public void ExitToMainCvs()
     {
         skillPannel.SetActive(false);
-        //itemPanel.SetActive(false);
+        itemPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
     }
 

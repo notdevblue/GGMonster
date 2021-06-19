@@ -8,6 +8,8 @@ public class TurnManager : MonoBehaviour
 
     public delegate void TurnEndTasks();
     public List<TurnEndTasks> turnEndTasks = new List<TurnEndTasks>(); // 여기에 리턴값과 메개변수가 없는 함수를 넣어주면 턴이 끝날 때 마다 실행이 된다.
+    public List<TurnEndTasks> midturnTasks = new List<TurnEndTasks>(); // 여기에 리턴값과 메개변수가 없는 함수를 넣어주면 턴이 끝날 때 마다 실행이 된다.
+
     // 나중에 이걸 따로 제네릭 클래스로 만들어서 써보는것도 재미있을듯함
     // 테스크메니저 (작업관리자)
 
@@ -90,9 +92,23 @@ public class TurnManager : MonoBehaviour
         DoTurnEndTasks();
     }
 
+    // 턴 중간에 무언가 필요할 때 호출되는 함수
+    public void MidTurn()
+    {
+        DoMidturnTasks();
+    }
+
     private void DoTurnEndTasks()
     {
         foreach(TurnEndTasks tasks in turnEndTasks)
+        {
+            tasks();
+        }
+    }
+
+    private void DoMidturnTasks()
+    {
+        foreach(TurnEndTasks tasks in midturnTasks)
         {
             tasks();
         }

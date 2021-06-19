@@ -95,8 +95,6 @@ abstract public class Skills : SkillBase
 
     #region 선한쌤
 
-    //delegate void SeonHanAtkDelegate(int damage, ref int skillPoint);
-
     public void InsultCodeDesign(ref int skillPoint) // 코드 설계 욕하기, 선한쌤 용 코드
     {
         int damage = 25;
@@ -127,26 +125,6 @@ abstract public class Skills : SkillBase
         
     }
 
-    public void MoneyHeal(ref int skillPoint) // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
-    {
-        int damage = 17;
-
-        --skillPoint;
-        Debug.Log("금융치료");
-        if (!SkillSuccess())
-        {
-            Debug.Log("금융치료 실패");
-            return;
-        }
-
-        if (stat.enemyType == Stat.ClassType.TEACHER)
-        {
-            damageable.OnDamage(damage / 2, true);
-            Debug.Log("선생님이 행복한 얼굴로 돈을 받으셨다...");
-            return;
-        }
-        damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage));
-    }
 
     public void PowerfulShoulderMassage(ref int skillPoint) // 강력한 어깨 안마 // n퍼센트의 확률로 상대 ++hp, 선한쌤 용 코드
     {
@@ -231,6 +209,27 @@ abstract public class Skills : SkillBase
             return;
         }
         stat.enemyStat.SetTickDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), damageCount);
+    }
+
+    public void MoneyHeal(ref int skillPoint) // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
+    {
+        int damage = 17;
+
+        --skillPoint;
+        Debug.Log("금융치료");
+        if (!SkillSuccess())
+        {
+            Debug.Log("금융치료 실패");
+            return;
+        }
+
+        if (stat.enemyType == Stat.ClassType.TEACHER)
+        {
+            damageable.OnDamage(damage / 2, true);
+            Debug.Log("선생님이 행복한 얼굴로 돈을 받으셨다...");
+            return;
+        }
+        damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage));
     }
 
     #endregion

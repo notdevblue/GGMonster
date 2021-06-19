@@ -42,6 +42,7 @@ public class HealthUI : MonoBehaviour
         InitColorStd();
 
         TurnManager.instance.turnEndTasks.Add(ResetUI);
+        TurnManager.instance.midturnTasks.Add(ResetUI);
     }
 
     #region Init Functions
@@ -67,8 +68,8 @@ public class HealthUI : MonoBehaviour
     private void InitColorStd()
     {
         // colorStd Init
-        hpColorStd[0] = 50;
-        hpColorStd[1] = 25;
+        hpColorStd[0] = (stat.curHp / stat.maxHp) * 100 / 2;
+        hpColorStd[1] = (stat.curHp / stat.maxHp) * 100 / 4;
         hpColorStd[2] = 0;
     }
 

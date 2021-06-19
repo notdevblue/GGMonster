@@ -13,6 +13,7 @@ public class SeonHan : CharactorBase
 
     #endregion
 
+    // TODO : 스킬 선택 후 해야 함
     private void Start()
     {
         Init(hp, myType);
