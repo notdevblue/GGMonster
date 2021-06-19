@@ -14,7 +14,14 @@ abstract public class SkillBase : MonoBehaviour, ISkill
     protected bool   isAI = false;
     protected bool[] noSP = new bool[4]; // SP 체크용
 
-    [SerializeField] protected string[] skillnameArr = new string[4]; // TODO : 스킬에 따라 바꿔야 함
+    //[SerializeField] protected string[] skillnameArr = new string[4]; // TODO : 스킬에 따라 바꿔야 함
+
+    // 스킬 이름 관련
+    protected Dictionary<SkillListEnum, string> skillNameDic  = new Dictionary<SkillListEnum, string>();
+    protected List      <string>                skillNameList = new List      <string>();
+
+    [SerializeField] protected List<SkillListEnum> selectedSkills = new List<SkillListEnum>(); // 선택한 스킬
+
 
     protected void InitBattleCsv()
     {
@@ -27,7 +34,7 @@ abstract public class SkillBase : MonoBehaviour, ISkill
 
         for (int i = 0; i < 4; ++i)
         {
-            txtSkillnameArr[i].text = skillnameArr[i];
+            txtSkillnameArr[i].text = skillNameDic[selectedSkills[i]];
         }
     }
 
@@ -38,6 +45,50 @@ abstract public class SkillBase : MonoBehaviour, ISkill
 
     abstract public void SkillE();
     abstract public void Passive();
+
+    abstract protected void InitSkillNameDic();
+    abstract protected void InitSkillNameList();
+
+    protected void CheckSkillNameList()
+    {
+        #region List check
+#if UNITY_EDITOR
+        bool bStop = false;
+
+        if (selectedSkills.Count != 4)
+        {
+            Debug.LogError("SkillBase: Wrong size");
+            bStop = true;
+        }
+        if(selectedSkills.Contains(SkillListEnum.DEFAULTEND) || selectedSkills.Contains(SkillListEnum.SEONHANEND))
+        {
+            Debug.LogError("SkillBase: Wrong enum");
+            bStop = true;
+        }
+
+        if(bStop) { UnityEditor.EditorApplication.isPlaying = false; }
+#endif
+
+        // TODO : O(n + n - 1) 비교임
+        /*
+        i = 0, j = X
+        i = 1, j = 0
+        i = 2, j = 0, 1
+        i = 3, j = 0, 1, 2
+        */
+        for (int i = 0; i < 4; ++i)
+        {
+            for(int j = 0; j < i; ++j)
+            {
+                if(selectedSkills[i] == selectedSkills[j])
+                {
+                    Debug.LogError("SkillBase: You cannot use same skill more than once");
+                }
+            }
+        }
+
+        #endregion
+    }
 
     /// <summary>
     /// Checks remain skillpoint

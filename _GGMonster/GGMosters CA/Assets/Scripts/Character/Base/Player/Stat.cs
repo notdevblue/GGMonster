@@ -35,14 +35,14 @@ public class Stat : MonoBehaviour
     [HideInInspector] public ClassType enemyType  = ClassType.NOTYPE;   // 적 타입
 
 
-    #region TickDaamage
+    #region TickDamage
 
     [HideInInspector] public bool isTickDamage    = false;  // 지속댐 여부
     [HideInInspector] public int  tickDamageCount = 0;      // 지속댐 카운트
     [HideInInspector] public int  tickDamage      = 0;      // 지속뎀 데미지
 
     /// <summary>
-    /// 
+    /// Sets tick damage
     /// </summary>
     /// <param name="damage">damage amount</param>
     /// <param name="count">repeat count</param>
@@ -61,7 +61,8 @@ public class Stat : MonoBehaviour
         }
         else
         {
-            // TODO : DMGDEC
+            --tickDamageCount;
+            curHp -= tickDamage;
         }
     }
 

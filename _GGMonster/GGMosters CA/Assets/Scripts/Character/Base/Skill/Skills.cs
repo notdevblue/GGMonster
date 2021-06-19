@@ -17,17 +17,15 @@ public enum SkillListEnum
 abstract public class Skills : SkillBase
 {
     public delegate void SkillExample(ref int skillPoint);
-    public Dictionary<SkillListEnum, SkillExample> seonHanSKills = new Dictionary<SkillListEnum, SkillExample>();
-    public Dictionary<SkillListEnum, SkillExample> defaultSkills = new Dictionary<SkillListEnum, SkillExample>();
-    public Dictionary<SkillListEnum, SkillExample> haEunSkills   = new Dictionary<SkillListEnum, SkillExample>();
+    public Dictionary<SkillListEnum, SkillExample> skillDictionary = new Dictionary<SkillListEnum, SkillExample>();
 
     private IDamageable damageable;
+ 
+
 
     protected void InitDictionary() // 함수명은 이렇긴 한데 여기서 IDamageable 찾아서 초기화 해줘요.
     {
         InitSeonHanDictionary();
-        InitDefaultDictionary();
-
         InitInterface();
     }
 
@@ -50,22 +48,48 @@ abstract public class Skills : SkillBase
 
     private void InitSeonHanDictionary()
     {
-        seonHanSKills.Add(SkillListEnum.InsultCodeDesign, InsultCodeDesign);
-        seonHanSKills.Add(SkillListEnum.MoneyHeal, MoneyHeal);
-        seonHanSKills.Add(SkillListEnum.PowerfulSholderMassage, PowerfulShoulderMassage);
-        seonHanSKills.Add(SkillListEnum.Naruto, Naruto);
-        seonHanSKills.Add(SkillListEnum.Tsundere, Tsundere);
+        skillDictionary.Add(SkillListEnum.InsultCodeDesign, InsultCodeDesign);
+        skillDictionary.Add(SkillListEnum.MoneyHeal, MoneyHeal);
+        skillDictionary.Add(SkillListEnum.PowerfulSholderMassage, PowerfulShoulderMassage);
+        skillDictionary.Add(SkillListEnum.Naruto, Naruto);
+        skillDictionary.Add(SkillListEnum.Tsundere, Tsundere);
+
+        skillDictionary.Add(SkillListEnum.WaterAttack, WaterAttack);
     }
 
-    private void InitDefaultDictionary()
+    protected override void InitSkillNameDic()
     {
-        defaultSkills.Add(SkillListEnum.WaterAttack, WaterAttack);
+        InitSkillNameList();
+
+        for(int i = 0; i < skillNameList.Count; ++i)
+        {
+            skillNameDic.Add((SkillListEnum)i, skillNameList[i]);
+        }
     }
 
-    private void InitHaEunDictionary()
+    // SkillListEnum 에 있는 스킬만 추가해야 합니다.
+    protected override void InitSkillNameList()
     {
+        skillNameList.Add("코드 설계 욕하기");
+        skillNameList.Add("금융치료");
+        skillNameList.Add("강력한 어깨 안마");
+        skillNameList.Add("나선환");
+        skillNameList.Add("츤츤거리기");
+        skillNameList.Add("선환쌤 스킬 끝");
+        skillNameList.Add("물승핵");
+        skillNameList.Add("공용 스킬 끝");
 
+        #region List check
+#if UNITY_EDITOR
+        if (skillNameList.Count != (int)SkillListEnum.DEFAULTEND + 1)
+        {
+            Debug.LogError("Skills: Wrong skill name count");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+#endif
+        #endregion
     }
+
 
     #endregion
 
@@ -194,10 +218,10 @@ abstract public class Skills : SkillBase
 
     #region 공용 스킬
 
-    // TODO : 지속딜 카운트 필요함
     public void WaterAttack(ref int skillPoint) // 물승핵, 컴퓨터에 물을 쏫는다, 지속딜
     {
-        int damage = 15;
+        int damage = 5;
+        int damageCount = 3;
 
         --skillPoint;
         Debug.Log("물승핵");
@@ -206,8 +230,7 @@ abstract public class Skills : SkillBase
             Debug.Log("실패");
             return;
         }
-
-        damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage));
+        stat.enemyStat.SetTickDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), damageCount);
     }
 
     #endregion

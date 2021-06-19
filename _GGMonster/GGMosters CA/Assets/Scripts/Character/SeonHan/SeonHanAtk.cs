@@ -16,7 +16,7 @@ public class SeonHanAtk : Skills
     [SerializeField] private int  salaryHp     = 5;  // 페시브 이득
 
 
-
+    // 모든 공격 클래스에 공통적으로 들어가야 합니다.
     private void Start()
     {
         stat = GetComponent<Stat>();
@@ -36,12 +36,15 @@ public class SeonHanAtk : Skills
 #endif
         #endregion
 
+
         InitDictionary();
 
         // AI가 아닐때만 실행되어야 함
         // WARN , TODO : 멀티플레이 만들면 조건을 바꿔야 함
         if(GetComponent<AIStat>() == null)
         {
+            InitSkillNameDic();
+            CheckSkillNameList();
             InitBattleCsv();
             InitBtn();
         }
@@ -65,28 +68,28 @@ public class SeonHanAtk : Skills
     public override void SkillA() // 코드 설계 욕하기
     {
         if (!stat.myturn || stat.sp_arr[0] < 1) { return; }
-        seonHanSKills[SkillListEnum.InsultCodeDesign](ref stat.sp_arr[0]);
+        skillDictionary[selectedSkills[0]](ref stat.sp_arr[0]);
         TurnManager.instance.EndTurn();
     }
 
     public override void SkillB() // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
     {
         if (!stat.myturn || stat.sp_arr[1] < 1) { return; }
-        seonHanSKills[SkillListEnum.MoneyHeal](ref stat.sp_arr[1]);
+        skillDictionary[selectedSkills[1]](ref stat.sp_arr[1]);
         TurnManager.instance.EndTurn();
     }
 
     public override void SkillC() // 강력한 어깨 안마 // n퍼센트의 확률로 상대 ++hp
     {
         if (!stat.myturn || stat.sp_arr[2] < 1) { return; }
-        seonHanSKills[SkillListEnum.PowerfulSholderMassage](ref stat.sp_arr[2]);
+        skillDictionary[selectedSkills[2]](ref stat.sp_arr[2]);
         TurnManager.instance.EndTurn();
     }
 
     public override void SkillD() // 나선환
     {
         if (!stat.myturn || stat.sp_arr[3] < 1) { return; }
-        seonHanSKills[SkillListEnum.Naruto](ref stat.sp_arr[3]);
+        skillDictionary[selectedSkills[3]](ref stat.sp_arr[3]);
         TurnManager.instance.EndTurn();
     }
 
