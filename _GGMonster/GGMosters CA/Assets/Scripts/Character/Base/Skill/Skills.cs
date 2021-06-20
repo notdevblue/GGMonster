@@ -118,7 +118,7 @@ abstract public class Skills : SkillBase
         Debug.Log("코드 설계 욕하기");
         if (!SkillSuccess())
         {
-            Debug.Log("코드 설계 욕하기 실패");
+            SkillFailedRoutine();
             return;
         }
 
@@ -149,7 +149,7 @@ abstract public class Skills : SkillBase
         Debug.Log("강력한 어깨 안마");
         if (!SkillSuccess())
         {
-            Debug.Log("실패");
+            SkillFailedRoutine();
             return;
         }
 
@@ -173,7 +173,7 @@ abstract public class Skills : SkillBase
         Debug.Log("나선환");
         if (!SkillSuccess())
         {
-            Debug.Log("실패");
+            SkillFailedRoutine();
             return;
         }
 
@@ -186,7 +186,7 @@ abstract public class Skills : SkillBase
         Debug.Log("츤츤거리기");
         if(!SkillSuccess())
         {
-            Debug.Log("실패");
+            SkillFailedRoutine();
             return;
         }
 
@@ -200,7 +200,7 @@ abstract public class Skills : SkillBase
         Debug.Log("재시험");
         if (!SkillSuccess())
         {
-            Debug.Log("실패");
+            SkillFailedRoutine();
             return;
         }
 
@@ -220,7 +220,7 @@ abstract public class Skills : SkillBase
         Debug.Log("물승핵");
         if(!SkillSuccess())
         {
-            Debug.Log("실패");
+            SkillFailedRoutine();
             return;
         }
         stat.enemyStat.SetTickDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), damageCount);
@@ -234,7 +234,7 @@ abstract public class Skills : SkillBase
         Debug.Log("금융치료");
         if (!SkillSuccess())
         {
-            Debug.Log("금융치료 실패");
+            SkillFailedRoutine();
             return;
         }
 
@@ -257,6 +257,12 @@ abstract public class Skills : SkillBase
     }
 
     #endregion
+
+    private void SkillFailedRoutine()
+    {
+        Debug.Log("스킬 시전 실패");
+        TurnManager.instance.EndTurn();
+    }
 
     // 미스 여부
     private bool SkillSuccess()

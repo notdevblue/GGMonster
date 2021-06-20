@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeeb1f751bd5e9e47b11247664b1aa91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSkills: 01000000040000000600000003000000
+  selectedSkills: 00000000010000000200000003000000
   salaryTurn: 10
   salaryHp: 7
 --- !u!1 &958186408

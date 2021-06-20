@@ -33,7 +33,7 @@ public class AIBase : CharactorBase
     // 적은 HP일 때 아이탬 사용 확률
     private readonly int onLowHpItemUseProb       = 30;
     // 매우 적은 HP일 때 아이탬 사용 확률
-    private readonly int onExtremelyLowHpUseProb  = 100;
+    private readonly int onExtremelyLowHpUseProb  = 0;
 
     #endregion
 
@@ -184,12 +184,6 @@ public class AIBase : CharactorBase
 
     private void UseSkill()
     {
-        if(stat.enemyStat.curHp <= aiStat.enemyLowHpAmount)
-        {
-
-            return;
-        }
-
         skills[SelectSkill()]();
     }
 
@@ -202,24 +196,26 @@ public class AIBase : CharactorBase
 
         void ProvokeItem()
         {
-            int probSave = (stat.provokeCount > 1 ? onHighProvokeItemUseProb : onProvokeItemUseProb);
+            if(!stat.provoke || stat.provItemCnt < 1) { return; }
+            int probSave = (aiStat.isHighProvoke ? onHighProvokeItemUseProb : onProvokeItemUseProb);
             int provokeProb = aiStat.lowHp ? probSave * onLowHpProvokeItemUseMul : probSave;
 
 
             if (Random.Range(0, 100) > provokeProb)
             {
-                item.ResetProvokeCount();
+                item.ResetProvokeCount(stat);
             }
         }
 
         void RecoveryItem()
         {
+            if(stat.healItemCnt < 1) { return; }
             // 오우
-            int hpProb = ((aiStat.exLowHpAmount >= stat.curHp) ? onExtremelyLowHpUseProb : (aiStat.lowHpAmount >= stat.curHp ? onLowHpItemUseProb : 154));
+            int hpProb = ((aiStat.exLowHpAmount >= stat.curHp) ? onExtremelyLowHpUseProb : (aiStat.lowHp ? onLowHpItemUseProb : 154));
 
             if(Random.Range(0, 100) > hpProb)
             {
-                item.Heal();
+                item.Heal(stat);
             }
         }
         #endregion
