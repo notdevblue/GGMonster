@@ -22,6 +22,6 @@ public class SeonHan : CharactorBase
     protected override void Init(int hp, Stat.ClassType myType, bool calledByAi = false)
     {
         base.Init(hp, myType, calledByAi);
-        base.ApplyTypeBenefit(); // <= TODO : 수정해야 함, SeonHanAI 가 이 클레스를 상속받음
+        base.ApplyTypeBenefit();
     }
 }

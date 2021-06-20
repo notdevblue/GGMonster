@@ -15,6 +15,7 @@ public class AIStat : MonoBehaviour
     [HideInInspector] public bool enemyLowHp    = false;
 
     [HideInInspector] public int  lowSpAmount;
+    [HideInInspector] public int  exLowHpAmount;
     [HideInInspector] public bool lowSp         = false;
 
     [HideInInspector] public int  enemyLowSpAmount;
