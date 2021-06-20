@@ -225,22 +225,48 @@ public class AIBase : CharactorBase
         #endregion
     }
 
-    private int SelectStrongesetSkill()
+    private SkillListEnum SelectStrongesetSkill()
     {
-        int idx;
-
         // TODO :  강력한 스킬 선택
         int largestDamage = 0;
-        foreach(SkillData data in skillList.skillDataDictionary.Values)
+        SkillListEnum largestDamageIdx = SkillListEnum.DEFAULTEND;
+
+        foreach(var data in skillList.skillDataDictionary)
         {
-            largestDamage = largestDamage <= data.damage ? data.damage : largestDamage;
+            if(largestDamage <= data.Value.damage)
+            {
+                largestDamage = data.Value.damage;
+                largestDamageIdx = data.Key;
+            }
         }
 
-        return idx = 0;
+        #region Idx Check
+#if UNITY_EDITOR
+        if(largestDamageIdx == SkillListEnum.DEFAULTEND)
+        {
+            Debug.LogError("AIBase: Cannot select skill");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+#endif
+        #endregion
+
+        return largestDamageIdx;
     }
 
-    private int SelectSkill()
+    private int SelectSkill(int i = -1)
     {
+        if(i != -1)
+        {
+            if (stat.sp_arr[i] < 1)
+            {
+                return -1;
+            }
+            else
+            {
+                return i;
+            }
+        }
+
         int idx;
         while(true)
         {
