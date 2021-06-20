@@ -236,7 +236,7 @@ public class AIBase : CharactorBase
             largestDamage = largestDamage <= data.damage ? data.damage : largestDamage;
         }
 
-        return idx;
+        return idx = 0;
     }
 
     private int SelectSkill()
