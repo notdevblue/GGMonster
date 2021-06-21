@@ -3,16 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 이 아레 클레스와 다른게 없는거 같긴 한데 흠흠
 public class SkillData
 {
     public delegate void SkillExample(ref int skillPoint);
 
-    public int damage;
-    public string name = "Default";
-    public SkillExample skill;
+    public readonly string name = "Default";
 
-    public SkillData(int d, string n, SkillExample s) { damage = d; name = n; skill = s; }
+    public readonly SkillInfo info;
+    public readonly SkillExample skill;
+
+    public SkillData(string n, SkillExample s, SkillInfo inf) { name = n; skill = s; info = inf; }
 }
+
+// 스킬 정보가 담겨져 있는 클레스
+public class SkillInfo
+{
+    public readonly string info = "Default Info";                            // 스킬 정보
+    public readonly bool isContinues = false;                                // 지속댐 여부
+    public readonly int continuesCount = 0;                                  // 지속댐 반복
+    public readonly Stat.ClassType effectiveClass = Stat.ClassType.NOTYPE;   // 효과적인 타입
+    public readonly Stat.ClassType uneffectiveClass = Stat.ClassType.NOTYPE; // 효과적이지 못한 타입
+    public readonly int damage = -1;                                         // 데미지
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="i">info</param>
+    /// <param name="d">Damage, if c is true: d = oneShotDamage * cc</param>
+    /// <param name="c">isContinues</param>
+    /// <param name="cc">continuesCount</param>
+    /// <param name="ec">EffectiveClass</param>
+    /// <param name="uec">UnEffectiveClass</param>
+    public SkillInfo(string i, int d, Stat.ClassType ec = Stat.ClassType.NOTYPE, Stat.ClassType uec = Stat.ClassType.NOTYPE, bool c = false, int cc = 0)
+    {
+        info = i;
+        isContinues = c;
+        continuesCount = cc;
+        effectiveClass = ec;
+        uneffectiveClass = uec;
+        damage = d;
+    }
+}
+
 
 abstract public class SkillBase : MonoBehaviour, ISkill
 {
@@ -21,6 +54,7 @@ abstract public class SkillBase : MonoBehaviour, ISkill
     protected GameObject    cvsBattle       = null;
     protected Text[]        txtSkillnameArr = new Text[4];
     protected Button[]      btnSkillArr     = new Button[4];
+    protected Button[]      btnInfoArr      = new Button[4]; // 스킬 설명을 담은 버튼
 
     protected bool   isAI = false;
     protected bool[] noSP = new bool[4]; // SP 체크용
@@ -37,13 +71,21 @@ abstract public class SkillBase : MonoBehaviour, ISkill
         {
             Transform temp          = cvsBattle.transform.GetChild(0).GetChild(index);
             btnSkillArr[index]      = temp.GetComponent<Button>();
+            btnInfoArr[index]       = temp.GetChild(1).GetComponent<Button>();
             txtSkillnameArr[index]  = temp.GetChild(0).GetComponent<Text>();
         }
 
+        // 버튼 이름 텍스트
         for (int i = 0; i < 4; ++i)
         {
             txtSkillnameArr[i].text = skillDataDictionary[selectedSkills[i]].name;
         }
+
+        for(int i = 0; i < 4; ++i)
+        {
+
+        }
+
     }
 
     abstract public void SkillA();

@@ -26,7 +26,7 @@ public class TurnManager : MonoBehaviour
     public bool playerTurn = false;
     public bool enemyTurn = false;
 
-    [SerializeField] private Stat stat;
+    private Stat stat;
 
     private ISkill skill = null;
     private GameObject player = null;
@@ -36,22 +36,38 @@ public class TurnManager : MonoBehaviour
     #region Init Functions. Includes Awake
     private void Start()
     {
-        SetFirstPlayer();
-        SetFirstTurnStatus();
-
         player = GameObject.FindGameObjectWithTag("Player");
         enemy  = GameObject.FindGameObjectWithTag("Enemy");
 
+        stat = player.GetComponent<Stat>();
+
         #region null 체크
+#if UNITY_EDITOR
+        bool bStop = false;
         if(player == null)
         {
-            Debug.LogError("Player is null");
+            Debug.LogError("TurnManager: Player is null");
+            bStop = true;
         }
         if(enemy == null)
         {
-            Debug.LogError("Enemy is null");
+            Debug.LogError("TurnManager: Enemy is null");
+            bStop = true;
         }       
+        if(stat == null)
+        {
+            Debug.LogError("TurnManager: Stat is nul");
+            bStop = true;
+        }
+
+        if(bStop) { UnityEditor.EditorApplication.isPlaying = false; }
+#endif
         #endregion
+
+
+        SetFirstPlayer();
+        SetFirstTurnStatus();
+
     }
     // 본인 스텟 설정. (아레 함수와 연관 있음)
     private void SetFirstPlayer()

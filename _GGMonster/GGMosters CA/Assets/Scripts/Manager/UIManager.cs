@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,12 +10,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject itemPanel;
     [SerializeField] private GameObject mainMenuPanel;
 
+    [Header("UI Animation")]
+    [SerializeField] private Transform  decPos;
+    [SerializeField] private Transform  oriPos;
+    [SerializeField] private float      animTime = 0.5f;
+
     private Button[] exitButtons = new Button[2];
 
     private void Awake()
     {
-        skillPannel.SetActive(false);
-        itemPanel.SetActive(false);
+        skillPannel.SetActive(true);
+        skillPannel.transform.position = decPos.position;
+        itemPanel.SetActive(true);
+        itemPanel.transform.position = decPos.position;
         mainMenuPanel.SetActive(true);
 
         exitButtons[0] = skillPannel.transform.GetChild(4).GetComponent<Button>(); // TODO : 이것은 하드 코딩
@@ -34,20 +42,43 @@ public class UIManager : MonoBehaviour
 
     public void ExitToMainCvs()
     {
-        skillPannel.SetActive(false);
-        itemPanel.SetActive(false);
-        mainMenuPanel.SetActive(true);
+        CloseCanvas(itemPanel);
+        CloseCanvas(skillPannel);
+        OpenCanvas(mainMenuPanel);
+
+        //skillPannel.SetActive(false);
+        //itemPanel.SetActive(false);
+        //mainMenuPanel.SetActive(true);
     }
 
     public void ToSkillPannel()
     {
-        mainMenuPanel.SetActive(false);
-        skillPannel.SetActive(true);
+        CloseCanvas(mainMenuPanel);
+        OpenCanvas(skillPannel);
+
+        //mainMenuPanel.SetActive(false);
+        //skillPannel.SetActive(true);
     }
 
     public void ToItemPannel()
     {
-        mainMenuPanel.SetActive(false);
-        itemPanel.SetActive(true);
+        CloseCanvas(mainMenuPanel);
+        OpenCanvas(itemPanel);
+        //mainMenuPanel.SetActive(false);
+        //itemPanel.SetActive(true);
+    }
+
+
+
+    private void CloseCanvas(GameObject cvs)
+    {
+        Debug.Log("Called close");
+        cvs.transform.DOMoveX(decPos.position.x, animTime).SetEase(Ease.InCubic);
+    }
+
+    private void OpenCanvas(GameObject cvs)
+    {
+        Debug.Log("Called open");
+        cvs.transform.DOMoveX(oriPos.position.x, animTime).SetEase(Ease.InCubic);
     }
 }

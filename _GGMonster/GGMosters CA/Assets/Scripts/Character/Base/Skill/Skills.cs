@@ -49,13 +49,26 @@ abstract public class Skills : SkillBase
     private void InitSkillDictionary()
     {
         Debug.Log(this.name);
-        skillDataDictionary.Add(SkillListEnum.InsultCodeDesign,       new SkillData(25, "코드 설계 욕하기",  InsultCodeDesign));
-        skillDataDictionary.Add(SkillListEnum.MoneyHeal,              new SkillData(17, "금융치료",         MoneyHeal));
-        skillDataDictionary.Add(SkillListEnum.PowerfulSholderMassage, new SkillData(20, "강력한 어깨 안마",  PowerfulShoulderMassage));
-        skillDataDictionary.Add(SkillListEnum.Naruto,                 new SkillData(15, "나선환",           Naruto));
-        skillDataDictionary.Add(SkillListEnum.Tsundere,               new SkillData(0,  "츤츤거리기",       Tsundere));
-        skillDataDictionary.Add(SkillListEnum.ReTest,                 new SkillData(15, "재시험",           ReTest));
-        skillDataDictionary.Add(SkillListEnum.WaterAttack,            new SkillData(15, "물승핵",           WaterAttack));
+        skillDataDictionary.Add(SkillListEnum.InsultCodeDesign,       
+            new SkillData("코드 설계 욕하기", InsultCodeDesign, new SkillInfo("상대방의 코드 설계를 비판합니다", 25, Stat.ClassType.PROGRAMMER, Stat.ClassType.TEACHER)));
+
+        skillDataDictionary.Add(SkillListEnum.MoneyHeal,
+            new SkillData("금융치료", MoneyHeal, new SkillInfo("상대방에게 무상으로 금융치료를 하는 척 하면서 이자를 뜯어냅니다..", 17, Stat.ClassType.NOTYPE, Stat.ClassType.TEACHER)));
+        
+        skillDataDictionary.Add(SkillListEnum.PowerfulSholderMassage, 
+            new SkillData("강력한 어깨 안마", PowerfulShoulderMassage, new SkillInfo("상대방의 어깨를 강력하게 안마합니다.", 20, Stat.ClassType.NOTYPE, Stat.ClassType.TEACHER)));
+        
+        skillDataDictionary.Add(SkillListEnum.Naruto,                 
+            new SkillData("나선환", Naruto, new SkillInfo("상대방에게 강력한 나선환을 발사합니다.", 15)));
+        
+        skillDataDictionary.Add(SkillListEnum.Tsundere,               
+            new SkillData("츤츤거리기", Tsundere, new SkillInfo("상대방에게 츤츤거립니다.", 0)));
+        
+        skillDataDictionary.Add(SkillListEnum.ReTest,                 
+            new SkillData("재시험", ReTest, new SkillInfo("상대방의 점수가 기준보다 낮아 재시험을 치르게 합니다.", 15, Stat.ClassType.PROGRAMMER, Stat.ClassType.TEACHER, true, 3)));
+        
+        skillDataDictionary.Add(SkillListEnum.WaterAttack,            
+            new SkillData("물승핵", WaterAttack, new SkillInfo("상대방에 노트북 키보드에 물을 붓습니다.", 15, Stat.ClassType.PROGRAMMER, Stat.ClassType.NOTYPE, true, 3)));
     }
 
     #endregion
@@ -64,7 +77,7 @@ abstract public class Skills : SkillBase
 
     public void InsultCodeDesign(ref int skillPoint) // 코드 설계 욕하기, 선한쌤 용 코드
     {
-        int damage = skillDataDictionary[SkillListEnum.InsultCodeDesign].damage;
+        int damage = skillDataDictionary[SkillListEnum.InsultCodeDesign].info.damage;
 
         --skillPoint;
         Debug.Log("코드 설계 욕하기");
@@ -95,7 +108,7 @@ abstract public class Skills : SkillBase
 
     public void PowerfulShoulderMassage(ref int skillPoint) // 강력한 어깨 안마 // n퍼센트의 확률로 상대 ++hp, 선한쌤 용 코드
     {
-        int damage = skillDataDictionary[SkillListEnum.PowerfulSholderMassage].damage;
+        int damage = skillDataDictionary[SkillListEnum.PowerfulSholderMassage].info.damage;
 
         --skillPoint;
         Debug.Log("강력한 어깨 안마");
@@ -119,7 +132,7 @@ abstract public class Skills : SkillBase
 
     public void Naruto(ref int skillPoint) // 나선환, 선한쌤 용 코드
     {
-        int damage = skillDataDictionary[SkillListEnum.Naruto].damage;
+        int damage = skillDataDictionary[SkillListEnum.Naruto].info.damage;
 
         --skillPoint;
         Debug.Log("나선환");
@@ -148,8 +161,8 @@ abstract public class Skills : SkillBase
 
     public void ReTest(ref int skillPoint)
     {
-        int damageCount = 3;
-        int damage = skillDataDictionary[SkillListEnum.ReTest].damage / damageCount;
+        int damageCount = skillDataDictionary[SkillListEnum.ReTest].info.continuesCount;
+        int damage = skillDataDictionary[SkillListEnum.ReTest].info.damage / damageCount;
 
         --skillPoint;
         Debug.Log("재시험");
@@ -169,8 +182,8 @@ abstract public class Skills : SkillBase
 
     public void WaterAttack(ref int skillPoint) // 물승핵, 컴퓨터에 물을 쏫는다, 지속딜
     {
-        int damageCount = 3;
-        int damage = skillDataDictionary[SkillListEnum.WaterAttack].damage / damageCount;
+        int damageCount = skillDataDictionary[SkillListEnum.WaterAttack].info.continuesCount;
+        int damage = skillDataDictionary[SkillListEnum.WaterAttack].info.damage / damageCount;
 
         --skillPoint;
         Debug.Log("물승핵");
@@ -184,7 +197,7 @@ abstract public class Skills : SkillBase
 
     public void MoneyHeal(ref int skillPoint) // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
     {
-        int damage = skillDataDictionary[SkillListEnum.MoneyHeal].damage;
+        int damage = skillDataDictionary[SkillListEnum.MoneyHeal].info.damage;
 
         --skillPoint;
         Debug.Log("금융치료");

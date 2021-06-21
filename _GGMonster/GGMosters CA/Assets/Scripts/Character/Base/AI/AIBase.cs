@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AIBase : CharactorBase
 {
-                     protected AIStat aiStat     = null;
-                     protected Skills skillList  = null;
-                     private   ISkill skill;
-    [SerializeField] protected ItemUI item       = null;
+    protected AIStat aiStat     = null;
+    protected Skills skillList  = null;
+    private   ISkill skill;
+    protected ItemUI item       = null;
 
     private delegate void   SkillFunction();
     private SkillFunction[] skills = new SkillFunction[4];
@@ -47,8 +47,10 @@ public class AIBase : CharactorBase
     {
         base.Init(hp, myType, calledByAi);
 
-        skill = GetComponent<ISkill>();
+        skill     = GetComponent<ISkill>();
         skillList = GetComponent<Skills>();
+        item      = GameObject.FindGameObjectWithTag("CVSMain").transform.GetChild(1).GetComponent<ItemUI>();
+
         #region null 체크
         if (skill == null)
         {
@@ -225,34 +227,6 @@ public class AIBase : CharactorBase
             }
         }
         #endregion
-    }
-
-    private SkillListEnum SelectStrongesetSkill()
-    {
-        // TODO :  강력한 스킬 선택
-        int largestDamage = 0;
-        SkillListEnum largestDamageIdx = SkillListEnum.DEFAULTEND;
-
-        foreach(var data in skillList.skillDataDictionary)
-        {
-            if(largestDamage <= data.Value.damage)
-            {
-                largestDamage = data.Value.damage;
-                largestDamageIdx = data.Key;
-            }
-        }
-
-        #region Idx Check
-#if UNITY_EDITOR
-        if(largestDamageIdx == SkillListEnum.DEFAULTEND)
-        {
-            Debug.LogError("AIBase: Cannot select skill");
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-#endif
-        #endregion
-
-        return largestDamageIdx;
     }
 
     private int SelectSkill(int i = -1)

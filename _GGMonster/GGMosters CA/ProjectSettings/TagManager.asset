@@ -12,6 +12,7 @@ TagManager:
   - btnBack
   - CVSMain
   - CVSHealth
+  - BG
   layers:
   - Default
   - TransparentFX

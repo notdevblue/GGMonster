@@ -14,7 +14,7 @@ public enum ArrayEnum
 
 public class HealthUI : MonoBehaviour
 {
-    public Stat stat = null;
+    private Stat stat = null;
 
     [Header("첫 원소에는 플레이어가 들어가야 합니다")]
     public Slider[] hpBar         = new Slider[2];
