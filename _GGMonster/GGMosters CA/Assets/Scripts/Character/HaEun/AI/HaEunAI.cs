@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeonHanAI : AIBase
+public class HaEunAI : AIBase
 {
     #region º¯¼ö
     [Header("MaxHP")]
@@ -20,16 +20,13 @@ public class SeonHanAI : AIBase
 
     private void Update()
     {
-        if(stat.myturn && thinkComplete)
+        if (stat.myturn && thinkComplete)
         {
             OnTurn();
         }
-        if(stat.isDead)
+        if (stat.isDead)
         {
             Dead();
         }
     }
-
-
-
 }

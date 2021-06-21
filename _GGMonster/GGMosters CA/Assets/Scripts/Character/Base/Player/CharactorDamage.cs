@@ -23,6 +23,10 @@ public class CharactorDamage : MonoBehaviour, IDamageable
     public void OnDamage(int damage, bool isHeal = false)
     {
         stat.curHp = isHeal ? ((stat.curHp + damage > stat.maxHp) ? stat.maxHp : stat.curHp + damage) : stat.curHp - damage;
+        if(stat.curHp < 1) { Debug.LogWarning($"{name} is Dead."); stat.isDead = true; }
+
+        // TOOD : n 의 데미지를 받았다
+
 
         // TODO : UI
         // TODO : Effects

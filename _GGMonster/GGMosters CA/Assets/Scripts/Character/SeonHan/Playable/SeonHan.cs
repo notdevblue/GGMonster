@@ -24,4 +24,12 @@ public class SeonHan : CharactorBase
         base.Init(hp, myType, calledByAi);
         base.ApplyTypeBenefit();
     }
+
+    private void Update()
+    {
+        if(stat.isDead)
+        {
+            Dead();
+        }
+    }
 }

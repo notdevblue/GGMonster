@@ -93,6 +93,7 @@ public class TurnManager : MonoBehaviour
         DoTurnEndTasks();
     }
 
+    #region Task foreach
     // 턴 중간에 무언가 필요할 때 호출되는 함수
     public void MidTurn()
     {
@@ -114,6 +115,7 @@ public class TurnManager : MonoBehaviour
             tasks();
         }
     }
+    #endregion
 
     private void SetTurnStatus()
     {

@@ -1,0 +1,123 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HaEunAtk : Skills
+{
+    [SerializeField] private int salaryTurn = 10; // 페시브 턴
+    [SerializeField] private int salaryHp = 5;  // 페시브 이득
+
+
+    // 모든 공격 클래스에 공통적으로 들어가야 합니다.
+    private void Start()
+    {
+        stat = GetComponent<Stat>();
+        cvsBattle = GameObject.FindGameObjectWithTag("CVSMain");
+        #region null 체크
+#if UNITY_EDITOR
+        if (stat == null)
+        {
+            Debug.LogError("HaEunAtk: Stat 을 찾을 수 없습니다.");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        if (cvsBattle == null)
+        {
+            Debug.LogError("HaEunAtk: cvsMain 태그를 가진 게임 오브젝트를 찾을 수 없습니다.");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+#endif
+        #endregion
+
+
+        InitDictionary();
+
+        // AI가 아닐때만 실행되어야 함
+        // WARN , TODO : 멀티플레이 만들면 조건을 바꿔야 함
+        if (GetComponent<AIStat>() == null)
+        {
+            CheckSkillNameList();
+            InitBattleCsv();
+            InitBtn();
+        }
+        else
+        {
+            isAI = true;
+        }
+    }
+
+
+    protected override void InitBtn()
+    {
+        btnSkillArr[0].onClick.AddListener(SkillA);
+        btnSkillArr[1].onClick.AddListener(SkillB);
+        btnSkillArr[2].onClick.AddListener(SkillC);
+        btnSkillArr[3].onClick.AddListener(SkillD);
+    }
+
+    #region 버튼으로 사용되는 스킬 함수들
+
+    public override void SkillA() // 코드 설계 욕하기
+    {
+        if (!stat.myturn || stat.sp_arr[0] < 1) { return; }
+        skillDataDictionary[selectedSkills[0]].skill(ref stat.sp_arr[0]);
+        TurnManager.instance.EndTurn();
+    }
+
+    public override void SkillB() // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
+    {
+        if (!stat.myturn || stat.sp_arr[1] < 1) { return; }
+        skillDataDictionary[selectedSkills[1]].skill(ref stat.sp_arr[1]);
+        TurnManager.instance.EndTurn();
+    }
+
+    public override void SkillC() // 강력한 어깨 안마 // n퍼센트의 확률로 상대 ++hp
+    {
+        if (!stat.myturn || stat.sp_arr[2] < 1) { return; }
+        skillDataDictionary[selectedSkills[2]].skill(ref stat.sp_arr[2]);
+        TurnManager.instance.EndTurn();
+    }
+
+    public override void SkillD() // 나선환
+    {
+        if (!stat.myturn || stat.sp_arr[3] < 1) { return; }
+        skillDataDictionary[selectedSkills[3]].skill(ref stat.sp_arr[3]);
+        TurnManager.instance.EndTurn();
+    }
+
+    #endregion
+
+
+
+    #region SP 전부 사용한 경우
+
+    public override void SkillE() // 샌드위치 구매하기 (SP 다 떨어진 경우)
+    {
+        Debug.Log("HaEunAtk: 휴식하기");
+        RestAtHome();
+    }
+
+    // 렌덤한 스킬포인트 상승
+    private void RestAtHome()
+    {
+        int index = Random.Range(0, 4);
+        ++stat.sp_arr[index];
+    }
+
+    #endregion
+
+    public override void Passive()
+    {
+        if (TurnManager.instance.turn % salaryTurn == 0)
+        {
+            Debug.Log("HaEunAtk: 월급 수령");
+            if (stat.curHp + salaryHp <= stat.maxHp)
+            {
+                stat.curHp += salaryHp;
+            }
+            else
+            {
+                Debug.Log("HaEunAtk: 앗 월급이 밀렸다...");
+            }
+        }
+    }
+}

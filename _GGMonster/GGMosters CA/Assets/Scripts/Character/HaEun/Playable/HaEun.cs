@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeonHanAI : AIBase
+public class HaEun : CharactorBase
 {
     #region 변수
     [Header("MaxHP")]
@@ -13,23 +13,23 @@ public class SeonHanAI : AIBase
 
     #endregion
 
+    // TODO : 스킬 선택 후 해야 함
     private void Start()
     {
-        Init(hp, myType, true); //<= AI 라서 먼저 적이 있어야 함
+        Init(hp, myType);
+    }
+
+    protected override void Init(int hp, Stat.ClassType myType, bool calledByAi = false)
+    {
+        base.Init(hp, myType, calledByAi);
+        base.ApplyTypeBenefit();
     }
 
     private void Update()
     {
-        if(stat.myturn && thinkComplete)
-        {
-            OnTurn();
-        }
-        if(stat.isDead)
+        if (stat.isDead)
         {
             Dead();
         }
     }
-
-
-
 }
