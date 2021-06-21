@@ -795,9 +795,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStat: {fileID: 0}
-  charactorName: "\uD50C\uB808\uC774\uC5B4"
+  charactorName: "\uC5EC\uAE30\uC5D0 \uC774\uB984\uC774 \uB4E4\uC5B4\uAC00\uC694"
   maxHp: 100
-  curHp: 100
+  curHp: 154
+  isDead: 0
   sp_arr: 0a0000000a0000000a0000000a000000
   provoke: 0
   damageBoost: 0
@@ -823,7 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910b0a44487dd1a468346a98cd162cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 80
   myType: 4
 --- !u!114 &915199983
 MonoBehaviour:
@@ -849,7 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeeb1f751bd5e9e47b11247664b1aa91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSkills: 00000000010000000200000003000000
+  selectedSkills: 05000000040000000100000003000000
   salaryTurn: 10
   salaryHp: 7
 --- !u!1 &958186408
@@ -1595,6 +1596,7 @@ MonoBehaviour:
   charactorName: "\uCD5C\uC120\uD55C \uC120\uC0DD\uB2D8"
   maxHp: 100
   curHp: 100
+  isDead: 0
   sp_arr: 0a0000000a0000000a0000000a000000
   provoke: 0
   damageBoost: 0

@@ -9,6 +9,7 @@ public enum SkillListEnum
     PowerfulSholderMassage,
     Naruto,
     Tsundere,
+    ReTest,
     SEONHANEND,
     WaterAttack,
     DEFAULTEND
@@ -53,6 +54,7 @@ abstract public class Skills : SkillBase
         skillDataDictionary.Add(SkillListEnum.PowerfulSholderMassage, new SkillData(20, "°­·ÂÇÑ ¾î±ú ¾È¸¶",  PowerfulShoulderMassage));
         skillDataDictionary.Add(SkillListEnum.Naruto,                 new SkillData(15, "³ª¼±È¯",           Naruto));
         skillDataDictionary.Add(SkillListEnum.Tsundere,               new SkillData(0,  "ÃùÃù°Å¸®±â",       Tsundere));
+        skillDataDictionary.Add(SkillListEnum.ReTest,                 new SkillData(15, "Àç½ÃÇè",           ReTest));
         skillDataDictionary.Add(SkillListEnum.WaterAttack,            new SkillData(15, "¹°½ÂÇÙ",           WaterAttack));
     }
 
@@ -146,6 +148,9 @@ abstract public class Skills : SkillBase
 
     public void ReTest(ref int skillPoint)
     {
+        int damageCount = 3;
+        int damage = skillDataDictionary[SkillListEnum.ReTest].damage / damageCount;
+
         --skillPoint;
         Debug.Log("Àç½ÃÇè");
         if (!SkillSuccess())
@@ -154,6 +159,7 @@ abstract public class Skills : SkillBase
             return;
         }
 
+        stat.enemyStat.SetTickDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), damageCount);
 
     }
 
