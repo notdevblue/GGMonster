@@ -18,6 +18,7 @@ public class AIBase : CharactorBase
     #region AI 판단 변수
     [Header("판단 대기 시간")]
     [SerializeField] private float thinkTime = 2.0f;
+    protected bool thinkComplete = true;
 
     #region item 관련
 
@@ -163,6 +164,7 @@ public class AIBase : CharactorBase
     // 랜덤 스킬 사용이지만 추후 바꿔야 함
     protected void OnTurn()
     {
+        thinkComplete = false;
         Invoke(nameof(ThinkComplete), thinkTime);
     }
 
@@ -171,10 +173,14 @@ public class AIBase : CharactorBase
         CheckMyStatus();
         UseItem();
         UseSkill();
+        thinkComplete = true;
     }
     
     private void CheckMyStatus()
     {
+        // Dead
+        
+
         // HP
         aiStat.lowHp = stat.curHp < aiStat.enemyLowHpAmount ? true : false;
 

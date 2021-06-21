@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class SkillData
+{
+    public delegate void SkillExample(ref int skillPoint);
+
+    public int damage;
+    public string name = "Default";
+    public SkillExample skill;
+
+    public SkillData(int d, string n, SkillExample s) { damage = d; name = n; skill = s; }
+}
+
 abstract public class SkillBase : MonoBehaviour, ISkill
 {
     protected Stat stat = null;
@@ -14,11 +25,8 @@ abstract public class SkillBase : MonoBehaviour, ISkill
     protected bool   isAI = false;
     protected bool[] noSP = new bool[4]; // SP 체크용
 
-    //[SerializeField] protected string[] skillnameArr = new string[4]; // TODO : 스킬에 따라 바꿔야 함
+    [HideInInspector] public Dictionary<SkillListEnum, SkillData> skillDataDictionary = new Dictionary<SkillListEnum, SkillData>(); // 스킬 정보가 들어있는 딕셔너리
 
-    // 스킬 이름 관련
-    protected Dictionary<SkillListEnum, string> skillNameDic  = new Dictionary<SkillListEnum, string>();
-    protected List      <string>                skillNameList = new List      <string>();
 
     [SerializeField] protected List<SkillListEnum> selectedSkills = new List<SkillListEnum>(); // 선택한 스킬
 
@@ -34,7 +42,7 @@ abstract public class SkillBase : MonoBehaviour, ISkill
 
         for (int i = 0; i < 4; ++i)
         {
-            txtSkillnameArr[i].text = skillNameDic[selectedSkills[i]];
+            txtSkillnameArr[i].text = skillDataDictionary[selectedSkills[i]].name;
         }
     }
 
@@ -45,9 +53,6 @@ abstract public class SkillBase : MonoBehaviour, ISkill
 
     abstract public void SkillE();
     abstract public void Passive();
-
-    abstract protected void InitSkillNameDic();
-    abstract protected void InitSkillNameList();
 
     protected void CheckSkillNameList()
     {

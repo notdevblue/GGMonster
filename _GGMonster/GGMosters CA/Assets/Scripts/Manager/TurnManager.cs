@@ -22,7 +22,7 @@ public class TurnManager : MonoBehaviour
         instance = this;
     }
 
-    public uint turn = 0;
+    public uint turn = 1;
     public bool playerTurn = false;
     public bool enemyTurn = false;
 
@@ -86,6 +86,7 @@ public class TurnManager : MonoBehaviour
     public void EndTurn()
     {
         NextTurn();
+        Debug.LogWarning($"ео ╧ы╡Я. ео: {turn}");
         CallPassiveSkill();
         SetTurnStatus();
 

@@ -20,7 +20,7 @@ public class SeonHanAI : AIBase
 
     private void Update()
     {
-        if(stat.myturn)
+        if(stat.myturn && thinkComplete)
         {
             OnTurn();
         }

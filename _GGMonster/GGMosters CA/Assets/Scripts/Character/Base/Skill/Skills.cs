@@ -14,26 +14,17 @@ public enum SkillListEnum
     DEFAULTEND
 }
 
-public class SkillData
-{
-    public int damage;
 
-    public SkillData(int d) { damage = d; }
-}
 
 abstract public class Skills : SkillBase
 {
-    public delegate void SkillExample(ref int skillPoint);
-    public Dictionary<SkillListEnum, SkillExample> skillDictionary  = new Dictionary<SkillListEnum, SkillExample>();
-    public Dictionary<SkillListEnum, SkillData> skillDataDictionary = new Dictionary<SkillListEnum, SkillData>();
-
     private IDamageable damageable;
  
 
 
     protected void InitDictionary() // 함수명은 이렇긴 한데 여기서 IDamageable 찾아서 초기화 해줘요.
     {
-        InitSeonHanDictionary();
+        InitSkillDictionary();
         InitInterface();
     }
 
@@ -54,57 +45,16 @@ abstract public class Skills : SkillBase
 
     #region Dictionary Init
 
-    private void InitSeonHanDictionary()
+    private void InitSkillDictionary()
     {
-        skillDictionary.Add(SkillListEnum.InsultCodeDesign, InsultCodeDesign);
-        skillDictionary.Add(SkillListEnum.MoneyHeal, MoneyHeal);
-        skillDictionary.Add(SkillListEnum.PowerfulSholderMassage, PowerfulShoulderMassage);
-        skillDictionary.Add(SkillListEnum.Naruto, Naruto);
-        skillDictionary.Add(SkillListEnum.Tsundere, Tsundere);
-
-        skillDictionary.Add(SkillListEnum.WaterAttack, WaterAttack);
-
-        skillDataDictionary.Add(SkillListEnum.InsultCodeDesign, new SkillData(25));
-        skillDataDictionary.Add(SkillListEnum.MoneyHeal, new SkillData(17));
-        skillDataDictionary.Add(SkillListEnum.PowerfulSholderMassage, new SkillData(20));
-        skillDataDictionary.Add(SkillListEnum.Naruto, new SkillData(15));
-        skillDataDictionary.Add(SkillListEnum.Tsundere, new SkillData(0));
-        skillDataDictionary.Add(SkillListEnum.WaterAttack, new SkillData(15));
+        Debug.Log(this.name);
+        skillDataDictionary.Add(SkillListEnum.InsultCodeDesign,       new SkillData(25, "코드 설계 욕하기",  InsultCodeDesign));
+        skillDataDictionary.Add(SkillListEnum.MoneyHeal,              new SkillData(17, "금융치료",         MoneyHeal));
+        skillDataDictionary.Add(SkillListEnum.PowerfulSholderMassage, new SkillData(20, "강력한 어깨 안마",  PowerfulShoulderMassage));
+        skillDataDictionary.Add(SkillListEnum.Naruto,                 new SkillData(15, "나선환",           Naruto));
+        skillDataDictionary.Add(SkillListEnum.Tsundere,               new SkillData(0,  "츤츤거리기",       Tsundere));
+        skillDataDictionary.Add(SkillListEnum.WaterAttack,            new SkillData(15, "물승핵",           WaterAttack));
     }
-
-    protected override void InitSkillNameDic()
-    {
-        InitSkillNameList();
-
-        for(int i = 0; i < skillNameList.Count; ++i)
-        {
-            skillNameDic.Add((SkillListEnum)i, skillNameList[i]);
-        }
-    }
-
-    // SkillListEnum 에 있는 스킬만 추가해야 합니다.
-    protected override void InitSkillNameList()
-    {
-        skillNameList.Add("코드 설계 욕하기");
-        skillNameList.Add("금융치료");
-        skillNameList.Add("강력한 어깨 안마");
-        skillNameList.Add("나선환");
-        skillNameList.Add("츤츤거리기");
-        skillNameList.Add("선환쌤 스킬 끝");
-        skillNameList.Add("물승핵");
-        skillNameList.Add("공용 스킬 끝");
-
-        #region List check
-#if UNITY_EDITOR
-        if (skillNameList.Count != (int)SkillListEnum.DEFAULTEND + 1)
-        {
-            Debug.LogError("Skills: Wrong skill name count");
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-#endif
-        #endregion
-    }
-
 
     #endregion
 

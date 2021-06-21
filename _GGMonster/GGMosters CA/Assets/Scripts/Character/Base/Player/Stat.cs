@@ -20,7 +20,8 @@ public class Stat : MonoBehaviour
 
                       public          string    charactorName = null;               // 캐릭터 이름
     [HideInInspector] public          int       maxHp         = 100;                // 최대 HP
-                      public          int       curHp         = 100;                // 현제 HP
+                      public          int       curHp         = 100;                // 현재 HP
+                      public          bool      isDead        = false;              // 사망 상태
                       public          int[]     sp_arr        = { -1, -1, -1, -1 }; // SP 상태 배열
     [HideInInspector] public          bool      provoke       = false;              // 도발 상태
     [HideInInspector] public          bool      damageBoost   = false;              // 데미지 버프 상태
