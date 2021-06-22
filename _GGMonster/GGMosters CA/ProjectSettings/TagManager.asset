@@ -13,6 +13,7 @@ TagManager:
   - CVSMain
   - CVSHealth
   - BG
+  - cvsInfo
   layers:
   - Default
   - TransparentFX

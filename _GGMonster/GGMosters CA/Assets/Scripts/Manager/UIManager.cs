@@ -73,12 +73,12 @@ public class UIManager : MonoBehaviour
     private void CloseCanvas(GameObject cvs)
     {
         Debug.Log("Called close");
-        cvs.transform.DOMoveX(decPos.position.x, animTime).SetEase(Ease.InCubic);
+        cvs.transform.DOMove(decPos.position, animTime).SetEase(Ease.InCubic);
     }
 
     private void OpenCanvas(GameObject cvs)
     {
         Debug.Log("Called open");
-        cvs.transform.DOMoveX(oriPos.position.x, animTime).SetEase(Ease.InCubic);
+        cvs.transform.DOMove(oriPos.position, animTime).SetEase(Ease.OutCubic);
     }
 }

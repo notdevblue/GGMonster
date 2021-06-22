@@ -49,6 +49,8 @@ public class SkillInfo
 
 abstract public class SkillBase : MonoBehaviour, ISkill
 {
+    [SerializeField] private InfoUI infoUI = null;
+
     protected Stat stat = null;
 
     protected GameObject    cvsBattle       = null;
@@ -71,8 +73,8 @@ abstract public class SkillBase : MonoBehaviour, ISkill
         {
             Transform temp          = cvsBattle.transform.GetChild(0).GetChild(index);
             btnSkillArr[index]      = temp.GetComponent<Button>();
-            btnInfoArr[index]       = temp.GetChild(1).GetComponent<Button>();
             txtSkillnameArr[index]  = temp.GetChild(0).GetComponent<Text>();
+            btnInfoArr[index]       = temp.GetChild(1).GetComponent<Button>();
         }
 
         // 버튼 이름 텍스트
@@ -83,9 +85,9 @@ abstract public class SkillBase : MonoBehaviour, ISkill
 
         for(int i = 0; i < 4; ++i)
         {
-
+            int num = i;
+            btnInfoArr[i].onClick.AddListener(() => infoUI.CallPopupInfo(skillDataDictionary[selectedSkills[num]]));
         }
-
     }
 
     abstract public void SkillA();

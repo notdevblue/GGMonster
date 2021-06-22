@@ -65,6 +65,9 @@ public class Stat : MonoBehaviour
         }
         else
         {
+            // TODO : 데미지 주는 사람이 기록 안 되어 있음
+            Debug.Log("Stat: 여기 일 해야 함, 이거로 죽으면 사망 처리가 안됨");
+            //this.GetComponent<IDamageable>().OnDamage(tickDamage)
             --tickDamageCount;
             curHp -= tickDamage;
         }
