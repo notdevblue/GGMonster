@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public class ItemData
+{
+    public string name;
+    public string info;
+
+    public ItemData(string name, string info) { this.name = name; this.info = info; }
+}
+
+
 public class Items : MonoBehaviour
 {
-
-
-
-    // TODO : 잘못된 함수 위치
-    // 따로 클래스를 파야 한다.
     public void Heal(Stat stat)
     {
         Debug.Log("Heal item used");

@@ -18,7 +18,8 @@ public class InfoUI : MonoBehaviour
     [SerializeField] private float     moveDur    = 1.0f;
                      private bool      isOpen     = false;
 
-    private SkillData prevData;
+    private SkillData prevSkillData;
+    private ItemData prevItemData;
 
     private void Awake()
     { 
@@ -26,18 +27,35 @@ public class InfoUI : MonoBehaviour
         btnClose.onClick.AddListener(ToPos);
     }
 
-    public void CallPopupInfo(SkillData data)
+    public void CallItemInfo(ItemData data)
     {
-
         SetPopupData(data);
-        if(prevData != data)
+        if(prevItemData != data)
         {
             CallPopup();
         }
 
-        prevData = data;
+        prevItemData = data;
     }
 
+    public void CallSkillInfo(SkillData data)
+    {
+
+        SetPopupData(data);
+        if(prevSkillData != data)
+        {
+            CallPopup();
+        }
+
+        prevSkillData = data;
+    }
+
+    private void SetPopupData(ItemData data)
+    {
+        skillName.text = data.name;
+        skillInfo.text = data.info;
+        skillData.text = "";
+    }
 
     private void SetPopupData(SkillData data)
     {
@@ -62,7 +80,7 @@ public class InfoUI : MonoBehaviour
         if (isOpen)
         {
             Invoke(nameof(ToPos), moveDur);
-            SetPopupData(prevData);
+            SetPopupData(prevSkillData);
             Invoke(nameof(SetCurrentPopupData), moveDur);
         }
         ToPos();
@@ -71,7 +89,7 @@ public class InfoUI : MonoBehaviour
     // 뭔가 잘못된 함수
     private void SetCurrentPopupData()
     {
-        SetPopupData(prevData);
+        SetPopupData(prevSkillData);
     }
 
     private void ToPos()

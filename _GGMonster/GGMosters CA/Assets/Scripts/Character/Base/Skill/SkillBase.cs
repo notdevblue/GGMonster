@@ -86,7 +86,7 @@ abstract public class SkillBase : MonoBehaviour, ISkill
         for(int i = 0; i < 4; ++i)
         {
             int num = i;
-            btnInfoArr[i].onClick.AddListener(() => infoUI.CallPopupInfo(skillDataDictionary[selectedSkills[num]]));
+            btnInfoArr[i].onClick.AddListener(() => infoUI.CallSkillInfo(skillDataDictionary[selectedSkills[num]]));
         }
     }
 

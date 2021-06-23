@@ -775,6 +775,7 @@ GameObject:
   - component: {fileID: 8216263148883039153}
   - component: {fileID: 8216263148883039154}
   - component: {fileID: 5852639888715717645}
+  - component: {fileID: 7851979587897710527}
   m_Layer: 5
   m_Name: Item
   m_TagString: CVSItem
@@ -852,6 +853,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc4483864eb4cab4192f937475740465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoUI: {fileID: 0}
+--- !u!114 &7851979587897710527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216263148883039156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0aa479866cba7047af2ffd41ec46a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8216263149124601848
