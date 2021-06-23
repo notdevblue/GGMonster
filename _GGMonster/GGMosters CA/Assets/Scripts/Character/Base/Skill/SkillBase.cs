@@ -21,10 +21,12 @@ public class SkillInfo
 {
     public readonly string info = "Default Info";                            // 스킬 정보
     public readonly bool isContinues = false;                                // 지속댐 여부
-    public readonly int continuesCount = 0;                                  // 지속댐 반복
+    public readonly int continuesCount = -1;                                 // 지속댐 반복
     public readonly Stat.ClassType effectiveClass = Stat.ClassType.NOTYPE;   // 효과적인 타입
     public readonly Stat.ClassType uneffectiveClass = Stat.ClassType.NOTYPE; // 효과적이지 못한 타입
     public readonly int damage = -1;                                         // 데미지
+    // TODO : SkillPoint
+
 
     /// <summary>
     /// 

@@ -67,13 +67,18 @@ public class SeonHanAtk : Skills
     public override void SkillA() // 코드 설계 욕하기
     {
         if (!stat.myturn || stat.sp_arr[0] < 1) { return; }
+        NoticeUI.instance.SetMsg($"{stat.charactorName}의 {skillDataDictionary[selectedSkills[0]].name}!");
+        
         skillDataDictionary[selectedSkills[0]].skill(ref stat.sp_arr[0]);
+        
         TurnManager.instance.EndTurn();
     }
 
     public override void SkillB() // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
     {
         if (!stat.myturn || stat.sp_arr[1] < 1) { return; }
+        NoticeUI.instance.SetMsg($"{stat.charactorName}의 {skillDataDictionary[selectedSkills[1]].name}!");
+
         skillDataDictionary[selectedSkills[1]].skill(ref stat.sp_arr[1]);
         TurnManager.instance.EndTurn();
     }
@@ -81,13 +86,17 @@ public class SeonHanAtk : Skills
     public override void SkillC() // 강력한 어깨 안마 // n퍼센트의 확률로 상대 ++hp
     {
         if (!stat.myturn || stat.sp_arr[2] < 1) { return; }
+        NoticeUI.instance.SetMsg($"{stat.charactorName}의 {skillDataDictionary[selectedSkills[2]].name}!");
+
         skillDataDictionary[selectedSkills[2]].skill(ref stat.sp_arr[2]);
-        TurnManager.instance.EndTurn();
+        TurnManager.instance.EndTurn(); // TODO : 여기 일
     }
 
     public override void SkillD() // 나선환
     {
         if (!stat.myturn || stat.sp_arr[3] < 1) { return; }
+        NoticeUI.instance.SetMsg($"{stat.charactorName}의 {skillDataDictionary[selectedSkills[3]].name}!");
+
         skillDataDictionary[selectedSkills[3]].skill(ref stat.sp_arr[3]);
         TurnManager.instance.EndTurn();
     }

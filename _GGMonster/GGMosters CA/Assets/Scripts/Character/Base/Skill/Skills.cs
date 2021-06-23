@@ -21,13 +21,10 @@ public enum SkillListEnum
     DEFAULTEND
 }
 
-
-
-abstract public class Skills : SkillBase
+// init
+abstract public partial class Skills : SkillBase
 {
     private IDamageable damageable;
- 
-
 
     protected void InitDictionary() // 함수명은 이렇긴 한데 여기서 IDamageable 찾아서 초기화 해줘요.
     {
@@ -65,7 +62,7 @@ abstract public class Skills : SkillBase
             new SkillData("강력한 어깨 안마", PowerfulShoulderMassage, new SkillInfo("상대방의 어깨를 강력하게 안마합니다.", 20, Stat.ClassType.NOTYPE, Stat.ClassType.TEACHER)));
         
         skillDataDictionary.Add(SkillListEnum.Naruto,                 
-            new SkillData("나선환", Naruto, new SkillInfo("상대방에게 강력한 나선환을 발사합니다.", 15)));
+            new SkillData("나선환", Naruto, new SkillInfo("상대방에게 강력한 나선한을 발사합니다.", 15)));
         
         skillDataDictionary.Add(SkillListEnum.Tsundere,               
             new SkillData("츤츤거리기", Tsundere, new SkillInfo("상대방에게 츤츤거립니다.", 0)));
@@ -80,7 +77,7 @@ abstract public class Skills : SkillBase
             new SkillData("알고리즘 과제 출제", AlgorithmHomework, new SkillInfo("알고리즘 과제를 내 줍니다.\r\n과제에 따라서 최대 두 배의 데미지를 입힙니다.", 12, Stat.ClassType.PROGRAMMER, Stat.ClassType.NOTYPE)));
         
         skillDataDictionary.Add(SkillListEnum.AMONGUS,
-            new SkillData("어몽어스", Amongus, new SkillInfo("학생들과 어몽어스 플레이 도중 관심법을 이용하여 임포스터를 찾아냅니다.\r\n실패 확률이 60%, 성공 확률이 40%인 스킬입니다.", 30)));
+            new SkillData("어몽어스", Amongus, new SkillInfo("학생들과 어몽어스 플레이 도중 관심법을 이용하여 임포스터를 찾아냅니다.\r\n실패 확률이 60%, 성공 확률이 40%인 스킬입니다.", 50)));
         
         skillDataDictionary.Add(SkillListEnum.UNFRIEDMANDU,
             new SkillData("덜 익은 만두", UnFriedMandu, new SkillInfo("덜 익은 만두를 식탁에 올립니다.", 10)));
@@ -93,7 +90,11 @@ abstract public class Skills : SkillBase
     }
 
     #endregion
+}
 
+// 선한쌤 스킬
+abstract public partial class Skills : SkillBase
+{
     #region 선한쌤
 
     public void InsultCodeDesign(ref int skillPoint) // 코드 설계 욕하기, 선한쌤 용 코드
@@ -198,48 +199,11 @@ abstract public class Skills : SkillBase
     }
 
     #endregion
+}
 
-    #region 공용 스킬
-
-    public void WaterAttack(ref int skillPoint) // 물승핵, 컴퓨터에 물을 쏫는다, 지속딜
-    {
-        int damageCount = skillDataDictionary[SkillListEnum.WaterAttack].info.continuesCount;
-        int damage = skillDataDictionary[SkillListEnum.WaterAttack].info.damage / damageCount;
-
-        --skillPoint;
-        Debug.Log("물승핵");
-        if(!SkillSuccess())
-        {
-            SkillFailedRoutine();
-            return;
-        }
-
-        damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), false, true, damageCount);
-    }
-
-    public void MoneyHeal(ref int skillPoint) // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
-    {
-        int damage = skillDataDictionary[SkillListEnum.MoneyHeal].info.damage;
-
-        --skillPoint;
-        Debug.Log("금융치료");
-        if (!SkillSuccess())
-        {
-            SkillFailedRoutine();
-            return;
-        }
-            
-        if (stat.enemyType == Stat.ClassType.TEACHER)
-        {
-            damageable.OnDamage(damage / 2, true);
-            Debug.Log("선생님이 행복한 얼굴로 돈을 받으셨다...");
-            return;
-        }
-        damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage));
-    }
-
-    #endregion
-
+// 하은쌤 스킬
+abstract public partial class Skills : SkillBase
+{
     #region 하은쌤
 
     private void AlgorithmHomework(ref int skillPoint)
@@ -345,10 +309,59 @@ abstract public class Skills : SkillBase
     }
 
     #endregion
+}
 
+// 공용 스킬
+abstract public partial class Skills : SkillBase
+{
+    #region 공용 스킬
+
+    public void WaterAttack(ref int skillPoint) // 물승핵, 컴퓨터에 물을 쏫는다, 지속딜
+    {
+        int damageCount = skillDataDictionary[SkillListEnum.WaterAttack].info.continuesCount;
+        int damage = skillDataDictionary[SkillListEnum.WaterAttack].info.damage / damageCount;
+
+        --skillPoint;
+        Debug.Log("물승핵");
+        if(!SkillSuccess())
+        {
+            SkillFailedRoutine();
+            return;
+        }
+
+        damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), false, true, damageCount);
+    }
+
+    public void MoneyHeal(ref int skillPoint) // 금융치료 // 돈 뭉텅이로 던저서 딜입힘. 상대가 선생님이면 공격력의 50% 만큼 힐을 해 줌
+    {
+        int damage = skillDataDictionary[SkillListEnum.MoneyHeal].info.damage;
+
+        --skillPoint;
+        Debug.Log("금융치료");
+        if (!SkillSuccess())
+        {
+            SkillFailedRoutine();
+            return;
+        }
+            
+        if (stat.enemyType == Stat.ClassType.TEACHER)
+        {
+            damageable.OnDamage(damage / 2, true);
+            Debug.Log("선생님이 행복한 얼굴로 돈을 받으셨다...");
+            return;
+        }
+        damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage));
+    }
+
+    #endregion
+}
+
+// 기타 함수들
+abstract public partial class Skills : SkillBase
+{
     private void SkillFailedRoutine()
     {
-        Debug.Log("스킬 시전 실패");
+        NoticeUI.instance.SetMsg("아앗 실패했다...");
     }
 
     // 미스 여부
@@ -377,7 +390,6 @@ abstract public class Skills : SkillBase
         if (stat.provokeCount > 0) stat.provokeCount = 0;
         return false;
     }
-
 
     abstract protected void InitBtn();
 }
