@@ -7,7 +7,7 @@ public class AIBase : CharactorBase
     protected AIStat aiStat     = null;
     protected Skills skillList  = null;
     private   ISkill skill;
-    protected ItemUI item       = null;
+    protected Items item       = null;
 
     private delegate void   SkillFunction();
     private SkillFunction[] skills = new SkillFunction[4];
@@ -49,7 +49,7 @@ public class AIBase : CharactorBase
 
         skill     = GetComponent<ISkill>();
         skillList = GetComponent<Skills>();
-        item      = GameObject.FindGameObjectWithTag("CVSMain").transform.GetChild(1).GetComponent<ItemUI>();
+        item      = GameObject.FindGameObjectWithTag("CVSMain").transform.GetChild(1).GetComponent<Items>();
 
         #region null üũ
         if (skill == null)

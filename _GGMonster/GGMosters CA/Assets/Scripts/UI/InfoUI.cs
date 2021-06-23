@@ -20,7 +20,6 @@ public class InfoUI : MonoBehaviour
 
     private SkillData prevData;
 
-
     private void Awake()
     { 
         infoObject.position = closePos.position;
@@ -31,7 +30,10 @@ public class InfoUI : MonoBehaviour
     {
 
         SetPopupData(data);
-        CallPopup();
+        if(prevData != data)
+        {
+            CallPopup();
+        }
 
         prevData = data;
     }
@@ -44,9 +46,9 @@ public class InfoUI : MonoBehaviour
         skillName.text = data.name;
         skillInfo.text = data.info.info;
         skillData.text = "";
-
+        
         // 이야아
-        string effectiveClass = $"효과적인 타입: {(data.info.effectiveClass == Stat.ClassType.NOTYPE ? "없음" : data.info.effectiveClass.ToString().ToLower())}\r\n효과적이지 않은 타입: {(data.info.uneffectiveClass == Stat.ClassType.NOTYPE ? "없음" : data.info.uneffectiveClass.ToString().ToLower())}";
+        string effectiveClass = $"효과적인 타입: {(data.info.effectiveClass == Stat.ClassType.NOTYPE ? "없음" : data.info.effectiveClass.ToString()[0].ToString().ToUpper() + data.info.effectiveClass.ToString().Substring(1).ToLower())}\r\n효과적이지 않은 타입: {(data.info.uneffectiveClass == Stat.ClassType.NOTYPE ? "없음" : data.info.uneffectiveClass.ToString()[0].ToString().ToUpper() + data.info.uneffectiveClass.ToString().Substring(1).ToLower())}";
         string continues = $"{(data.info.isContinues ? $"{data.info.damage} 데미지가 {data.info.continuesCount} 번 나뉘어 들어갑니다." : "")}";
         string damage = $"{data.info.damage} 데미지를 가합니다.";
 
