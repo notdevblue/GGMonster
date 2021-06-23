@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335564296154133792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.42, y: -0.21, z: 0}
+  m_LocalPosition: {x: -2.08, y: -0.21, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 335564296213214385}
@@ -159,8 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444ecfd0180bc0945bc509eed26552fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSkills: 01000000070000000200000003000000
-  salaryTurn: 17
+  infoUI: {fileID: 0}
+  selectedSkills: 0700000008000000090000000b000000
+  salaryTurn: 10
   salaryHp: 7
 --- !u!114 &335564296213214399
 MonoBehaviour:

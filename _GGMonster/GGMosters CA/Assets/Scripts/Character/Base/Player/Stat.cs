@@ -13,7 +13,8 @@ public class Stat : MonoBehaviour
         TEACHER,
         R6SANS,
         CHOI,
-        WHANJU,
+        HWANJU,
+        GUDIGAN,
         CLASSEND,
         ALL
     };

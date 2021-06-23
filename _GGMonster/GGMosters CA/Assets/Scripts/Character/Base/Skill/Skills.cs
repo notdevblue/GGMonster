@@ -14,7 +14,8 @@ public enum SkillListEnum
     ALGOHOMEWORK,
     AMONGUS,
     UNFRIEDMANDU,
-    WHANJU,
+    HWANJU,
+    GUDIAKGAE,
     HAEUNEND,
     WaterAttack,
     DEFAULTEND
@@ -76,7 +77,7 @@ abstract public class Skills : SkillBase
             new SkillData("물승핵", WaterAttack, new SkillInfo("상대방에 노트북 키보드에 물을 붓습니다.", 15, Stat.ClassType.PROGRAMMER, Stat.ClassType.NOTYPE, true, 3)));
 
         skillDataDictionary.Add(SkillListEnum.ALGOHOMEWORK,
-            new SkillData("알고리즘 과제 출제", AlgorithmHomework, new SkillInfo("알고리즘 과제를 내 줍니다.", 7, Stat.ClassType.PROGRAMMER, Stat.ClassType.NOTYPE, true, 2)));
+            new SkillData("알고리즘 과제 출제", AlgorithmHomework, new SkillInfo("알고리즘 과제를 내 줍니다.\r\n과제에 따라서 최대 두 배의 데미지를 입힙니다.", 12, Stat.ClassType.PROGRAMMER, Stat.ClassType.NOTYPE)));
         
         skillDataDictionary.Add(SkillListEnum.AMONGUS,
             new SkillData("어몽어스", Amongus, new SkillInfo("학생들과 어몽어스 플레이 도중 관심법을 이용하여 임포스터를 찾아냅니다.\r\n실패 확률이 60%, 성공 확률이 40%인 스킬입니다.", 30)));
@@ -84,8 +85,11 @@ abstract public class Skills : SkillBase
         skillDataDictionary.Add(SkillListEnum.UNFRIEDMANDU,
             new SkillData("덜 익은 만두", UnFriedMandu, new SkillInfo("덜 익은 만두를 식탁에 올립니다.", 10)));
         
-        skillDataDictionary.Add(SkillListEnum.WHANJU,
-            new SkillData("환쥬바라기", WhanJu, new SkillInfo("환주 팬클럽을 설립힙니다.\r\n적이 환주라면 두 배의 데미지를 입힙니다.", 12, Stat.ClassType.WHANJU, Stat.ClassType.NOTYPE)));
+        skillDataDictionary.Add(SkillListEnum.HWANJU,
+            new SkillData("환쥬바라기", HwanJu, new SkillInfo("환주 팬클럽을 설립힙니다.\r\n적이 환주라면 두 배의 데미지를 입힙니다.\r\n스킬이 실패하지 않습니다.", 10, Stat.ClassType.HWANJU, Stat.ClassType.NOTYPE)));
+        
+        skillDataDictionary.Add(SkillListEnum.GUDIAKGAE,
+            new SkillData("구디악개", GudiAkGae, new SkillInfo("구디 악성 개인 팬클럽 회장이 됩니다.\r\n적이 구디라면 두 배의 데미지를 입힙니다.\r\n스킬이 실패하지 않습니다.", 10, Stat.ClassType.GUDIGAN, Stat.ClassType.NOTYPE)));
     }
 
     #endregion
@@ -240,6 +244,12 @@ abstract public class Skills : SkillBase
 
     private void AlgorithmHomework(ref int skillPoint)
     {
+        const int   treeProv    = 95;
+        const int   stackProv   = 70;
+        const int   listProv    = 60;
+        const int   arrayProv   = 50;
+              float damageBoost;
+
         int damage = skillDataDictionary[SkillListEnum.ALGOHOMEWORK].info.damage;
         int damageCount = skillDataDictionary[SkillListEnum.ALGOHOMEWORK].info.continuesCount;
 
@@ -251,14 +261,41 @@ abstract public class Skills : SkillBase
             return;
         }
 
-        if (stat.enemyType == Stat.ClassType.PROGRAMMER)
+
+        // 과제들
+        int rnd = Random.Range(0, 100);
+        if (rnd > treeProv)
         {
-            damageable.OnDamage((int)(damage * stat.dmgBoostAmt), false, true, damageCount);
+            Debug.Log("트리 과제");
+            damageBoost = 2.0f;
+        }
+        else if(rnd > stackProv)
+        {
+            Debug.Log("스택 과제");
+            damageBoost = 1.5f;
+        }
+        else if(rnd > listProv)
+        {
+            Debug.Log("리스트 과제");
+            damageBoost = 1.2f;
+        }
+        else if(rnd > arrayProv)
+        {
+            Debug.Log("배열 과제");
+            damageBoost = 1.1f;
         }
         else
         {
-            damageable.OnDamage(damage, false, true, damageCount);
+            Debug.Log("반복문 과제");
+            damageBoost = 1.0f;
         }
+
+        if (stat.enemyType == Stat.ClassType.PROGRAMMER)
+        {
+            damageBoost += 0.1f;
+        }
+
+        damageable.OnDamage((int)(damage * damageBoost), false, true, damageCount);
     }
 
     private void Amongus(ref int skillPoint)
@@ -287,14 +324,24 @@ abstract public class Skills : SkillBase
         damageable.OnDamage(damage);
     }
 
-    private void WhanJu(ref int skillPoint)
+    private void HwanJu(ref int skillPoint)
     {
-        int damage = skillDataDictionary[SkillListEnum.WHANJU].info.damage;
+        int damage = skillDataDictionary[SkillListEnum.HWANJU].info.damage;
 
         --skillPoint;
         Debug.Log("환쥬바라기");
 
-        damageable.OnDamage(stat.enemyType == Stat.ClassType.WHANJU ? damage * 2 : damage);
+        damageable.OnDamage(stat.enemyType == Stat.ClassType.HWANJU ? damage * 2 : damage);
+    }
+
+    private void GudiAkGae(ref int skillPoint)
+    {
+        int damage = skillDataDictionary[SkillListEnum.GUDIAKGAE].info.damage;
+
+        --skillPoint;
+        Debug.Log("구디악개");
+
+        damageable.OnDamage(stat.enemyType == Stat.ClassType.GUDIGAN ? damage * 2 : damage);
     }
 
     #endregion
@@ -302,7 +349,6 @@ abstract public class Skills : SkillBase
     private void SkillFailedRoutine()
     {
         Debug.Log("스킬 시전 실패");
-        TurnManager.instance.EndTurn();
     }
 
     // 미스 여부

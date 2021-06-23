@@ -51,9 +51,9 @@ MonoBehaviour:
   enemyStat: {fileID: 0}
   charactorName: "\uCD5C\uC120\uD55C \uC120\uC0DD\uB2D8"
   maxHp: 100
-  curHp: 100
+  curHp: 150
   isDead: 0
-  sp_arr: 0a0000000a0000000a0000000a000000
+  sp_arr: 0a0000000a000000050000000a000000
   provoke: 0
   damageBoost: 0
   provokeCount: 0
@@ -102,7 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeeb1f751bd5e9e47b11247664b1aa91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSkills: 00000000020000000700000003000000
+  infoUI: {fileID: 0}
+  selectedSkills: 00000000020000000500000003000000
   salaryTurn: 10
   salaryHp: 7
 --- !u!114 &7481586108219597311
@@ -117,9 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883554dc21aa47141b3ac31f0fdc2fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
   thinkTime: 2
-  hp: 100
+  hp: 150
   myType: 4
 --- !u!114 &7481586108219597307
 MonoBehaviour:
@@ -158,7 +158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7481586108220956350}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 2.2, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children: []
   m_Father: {fileID: 7481586108219597308}
