@@ -858,6 +858,22 @@ PrefabInstance:
       propertyPath: salaryTurn
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 335564296213214384, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+      propertyPath: selectedSkills.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 335564296213214384, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+      propertyPath: selectedSkills.Array.data[1]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 335564296213214384, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+      propertyPath: selectedSkills.Array.data[2]
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 335564296213214384, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+      propertyPath: selectedSkills.Array.data[3]
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 335564296213214385, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2528,6 +2544,10 @@ PrefabInstance:
     - target: {fileID: 7481586108219596800, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: m_Name
       value: SeonHanTeacherAI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481586108219597306, guid: 7af918272d3310847ac8259424381416, type: 3}
+      propertyPath: selectedSkills.Array.data[2]
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7481586108219597308, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: m_RootOrder

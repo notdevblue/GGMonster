@@ -11,6 +11,11 @@ public enum SkillListEnum
     Tsundere,
     ReTest,
     SEONHANEND,
+    ALGOHOMEWORK,
+    AMONGUS,
+    UNFRIEDMANDU,
+    WHANJU,
+    HAEUNEND,
     WaterAttack,
     DEFAULTEND
 }
@@ -69,6 +74,18 @@ abstract public class Skills : SkillBase
         
         skillDataDictionary.Add(SkillListEnum.WaterAttack,            
             new SkillData("물승핵", WaterAttack, new SkillInfo("상대방에 노트북 키보드에 물을 붓습니다.", 15, Stat.ClassType.PROGRAMMER, Stat.ClassType.NOTYPE, true, 3)));
+
+        skillDataDictionary.Add(SkillListEnum.ALGOHOMEWORK,
+            new SkillData("알고리즘 과제 출제", AlgorithmHomework, new SkillInfo("알고리즘 과제를 내 줍니다.", 7, Stat.ClassType.PROGRAMMER, Stat.ClassType.NOTYPE, true, 2)));
+        
+        skillDataDictionary.Add(SkillListEnum.AMONGUS,
+            new SkillData("어몽어스", Amongus, new SkillInfo("학생들과 어몽어스 플레이 도중 관심법을 이용하여 임포스터를 찾아냅니다.\r\n실패 확률이 60%, 성공 확률이 40%인 스킬입니다.", 30)));
+        
+        skillDataDictionary.Add(SkillListEnum.UNFRIEDMANDU,
+            new SkillData("덜 익은 만두", UnFriedMandu, new SkillInfo("덜 익은 만두를 식탁에 올립니다.", 10)));
+        
+        skillDataDictionary.Add(SkillListEnum.WHANJU,
+            new SkillData("환쥬바라기", WhanJu, new SkillInfo("환주 팬클럽을 설립힙니다.\r\n적이 환주라면 두 배의 데미지를 입힙니다.", 12, Stat.ClassType.WHANJU, Stat.ClassType.NOTYPE)));
     }
 
     #endregion
@@ -221,9 +238,63 @@ abstract public class Skills : SkillBase
 
     #region 하은쌤
 
-    private void Foo(ref int skillPoint)
+    private void AlgorithmHomework(ref int skillPoint)
     {
+        int damage = skillDataDictionary[SkillListEnum.ALGOHOMEWORK].info.damage;
+        int damageCount = skillDataDictionary[SkillListEnum.ALGOHOMEWORK].info.continuesCount;
 
+        --skillPoint;
+        Debug.Log("알고리즘 과제 출제");
+        if (!SkillSuccess())
+        {
+            SkillFailedRoutine();
+            return;
+        }
+
+        if (stat.enemyType == Stat.ClassType.PROGRAMMER)
+        {
+            damageable.OnDamage((int)(damage * stat.dmgBoostAmt), false, true, damageCount);
+        }
+        else
+        {
+            damageable.OnDamage(damage, false, true, damageCount);
+        }
+    }
+
+    private void Amongus(ref int skillPoint)
+    {
+        int damage = skillDataDictionary[SkillListEnum.AMONGUS].info.damage;
+
+        --skillPoint;
+        Debug.Log("임포스터 관심법으로 찾기");
+
+        if(Random.Range(0, 100) < 60)
+        {
+            SkillFailedRoutine();
+            return;
+        }
+
+        damageable.OnDamage(damage);
+    }
+
+    private void UnFriedMandu(ref int skillPoint)
+    {
+        int damage = skillDataDictionary[SkillListEnum.UNFRIEDMANDU].info.damage;
+
+        --skillPoint;
+        Debug.Log("덜 익은 만두 대접");
+
+        damageable.OnDamage(damage);
+    }
+
+    private void WhanJu(ref int skillPoint)
+    {
+        int damage = skillDataDictionary[SkillListEnum.WHANJU].info.damage;
+
+        --skillPoint;
+        Debug.Log("환쥬바라기");
+
+        damageable.OnDamage(stat.enemyType == Stat.ClassType.WHANJU ? damage * 2 : damage);
     }
 
     #endregion

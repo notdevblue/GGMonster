@@ -12,7 +12,10 @@ public class Stat : MonoBehaviour
         NOTYPE,
         TEACHER,
         R6SANS,
-        CHOI
+        CHOI,
+        WHANJU,
+        CLASSEND,
+        ALL
     };
     // 다음 enum 이 데미지 부스트 주는 타입이어야 함
     // NOTYPE 이후에는 타 타입 영향이 없는 enum 이어야 함
