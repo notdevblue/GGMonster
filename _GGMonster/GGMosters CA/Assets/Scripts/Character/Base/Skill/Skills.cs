@@ -172,7 +172,7 @@ abstract public class Skills : SkillBase
             return;
         }
 
-        stat.enemyStat.SetTickDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), damageCount);
+        damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), false, true, damageCount);
 
     }
 
@@ -192,7 +192,8 @@ abstract public class Skills : SkillBase
             SkillFailedRoutine();
             return;
         }
-        stat.enemyStat.SetTickDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), damageCount);
+
+        damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage), false, true, damageCount);
     }
 
     public void MoneyHeal(ref int skillPoint) // ±İÀ¶Ä¡·á // µ· ¹¶ÅÖÀÌ·Î ´øÀú¼­ µôÀÔÈû. »ó´ë°¡ ¼±»ı´ÔÀÌ¸é °ø°İ·ÂÀÇ 50% ¸¸Å­ ÈúÀ» ÇØ ÁÜ
@@ -206,7 +207,7 @@ abstract public class Skills : SkillBase
             SkillFailedRoutine();
             return;
         }
-
+            
         if (stat.enemyType == Stat.ClassType.TEACHER)
         {
             damageable.OnDamage(damage / 2, true);

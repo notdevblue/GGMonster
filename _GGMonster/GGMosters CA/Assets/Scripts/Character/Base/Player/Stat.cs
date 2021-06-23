@@ -45,38 +45,5 @@ public class Stat : MonoBehaviour
     [HideInInspector] public int  tickDamageCount = 0;      // 지속댐 카운트
     [HideInInspector] public int  tickDamage      = 0;      // 지속뎀 데미지
 
-    /// <summary>
-    /// Sets tick damage
-    /// </summary>
-    /// <param name="damage">damage amount</param>
-    /// <param name="count">repeat count</param>
-    public void SetTickDamage(int damage, int count)
-    {
-        isTickDamage = false;
-        tickDamage = damage;
-        tickDamageCount = count;
-    }
-
-    public void CheckTickDamage()
-    {
-        if (tickDamageCount < 0)
-        {
-            isTickDamage = false;
-        }
-        else
-        {
-            // TODO : 데미지 주는 사람이 기록 안 되어 있음
-            Debug.Log("Stat: 여기 일 해야 함, 이거로 죽으면 사망 처리가 안됨");
-            //this.GetComponent<IDamageable>().OnDamage(tickDamage)
-            --tickDamageCount;
-            curHp -= tickDamage;
-        }
-    }
-
-    public void Start()
-    {
-        TurnManager.instance.turnEndTasks.Add(CheckTickDamage);
-    }
-
     #endregion
 }

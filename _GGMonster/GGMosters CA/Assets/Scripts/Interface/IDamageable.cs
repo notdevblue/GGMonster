@@ -1,9 +1,11 @@
 interface IDamageable
 {
     /// <summary>
-    /// 
+    /// Sets Damage
     /// </summary>
-    /// <param name="damage">damage amount</param>
-    /// <param name="heal">it is not damage, is heal</param>
-    void OnDamage(int damage, bool heal = false);
+    /// <param name="damage">Damage. if Tickdamage: damage / count</param>
+    /// <param name="heal">set true if heal</param>
+    /// <param name="tickDamage">set true if tickDamage</param>
+    /// <param name="count">damage continue count</param>
+    void OnDamage(int damage, bool heal = false, bool tickDamage = false, int count = 0);
 }

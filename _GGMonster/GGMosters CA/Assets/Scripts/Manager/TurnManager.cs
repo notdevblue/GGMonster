@@ -107,6 +107,8 @@ public class TurnManager : MonoBehaviour
         SetTurnStatus();
 
         DoTurnEndTasks();
+
+        MidTurn();
     }
 
     #region Task foreach

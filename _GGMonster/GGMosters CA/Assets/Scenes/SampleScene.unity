@@ -854,6 +854,10 @@ PrefabInstance:
       propertyPath: infoUI
       value: 
       objectReference: {fileID: 95609169}
+    - target: {fileID: 335564296213214384, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+      propertyPath: salaryTurn
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 335564296213214385, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2531,11 +2535,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7481586108219597308, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7481586108219597308, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7481586108219597308, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2569,17 +2573,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7481586108219597309, guid: 7af918272d3310847ac8259424381416, type: 3}
+      propertyPath: curHp
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481586108219597309, guid: 7af918272d3310847ac8259424381416, type: 3}
+      propertyPath: sp_arr.Array.data[2]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481586108219597311, guid: 7af918272d3310847ac8259424381416, type: 3}
+      propertyPath: hp
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 7481586108219597311, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: item
       value: 
       objectReference: {fileID: 5852639888715717645}
     - target: {fileID: 7481586108220956349, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.03
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7481586108220956349, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.17
+      value: 2.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7af918272d3310847ac8259424381416, type: 3}
