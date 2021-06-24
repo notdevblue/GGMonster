@@ -12,6 +12,7 @@ public class NoticeUI : MonoBehaviour
     [SerializeField] private Button btnContinue = null;
     private bool             isOpen    = false;
     private bool             isAiUsing = false;
+    private bool             endofturn = false;
     private SpriteRenderer[] sprites   = new SpriteRenderer[2];
 
 
@@ -21,8 +22,11 @@ public class NoticeUI : MonoBehaviour
     [SerializeField] private float     dur       = 1.0f;
 
     private Queue<string> msgQueue = new Queue<string>();
+    private Queue<NoticeTask> taskQueue = new Queue<NoticeTask>();
 
     private Transform noticeObj = null;
+
+    public delegate void NoticeTask();
 
     #region singleton
     public static NoticeUI instance;
@@ -45,9 +49,10 @@ public class NoticeUI : MonoBehaviour
     }
 
     // SetMsg로 메세지 설정 후에 불러야 함
-    public void CallNoticeUI(bool continues = false, bool calledByEnemy = false)
+    public void CallNoticeUI(bool continues = false, bool calledByEnemy = false, bool calledAtEndOfTurn = false)
     {
         isAiUsing = calledByEnemy;
+        endofturn = calledAtEndOfTurn;
         if (!continues)
         {
             OpenClose();
@@ -59,15 +64,17 @@ public class NoticeUI : MonoBehaviour
 
     #region SetMsg()
     // queue 에 msg 가 없을때까지 돌림
-    public void SetMsg(string msg)
+    public void SetMsg(string msg, NoticeTask task = null)
     {
         msgQueue.Enqueue(msg);
+        taskQueue.Enqueue(task);
     }
-    public void SetMsg(string[] msg)
+    public void SetMsg(string[] msg, NoticeTask task = null)
     {
         for(int i = 0; i < msg.Length; ++i)
         {
             msgQueue.Enqueue(msg[i]);
+            taskQueue.Enqueue(task);
         }
     }
     #endregion
@@ -83,6 +90,8 @@ public class NoticeUI : MonoBehaviour
         if(msgQueue.Peek() == null)
         {
             OpenClose();
+
+            if (endofturn) { TurnManager.instance.EndTurn(); }
             return;
         }
 

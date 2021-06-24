@@ -40,6 +40,9 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         
         
         stat.curHp = isHeal ? ((stat.curHp + damage > stat.maxHp) ? stat.maxHp : stat.curHp + damage) : stat.curHp - damage;
+
+        NoticeUI.instance.SetMsg(isHeal ? $"{damage} 만큼의 채력을 회복했다." : $"{damage} 만큼의 피해를 봤다!");
+
         
 
         // TOOD : n 의 데미지를 받았다
