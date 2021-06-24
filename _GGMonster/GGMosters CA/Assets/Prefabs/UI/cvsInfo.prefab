@@ -239,8 +239,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 710, y: -65}
-  m_SizeDelta: {x: 400, y: 400}
+  m_AnchoredPosition: {x: 710, y: -122}
+  m_SizeDelta: {x: 400, y: 515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1863966172062244677
 CanvasRenderer:
@@ -485,7 +485,7 @@ MonoBehaviour:
   btnClose: {fileID: 2099143260}
   closePos: {fileID: 0}
   openPos: {fileID: 0}
-  moveDur: 1
+  moveDur: 0.5
 --- !u!1 &1863966173201071406
 GameObject:
   m_ObjectHideFlags: 0

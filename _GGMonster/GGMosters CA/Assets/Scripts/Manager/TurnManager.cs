@@ -22,7 +22,7 @@ public class TurnManager : MonoBehaviour
         instance = this;
     }
 
-    public uint turn = 1;
+    public uint turn = 2;
     public bool playerTurn = false;
     public bool enemyTurn = false;
 
@@ -99,16 +99,19 @@ public class TurnManager : MonoBehaviour
     #endregion
 
     // 턴이 끝날때 외부에서 호출되는 함수
+
+    int callstack = 0;
     public void EndTurn()
     {
+        Debug.Log($"callstack {++callstack}");
         NextTurn();
-        Debug.LogWarning($"턴 바뀜. 턴: {turn}");
         CallPassiveSkill();
         SetTurnStatus();
 
         DoTurnEndTasks();
 
         MidTurn();
+        Debug.LogWarning($"턴 바뀜. 턴: {turn}");
     }
 
     #region Task foreach

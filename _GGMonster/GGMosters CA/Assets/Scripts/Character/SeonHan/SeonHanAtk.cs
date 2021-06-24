@@ -66,21 +66,25 @@ public class SeonHanAtk : Skills
 
     public override void SkillA()
     {
+        if (!stat.myturn) return;
         Skill(0);
     }
 
     public override void SkillB()
     {
+        if (!stat.myturn) return;
         Skill(1);
     }
 
     public override void SkillC()
     {
+        if (!stat.myturn) return;
         Skill(2);
     }
 
     public override void SkillD()
     {
+        if (!stat.myturn) return;
         Skill(3);
     }
 

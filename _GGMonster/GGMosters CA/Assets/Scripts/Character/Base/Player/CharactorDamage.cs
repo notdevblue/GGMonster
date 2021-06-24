@@ -71,6 +71,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         stat.isTickDamage = true;
         stat.tickDamage = damage;
         stat.tickDamageCount = count;
+        NoticeUI.instance.CallNoticeUI(true);
     }
 
 

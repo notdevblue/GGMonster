@@ -442,6 +442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HaEunTeacher
       objectReference: {fileID: 0}
+    - target: {fileID: 335564296213214398, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+      propertyPath: enemyStat
+      value: 
+      objectReference: {fileID: 1805383681}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
 --- !u!1 &751818796
@@ -730,6 +734,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5248405415519129290, guid: c781492dd20b0f74d9cc66b8008a1b64, type: 3}
   m_PrefabInstance: {fileID: 5248405417172956875}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1805383681 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7481586108219597309, guid: 7af918272d3310847ac8259424381416, type: 3}
+  m_PrefabInstance: {fileID: 7481586108822398719}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb5e88574f5c504981c1812c256119c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1880956495
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,18 +994,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2099143260, guid: e11a3d4b866e0f14284d5a6452717f96, type: 3}
-      propertyPath: m_Transition
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2099143261, guid: e11a3d4b866e0f14284d5a6452717f96, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1863966172332044548, guid: e11a3d4b866e0f14284d5a6452717f96, type: 3}
-      propertyPath: moveDur
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1863966172332044548, guid: e11a3d4b866e0f14284d5a6452717f96, type: 3}
       propertyPath: openPos
       value: 
@@ -1670,5 +1673,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7481586108219597309, guid: 7af918272d3310847ac8259424381416, type: 3}
+      propertyPath: enemyStat
+      value: 
+      objectReference: {fileID: 863298410}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7af918272d3310847ac8259424381416, type: 3}

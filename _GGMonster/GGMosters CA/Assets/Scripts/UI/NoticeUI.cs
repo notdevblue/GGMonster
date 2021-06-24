@@ -22,7 +22,6 @@ public class NoticeUI : MonoBehaviour
     [SerializeField] private float     dur       = 1.0f;
 
     private Queue<string> msgQueue = new Queue<string>();
-    private Queue<bool> boolQueue = new Queue<bool>();
     private Queue<NoticeTask> taskQueue = new Queue<NoticeTask>();
 
     private Transform noticeObj = null;
@@ -58,16 +57,7 @@ public class NoticeUI : MonoBehaviour
 
         standing.sprite = calledByEnemy ? sprites[0].sprite : sprites[1].sprite;
 
-
-        if (taskQueue.Peek() != null)
-        {
-            taskQueue.Dequeue()();
-        }
-        else
-        {
-            taskQueue.Dequeue();
-        }
-        noticeText.text = msgQueue.Dequeue();
+        DoNoticeTask();
         
     }
 
@@ -76,6 +66,23 @@ public class NoticeUI : MonoBehaviour
     {
         msgQueue.Enqueue(msg);
         taskQueue.Enqueue(task);
+    }
+
+    private void DoNoticeTask()
+    {
+        if (taskQueue.Count == 0) { }
+        else if (taskQueue.Peek() != null)
+        {
+            taskQueue.Dequeue()();
+        }
+        else
+        {
+            taskQueue.Dequeue();
+        }
+        if (msgQueue.Count != 0)
+        {
+            noticeText.text = msgQueue.Dequeue();
+        }
     }
 
     private void OpenClose()

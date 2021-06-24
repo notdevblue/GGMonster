@@ -20,14 +20,26 @@ public class SeonHanAI : AIBase
 
     private void Update()
     {
-        if(stat.myturn && thinkComplete)
+        Debug.Log(turnPlayed && stat.myturn);
+        Debug.Log($"myturn: {stat.myturn}");
+        Debug.Log($"turnPlayed: {turnPlayed}");
+        //turnPlayed = true;
+        if (turnPlayed && stat.myturn)
         {
+            turnPlayed = true;
+            Debug.Log("turn");
             OnTurn();
         }
-        if(stat.myturn) { thinkComplete = true; }
         if(stat.isDead)
         {
             Dead();
+        }
+
+        if (TurnManager.instance.turn % 2 == (stat.startFirst ? 0 : 1))
+        {
+            Debug.Log($"AI: Turn: {TurnManager.instance.turn}, boolean: {(TurnManager.instance.turn % 2 == (stat.startFirst ? 0 : 1))}");
+
+            turnPlayed = false;
         }
     }
 

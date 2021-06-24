@@ -20,7 +20,7 @@ public class HaEunAI : AIBase
 
     private void Update()
     {
-        if (stat.myturn && thinkComplete)
+        if (stat.myturn)
         {
             OnTurn();
         }

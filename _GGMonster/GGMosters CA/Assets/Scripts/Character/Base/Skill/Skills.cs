@@ -51,7 +51,6 @@ abstract public partial class Skills : SkillBase
 
     private void InitSkillDictionary()
     {
-        Debug.Log(this.name);
         skillDataDictionary.Add(SkillListEnum.InsultCodeDesign,       
             new SkillData("코드 설계 욕하기", InsultCodeDesign, new SkillInfo("상대방의 코드 설계를 비판합니다", 25, Stat.ClassType.PROGRAMMER, Stat.ClassType.TEACHER)));
 
@@ -362,6 +361,7 @@ abstract public partial class Skills : SkillBase
     private void SkillFailedRoutine()
     {
         NoticeUI.instance.SetMsg("아앗 실패했다...");
+        NoticeUI.instance.CallNoticeUI(true);
     }
 
     // 미스 여부
@@ -393,7 +393,7 @@ abstract public partial class Skills : SkillBase
 
     public override void Skill(int n)
     {
-        if (!stat.myturn || stat.sp_arr[n] > 0)
+        if (stat.sp_arr[n] > 0)
         {
             NoticeUI.instance.SetMsg($"{stat.charactorName}의 {skillDataDictionary[selectedSkills[n]].name}!");
             skillDataDictionary[selectedSkills[n]].skill(ref stat.sp_arr[n]);
