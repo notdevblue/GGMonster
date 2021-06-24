@@ -58,30 +58,22 @@ public class HaEunAtk : Skills
 
     public override void SkillA()
     {
-        if (!stat.myturn || stat.sp_arr[0] < 1) { return; }
-        skillDataDictionary[selectedSkills[0]].skill(ref stat.sp_arr[0]);
-        TurnManager.instance.EndTurn();
+        Skill(0);
     }
 
     public override void SkillB()
     {
-        if (!stat.myturn || stat.sp_arr[1] < 1) { return; }
-        skillDataDictionary[selectedSkills[1]].skill(ref stat.sp_arr[1]);
-        TurnManager.instance.EndTurn();
+        Skill(1);
     }
 
     public override void SkillC()
     {
-        if (!stat.myturn || stat.sp_arr[2] < 1) { return; }
-        skillDataDictionary[selectedSkills[2]].skill(ref stat.sp_arr[2]);
-        TurnManager.instance.EndTurn();
+        Skill(2);
     }
 
     public override void SkillD()
     {
-        if (!stat.myturn || stat.sp_arr[3] < 1) { return; }
-        skillDataDictionary[selectedSkills[3]].skill(ref stat.sp_arr[3]);
-        TurnManager.instance.EndTurn();
+        Skill(3);
     }
 
     #endregion

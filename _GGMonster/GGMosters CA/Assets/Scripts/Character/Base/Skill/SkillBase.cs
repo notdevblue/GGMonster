@@ -100,6 +100,7 @@ abstract public class SkillBase : MonoBehaviour, ISkill
     abstract public void SkillE();
     abstract public void Passive();
 
+    abstract public void Skill(int n);
     protected void CheckSkillNameList()
     {
         #region List check

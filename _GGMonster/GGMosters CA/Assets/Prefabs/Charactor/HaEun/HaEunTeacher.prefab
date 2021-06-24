@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoUI: {fileID: 0}
-  selectedSkills: 0700000008000000090000000b000000
+  selectedSkills: 0100000008000000090000000b000000
   salaryTurn: 10
   salaryHp: 7
 --- !u!114 &335564296213214399

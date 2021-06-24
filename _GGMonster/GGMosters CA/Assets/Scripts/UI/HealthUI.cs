@@ -101,6 +101,7 @@ public class HealthUI : MonoBehaviour
             hpBarColor[0].color = hpPercent > hpColorStd[i] ? hpColorArr[i] : hpBarColor[0].color;
         }
 
+        if(stat.enemyStat == null) { Debug.LogError("asdasdasdasdasdasdasd"); }
         hpPercent = ((float)stat.enemyStat.curHp / (float)stat.enemyStat.maxHp) * 100;
 
         for(int i = 2; i >= 0; --i)

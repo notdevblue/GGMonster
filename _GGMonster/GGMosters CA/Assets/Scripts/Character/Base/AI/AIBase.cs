@@ -9,8 +9,7 @@ public class AIBase : CharactorBase
     private   ISkill skill;
     protected Items item       = null;
 
-    private delegate void   SkillFunction();
-    private SkillFunction[] skills = new SkillFunction[4];
+    private delegate void   SkillFunction(); 
 
     // lowHpAmount 위한 상수
     private readonly float LOW_MUL = 0.2f;
@@ -74,9 +73,6 @@ public class AIBase : CharactorBase
 
         // 타입 효과 적용
         ApplyTypeBenefit();
-        
-        // 함수 포인터 배열 초기화
-        InitDelegate();
     }
 
 
@@ -150,14 +146,6 @@ public class AIBase : CharactorBase
         }
     }
 
-    private void InitDelegate()
-    {
-        skills[0] = skill.SkillA;
-        skills[1] = skill.SkillB;
-        skills[2] = skill.SkillC;
-        skills[3] = skill.SkillD;
-    }
-
     #endregion
 
 
@@ -175,14 +163,11 @@ public class AIBase : CharactorBase
         CheckMyStatus();
         UseItem();
         UseSkill();
-        thinkComplete = true;
+        
     }
     
     private void CheckMyStatus()
     {
-        // Dead
-        
-
         // HP
         aiStat.lowHp = stat.curHp < aiStat.enemyLowHpAmount ? true : false;
 
@@ -192,7 +177,7 @@ public class AIBase : CharactorBase
 
     private void UseSkill()
     {
-        skills[SelectSkill()]();
+        skillList.Skill(SelectSkill());
     }
 
     private void UseItem()
@@ -246,7 +231,7 @@ public class AIBase : CharactorBase
         int idx;
         while(true)
         {
-            idx = Random.Range(0, skills.Length);
+            idx = Random.Range(0, 3);
             if(stat.sp_arr[idx] > 1)
             {
                 break;

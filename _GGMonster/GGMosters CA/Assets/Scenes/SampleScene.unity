@@ -219,6 +219,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &339677595 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7481586108220956348, guid: 7af918272d3310847ac8259424381416, type: 3}
+  m_PrefabInstance: {fileID: 7481586108822398719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &364766283 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 335564296154133794, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+  m_PrefabInstance: {fileID: 649246349}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &500591719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5248405417209502380, guid: c781492dd20b0f74d9cc66b8008a1b64, type: 3}
@@ -478,6 +488,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectDuration: 0.2
+--- !u!114 &863298410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 335564296213214398, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+  m_PrefabInstance: {fileID: 649246349}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb5e88574f5c504981c1812c256119c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1011539430
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,6 +962,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 409234241424579619, guid: ab96b3a0157c595408278f156e5968d3, type: 3}
+      propertyPath: stat
+      value: 
+      objectReference: {fileID: 863298410}
     - target: {fileID: 409234241424579622, guid: ab96b3a0157c595408278f156e5968d3, type: 3}
       propertyPath: m_Name
       value: cvsHealth
@@ -1309,9 +1334,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 241241779}
     - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
       propertyPath: originPos
       value: 
       objectReference: {fileID: 1162393787}
+    - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 364766283}
+    - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 339677595}
     - target: {fileID: 3006894005554287392, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1400,9 +1437,17 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 3006894005554287393, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3006894005554287396, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
       propertyPath: m_Name
       value: cvsTurn
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006894005554287396, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}

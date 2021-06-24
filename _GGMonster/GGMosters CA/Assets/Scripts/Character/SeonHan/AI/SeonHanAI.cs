@@ -24,6 +24,7 @@ public class SeonHanAI : AIBase
         {
             OnTurn();
         }
+        if(stat.myturn) { thinkComplete = true; }
         if(stat.isDead)
         {
             Dead();

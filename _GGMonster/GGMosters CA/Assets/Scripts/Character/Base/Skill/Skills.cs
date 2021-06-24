@@ -391,5 +391,14 @@ abstract public partial class Skills : SkillBase
         return false;
     }
 
+    public override void Skill(int n)
+    {
+        if (!stat.myturn || stat.sp_arr[n] > 0)
+        {
+            NoticeUI.instance.SetMsg($"{stat.charactorName}ÀÇ {skillDataDictionary[selectedSkills[n]].name}!");
+            skillDataDictionary[selectedSkills[n]].skill(ref stat.sp_arr[n]);
+        }
+    }
+
     abstract protected void InitBtn();
 }

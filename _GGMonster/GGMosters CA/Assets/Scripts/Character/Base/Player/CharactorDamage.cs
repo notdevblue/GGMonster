@@ -6,6 +6,10 @@ public class CharactorDamage : MonoBehaviour, IDamageable
 {
     private Stat stat = null;
 
+    private int decredDmg = 0;
+    private int damage = 0;
+    private bool isHeal = false;
+
     private void Awake()
     {
         stat = GetComponent<Stat>();
@@ -37,15 +41,22 @@ public class CharactorDamage : MonoBehaviour, IDamageable
             SetTickDamage(damage, count);
             return;
         }
-        
-        
-        stat.curHp = isHeal ? ((stat.curHp + damage > stat.maxHp) ? stat.maxHp : stat.curHp + damage) : stat.curHp - damage;
 
-        NoticeUI.instance.SetMsg(isHeal ? $"{damage} 만큼의 채력을 회복했다." : $"{damage} 만큼의 피해를 봤다!");
+        this.isHeal = isHeal;
+        this.damage = damage;
 
-        
+        decredDmg = isHeal ? ((stat.curHp + damage > stat.maxHp) ? stat.maxHp : stat.curHp + damage) : stat.curHp - damage;
 
+        NoticeUI.instance.SetMsg(isHeal ? $"{damage} 만큼의 채력을 회복했다." : $"{damage} 만큼의 피해를 봤다!", Damage);
+
+
+        NoticeUI.instance.CallNoticeUI(true);
         // TOOD : n 의 데미지를 받았다
+    }
+
+    private void Damage()
+    {
+        stat.curHp = decredDmg;
 
         if (!isHeal)
         {
