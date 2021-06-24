@@ -14,7 +14,7 @@ public class AIBase : CharactorBase
     // lowHpAmount 위한 상수
     private readonly float LOW_MUL = 0.2f;
 
-    [HideInInspector] public bool turnPlayed;
+    [HideInInspector] public static bool turnPlayed;
 
     #region AI 판단 변수
     [Header("판단 대기 시간")]
@@ -74,6 +74,8 @@ public class AIBase : CharactorBase
 
         // 타입 효과 적용
         ApplyTypeBenefit();
+
+        if (stat.startFirst) turnPlayed = true;
     }
 
 

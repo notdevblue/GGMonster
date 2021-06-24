@@ -46,7 +46,7 @@ public class NoticeUI : MonoBehaviour
     }
 
     // SetMsg로 메세지 설정 후에 불러야 함
-    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool continues = false, bool calledByEnemy = false)
+    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool continues = false, bool calledByEnemy = false) // TODO : 올라오는것에 버그가 있음
     {
         isAiUsing = calledByEnemy;
         endofturn = calledAtEndOfTurn;

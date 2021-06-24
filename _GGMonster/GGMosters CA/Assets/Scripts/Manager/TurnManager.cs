@@ -147,6 +147,13 @@ public class TurnManager : MonoBehaviour
     private void NextTurn()
     {
         ++turn;
+
+        if (turn % 2 == (stat.enemyStat.startFirst ? 0 : 1)) // TODO : 어느한 변수 만들어서 계속 부르는거 막아야 함, TurnEnd() 에서
+        {
+            Debug.Log($"AI: Turn: {TurnManager.instance.turn}, boolean: {(TurnManager.instance.turn % 2 == (stat.enemyStat.startFirst ? 0 : 1))}");
+
+            AIBase.turnPlayed = true;
+        }
     }
 
     // 페시브 스킬 호출
