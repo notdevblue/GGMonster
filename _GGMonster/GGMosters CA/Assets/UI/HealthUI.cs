@@ -54,6 +54,8 @@ public class HealthUI : MonoBehaviour
         hpBar[(int)ArrayEnum.Enemy].maxValue  = stat.enemyStat.maxHp;
         hpBar[(int)ArrayEnum.Player].value    = stat.maxHp;
         hpBar[(int)ArrayEnum.Enemy].value     = stat.enemyStat.maxHp;
+
+        ResetUI();
     }
 
     private void InitInfoText()
@@ -86,7 +88,7 @@ public class HealthUI : MonoBehaviour
         hpBar[(int)ArrayEnum.Player].value = stat.curHp;
         hpBar[(int)ArrayEnum.Enemy].value  = stat.enemyStat.curHp;
 
-        hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}"; Debug.Log(stat.name);
+        hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}";
         hpTextArr[(int)ArrayEnum.Enemy].text  = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
 
     }

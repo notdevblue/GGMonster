@@ -1337,17 +1337,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
-      propertyPath: dur
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
       propertyPath: closePos
       value: 
       objectReference: {fileID: 241241779}
-    - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
       propertyPath: originPos
       value: 
@@ -1448,17 +1440,9 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 3006894005554287393, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3006894005554287396, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
       propertyPath: m_Name
       value: cvsTurn
-      objectReference: {fileID: 0}
-    - target: {fileID: 3006894005554287396, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
