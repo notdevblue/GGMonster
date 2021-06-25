@@ -394,6 +394,10 @@ PrefabInstance:
       propertyPath: infoUI
       value: 
       objectReference: {fileID: 95609169}
+    - target: {fileID: 335564296213214384, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+      propertyPath: selectedSkills.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 335564296213214385, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1333,6 +1337,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
+      propertyPath: dur
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018025685937068893, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
       propertyPath: closePos
       value: 
       objectReference: {fileID: 241241779}
@@ -1677,6 +1685,10 @@ PrefabInstance:
       propertyPath: enemyStat
       value: 
       objectReference: {fileID: 863298410}
+    - target: {fileID: 7481586108219597309, guid: 7af918272d3310847ac8259424381416, type: 3}
+      propertyPath: charactorName
+      value: "\uC120\uD55C\uC324"
+      objectReference: {fileID: 0}
     - target: {fileID: 7481586108219597311, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: thinkTime
       value: 2

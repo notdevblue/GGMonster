@@ -57,7 +57,8 @@ public class CharactorDamage : MonoBehaviour, IDamageable
 
         decredDmg = isHeal ? ((stat.curHp + damage > stat.maxHp) ? stat.maxHp : stat.curHp + damage) : stat.curHp - damage;
 
-        NoticeUI.instance.SetMsg(isHeal ? $"{damage} 만큼의 채력을 회복했다." : $"{damage} 만큼의 피해를 봤다!", Damage);
+        NoticeUI.instance.SetMsg(isHeal ? (TurnManager.instance.playerTurn ? $"{damage} 만큼의 HP를 회복했다!" : $"적이 {damage} 만큼의 HP를 회복했다!")
+            : (TurnManager.instance.playerTurn ? $"{damage} 만큼 공격했다!" : $"{damage} 만큼 공격을 받았다!"), Damage);
 
 
         NoticeUI.instance.CallNoticeUI(true, true);
@@ -113,6 +114,6 @@ public class CharactorDamage : MonoBehaviour, IDamageable
 
     private void CheckDead()
     {
-        if (stat.curHp < 1) { Debug.LogWarning($"{name} is Dead."); stat.isDead = true; }
+        if (stat.curHp < 1) { NoticeUI.instance.SetMsg($"{stat.charactorName}은 쓰러졌다!"); NoticeUI.instance.SetMsg($"앗 아아아...", healthUI.Dead); Debug.LogWarning($"{name} is Dead."); stat.isDead = true; NoticeUI.instance.CallNoticeUI(true); }
     }
 }

@@ -28,12 +28,6 @@ public class SeonHanAI : AIBase
             Debug.Log("turn");
             OnTurn();
         }
-        if(stat.isDead)
-        {
-            Dead();
-        }
-
-
     }
 
 

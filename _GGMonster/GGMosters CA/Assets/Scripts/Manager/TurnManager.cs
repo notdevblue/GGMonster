@@ -97,6 +97,9 @@ public class TurnManager : MonoBehaviour
         if (!stat.startFirst) AIBase.turnPlayed = true;
 
         Debug.Log($"TurnManager: Player starts first? {stat.startFirst}");
+
+        playerTurn = stat.startFirst;
+        enemyTurn = !stat.startFirst;
     }
     #endregion
 
@@ -144,6 +147,9 @@ public class TurnManager : MonoBehaviour
     {
         stat.myturn = !stat.myturn;
         stat.enemyStat.myturn = !stat.enemyStat.myturn;
+
+        playerTurn = stat.myturn;
+        enemyTurn = stat.enemyStat.myturn;
     }
 
     private void NextTurn()

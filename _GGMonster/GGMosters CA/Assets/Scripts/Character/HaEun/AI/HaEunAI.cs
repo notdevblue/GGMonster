@@ -24,9 +24,5 @@ public class HaEunAI : AIBase
         {
             OnTurn();
         }
-        if (stat.isDead)
-        {
-            Dead();
-        }
     }
 }

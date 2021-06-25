@@ -111,13 +111,6 @@ abstract public class CharactorBase : MonoBehaviour
         #endregion
     }
 
-    protected void Dead()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
-    }
-
     #region 유니티 에디터에서만 실행됨
 #if UNITY_EDITOR
 

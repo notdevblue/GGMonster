@@ -55,7 +55,7 @@ public class NoticeUI : MonoBehaviour
 
         isAiUsing = calledByEnemy;
         endofturn = calledAtEndOfTurn;
-        standing.sprite = calledByEnemy ? sprites[0].sprite : sprites[1].sprite;
+        standing.sprite = TurnManager.instance.playerTurn ? sprites[0].sprite : sprites[1].sprite;
 
         DoNoticeTask();
         

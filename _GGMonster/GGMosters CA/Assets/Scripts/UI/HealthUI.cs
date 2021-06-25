@@ -61,7 +61,7 @@ public class HealthUI : MonoBehaviour
         // Info text Init
         nameTextArr[(int)ArrayEnum.Player].text  = stat.charactorName;
         nameTextArr[(int)ArrayEnum.Enemy].text   = stat.enemyStat.charactorName;
-        hpTextArr[(int)ArrayEnum.Player].text    = $"HP : {stat.curHp} / {stat.maxHp}";
+        hpTextArr[(int)ArrayEnum.Player].text    = $"HP : {stat.curHp} / {stat.maxHp}"; Debug.Log($"init: {stat.maxHp}");
         hpTextArr[(int)ArrayEnum.Enemy].text     = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
     }
 
@@ -110,6 +110,12 @@ public class HealthUI : MonoBehaviour
         }
     }
 
+    public void Dead()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 
     #region nullcheck function
 #if UNITY_EDITOR

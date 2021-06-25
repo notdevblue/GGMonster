@@ -230,26 +230,31 @@ abstract public partial class Skills : SkillBase
         if (rnd > treeProv)
         {
             Debug.Log("트리 과제");
+            NoticeUI.instance.SetMsg("트리 과제 출제!");
             damageBoost = 2.0f;
         }
         else if(rnd > stackProv)
         {
             Debug.Log("스택 과제");
+            NoticeUI.instance.SetMsg("스택 과제 출제!");
             damageBoost = 1.5f;
         }
         else if(rnd > listProv)
         {
             Debug.Log("리스트 과제");
+            NoticeUI.instance.SetMsg("리스트 과제 출제!");
             damageBoost = 1.2f;
         }
         else if(rnd > arrayProv)
         {
             Debug.Log("배열 과제");
+            NoticeUI.instance.SetMsg("배얄 과제 출제!");
             damageBoost = 1.1f;
         }
         else
         {
             Debug.Log("반복문 과제");
+            NoticeUI.instance.SetMsg("반복문 과제 출제!");
             damageBoost = 1.0f;
         }
 
