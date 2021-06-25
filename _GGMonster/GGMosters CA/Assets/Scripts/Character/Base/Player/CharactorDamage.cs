@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharactorDamage : MonoBehaviour, IDamageable
 {
     private Stat stat = null;
+    private HealthUI healthUI = null;
 
     private int decredDmg = 0;
     private int damage = 0;
@@ -13,16 +14,25 @@ public class CharactorDamage : MonoBehaviour, IDamageable
     private void Awake()
     {
         stat = GetComponent<Stat>();
+        healthUI = GameObject.FindGameObjectWithTag("CVSHealth").GetComponent<HealthUI>();
         #region null check
 #if UNITY_EDITOR
+        bool stop = false;
+
         if (stat == null)
         {
-            Debug.LogError("SeonHanDamage: Stat 을 찾을 수 없습니다.");
-            UnityEditor.EditorApplication.isPlaying = false;
+            Debug.LogError("CharactorDamage: Stat 을 찾을 수 없습니다.");
+            stop = true;
         }
+        if (healthUI == null)
+        {
+            Debug.LogError("CharactorDamage: HealthUI 를 찾을 수 없습니다.");
+            stop = true;
+        }
+
+        if (stop) UnityEditor.EditorApplication.isPlaying = false;
 #endif
         #endregion
-
         
     }
 
@@ -50,13 +60,14 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         NoticeUI.instance.SetMsg(isHeal ? $"{damage} 만큼의 채력을 회복했다." : $"{damage} 만큼의 피해를 봤다!", Damage);
 
 
-        NoticeUI.instance.CallNoticeUI(true);
+        NoticeUI.instance.CallNoticeUI(true, true);
         // TOOD : n 의 데미지를 받았다
     }
 
     private void Damage()
     {
         stat.curHp = decredDmg;
+        healthUI.ResetUI();
 
         if (!isHeal)
         {
@@ -71,7 +82,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         stat.isTickDamage = true;
         stat.tickDamage = damage;
         stat.tickDamageCount = count;
-        NoticeUI.instance.CallNoticeUI(true);
+        NoticeUI.instance.CallNoticeUI(true, true);
     }
 
 

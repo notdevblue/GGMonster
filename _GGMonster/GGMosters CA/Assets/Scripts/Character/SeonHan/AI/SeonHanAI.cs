@@ -20,6 +20,8 @@ public class SeonHanAI : AIBase
 
     private void Update()
     {
+        //Debug.Log($"stat.myturn: {stat.myturn}, turnPlayed: {turnPlayed}");
+
         if (turnPlayed && stat.myturn)
         {
             turnPlayed = false;

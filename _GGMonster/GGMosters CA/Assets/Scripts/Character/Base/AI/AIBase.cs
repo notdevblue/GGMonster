@@ -166,7 +166,7 @@ public class AIBase : CharactorBase
         UseItem();
         UseSkill();
         Debug.Log("TC");
-        NoticeUI.instance.CallNoticeUI(true);
+        //NoticeUI.instance.CallNoticeUI(true, true);
         Debug.Log("Called");
     }
     

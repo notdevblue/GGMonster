@@ -46,15 +46,15 @@ public class NoticeUI : MonoBehaviour
     }
 
     // SetMsg로 메세지 설정 후에 불러야 함
-    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool continues = false, bool calledByEnemy = false) // TODO : 올라오는것에 버그가 있음
+    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool firstCall = false, bool calledByEnemy = false) // TODO : 올라오는것에 버그가 있음
     {
-        isAiUsing = calledByEnemy;
-        endofturn = calledAtEndOfTurn;
-        if (!continues)
+        if (firstCall)
         {
             OpenClose();
         }
 
+        isAiUsing = calledByEnemy;
+        endofturn = calledAtEndOfTurn;
         standing.sprite = calledByEnemy ? sprites[0].sprite : sprites[1].sprite;
 
         DoNoticeTask();
@@ -101,6 +101,6 @@ public class NoticeUI : MonoBehaviour
             return;
         }
 
-        CallNoticeUI(endofturn, true, isAiUsing);
+        CallNoticeUI(endofturn, false, isAiUsing);
     }
 }

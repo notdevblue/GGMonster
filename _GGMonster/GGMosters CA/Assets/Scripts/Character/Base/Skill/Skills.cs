@@ -347,6 +347,7 @@ abstract public partial class Skills : SkillBase
         {
             damageable.OnDamage(damage / 2, true);
             Debug.Log("¼±»ý´ÔÀÌ Çàº¹ÇÑ ¾ó±¼·Î µ·À» ¹ÞÀ¸¼Ì´Ù...");
+            NoticeUI.instance.SetMsg("¼±»ý´ÔÀÌ Çàº¹ÇÑ ¾ó±¼·Î µ·À» ¹ÞÀ¸¼Ì´Ù...");
             return;
         }
         damageable.OnDamage((int)(stat.damageBoost ? damage * stat.dmgBoostAmt : damage));
@@ -361,7 +362,7 @@ abstract public partial class Skills : SkillBase
     private void SkillFailedRoutine()
     {
         NoticeUI.instance.SetMsg("¾Æ¾Ñ ½ÇÆÐÇß´Ù...");
-        NoticeUI.instance.CallNoticeUI(true);
+        NoticeUI.instance.CallNoticeUI(true, true);
     }
 
     // ¹Ì½º ¿©ºÎ

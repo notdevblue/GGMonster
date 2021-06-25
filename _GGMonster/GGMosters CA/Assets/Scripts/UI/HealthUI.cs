@@ -86,7 +86,7 @@ public class HealthUI : MonoBehaviour
         hpBar[(int)ArrayEnum.Player].value = stat.curHp;
         hpBar[(int)ArrayEnum.Enemy].value  = stat.enemyStat.curHp;
 
-        hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}";
+        hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}"; Debug.Log(stat.name);
         hpTextArr[(int)ArrayEnum.Enemy].text  = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
 
     }
@@ -94,14 +94,14 @@ public class HealthUI : MonoBehaviour
     private void ResetColor()
     {
         float hpPercent = ((float)stat.curHp / (float)stat.maxHp) * 100.0f;
-
+        Debug.Log($"stat.curHp: {stat.curHp}, stat.maxHp: {stat.maxHp}");
+        Debug.Log($"hpPercent: {hpPercent}");
 
         for(int i = 2; i >= 0; --i)
         {
             hpBarColor[0].color = hpPercent > hpColorStd[i] ? hpColorArr[i] : hpBarColor[0].color;
         }
 
-        if(stat.enemyStat == null) { Debug.LogError("asdasdasdasdasdasdasd"); }
         hpPercent = ((float)stat.enemyStat.curHp / (float)stat.enemyStat.maxHp) * 100;
 
         for(int i = 2; i >= 0; --i)
