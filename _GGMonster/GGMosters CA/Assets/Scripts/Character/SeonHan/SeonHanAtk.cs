@@ -113,17 +113,17 @@ public class SeonHanAtk : Skills
     {
         if (TurnManager.instance.turn % salaryTurn == 0)
         {
-            NoticeUI.instance.SetMsg("선한쌤의 월급 수령!");
+            //NoticeUI.instance.SetMsg("선한쌤의 월급 수령!");
             if (stat.curHp + salaryHp <= stat.maxHp)
             {
                 stat.curHp += salaryHp;
             }
             else
             {
-                NoticeUI.instance.SetMsg("앗 월급이 밀렸다...");
+                NoticeUI.instance.SetMsg("앗 선한샘의 월급이 밀렸다...");
             }
 
-            NoticeUI.instance.CallNoticeUI(false, true, true, false, true);
+            //NoticeUI.instance.CallNoticeUI(false, true, true, false, true);
         }
     }
 }
