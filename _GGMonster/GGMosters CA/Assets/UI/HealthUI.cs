@@ -29,6 +29,7 @@ public class HealthUI : MonoBehaviour
     private void Start()
     {
         stat = GameObject.FindGameObjectWithTag("Player").GetComponent<Stat>();
+        Debug.Log($"stat: {stat.maxHp}");
         ResetColor();
 
         #region nullcheck function call
@@ -96,8 +97,6 @@ public class HealthUI : MonoBehaviour
     private void ResetColor()
     {
         float hpPercent = ((float)stat.curHp / (float)stat.maxHp) * 100.0f;
-        Debug.Log($"stat.curHp: {stat.curHp}, stat.maxHp: {stat.maxHp}");
-        Debug.Log($"hpPercent: {hpPercent}");
 
         for(int i = 2; i >= 0; --i)
         {
@@ -114,9 +113,7 @@ public class HealthUI : MonoBehaviour
 
     public void Dead()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
     #region nullcheck function

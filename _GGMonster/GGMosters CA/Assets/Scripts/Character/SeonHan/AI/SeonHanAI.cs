@@ -13,7 +13,7 @@ public class SeonHanAI : AIBase
 
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         Init(hp, myType, true); //<= AI 라서 먼저 적이 있어야 함
     }

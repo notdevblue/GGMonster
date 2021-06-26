@@ -52,6 +52,8 @@ public class AIBase : CharactorBase
         item      = GameObject.FindGameObjectWithTag("CVSMain").transform.GetChild(1).GetComponent<Items>();
 
         #region null 체크
+#if UNITY_EDITOR
+
         if (skill == null)
         {
             Debug.LogError("AIBase: Cannot GetComponent ISkill.");
@@ -67,6 +69,7 @@ public class AIBase : CharactorBase
             Debug.LogError("AIBase: You forgot to add ItemUI to me.");
             UnityEditor.EditorApplication.isPlaying = false;
         }
+#endif
         #endregion
 
         // 본인 AIStat 받아오고 값 초기화

@@ -20,7 +20,7 @@ public class SelectBtn : MonoBehaviour
 
     // 선택 에니메이션 관련
     [SerializeField] private float selectMoveAmount = 0.4f;
-                     private bool  onAnimation      = false;
+                     public  bool  onAnimation      { get; private set; }
 
     // 페이드 아웃
     [SerializeField] private Image fader = null;
@@ -35,6 +35,8 @@ public class SelectBtn : MonoBehaviour
         menuFunc[0] = () => { UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(1); };
         menuFunc[1] = () => { };
         menuFunc[2] = () => { Application.Quit(0); };
+
+        onAnimation = false;
     }
 
     void Update()
@@ -68,7 +70,6 @@ public class SelectBtn : MonoBehaviour
             SelectAnimation();
         }
     }
-
 
     // 선택 에니메이션
     private void SelectAnimation()

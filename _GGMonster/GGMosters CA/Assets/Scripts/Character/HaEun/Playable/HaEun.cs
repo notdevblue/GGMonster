@@ -6,7 +6,7 @@ public class HaEun : CharactorBase
 {
     #region 변수
     [Header("MaxHP")]
-    [SerializeField] private int hp = 100;
+    [SerializeField] private int hp = 80;
 
     [Header("타입")]
     [SerializeField] private Stat.ClassType myType = Stat.ClassType.NOTYPE;
@@ -14,7 +14,7 @@ public class HaEun : CharactorBase
     #endregion
 
     // TODO : 스킬 선택 후 해야 함
-    private void Start()
+    private void Awake()
     {
         Init(hp, myType);
     }

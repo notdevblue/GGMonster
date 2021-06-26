@@ -6,7 +6,7 @@ public class SeonHan : CharactorBase
 {
     #region 변수
     [Header("MaxHP")]
-    [SerializeField] private int hp = 100;
+    [SerializeField] private int hp = 150;
 
     [Header("타입")]
     [SerializeField] private Stat.ClassType myType = Stat.ClassType.NOTYPE;

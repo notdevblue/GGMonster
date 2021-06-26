@@ -450,6 +450,10 @@ PrefabInstance:
       propertyPath: enemyStat
       value: 
       objectReference: {fileID: 1805383681}
+    - target: {fileID: 335564296213214399, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
+      propertyPath: hp
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1facc97a3d5c5b44c80a417bc522428f, type: 3}
 --- !u!1 &751818796
@@ -998,6 +1002,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1863966171693948115, guid: e11a3d4b866e0f14284d5a6452717f96, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863966171693948115, guid: e11a3d4b866e0f14284d5a6452717f96, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 112.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863966172264217017, guid: e11a3d4b866e0f14284d5a6452717f96, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -259.09998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863966172264217017, guid: e11a3d4b866e0f14284d5a6452717f96, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -104.55001
+      objectReference: {fileID: 0}
     - target: {fileID: 1863966172332044548, guid: e11a3d4b866e0f14284d5a6452717f96, type: 3}
       propertyPath: openPos
       value: 
@@ -1672,6 +1692,10 @@ PrefabInstance:
     - target: {fileID: 7481586108219597309, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: charactorName
       value: "\uC120\uD55C\uC324"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481586108219597311, guid: 7af918272d3310847ac8259424381416, type: 3}
+      propertyPath: hp
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7481586108219597311, guid: 7af918272d3310847ac8259424381416, type: 3}
       propertyPath: thinkTime

@@ -248,7 +248,7 @@ abstract public partial class Skills : SkillBase
         else if(rnd > arrayProv)
         {
             Debug.Log("배열 과제");
-            NoticeUI.instance.SetMsg("배얄 과제 출제!");
+            NoticeUI.instance.SetMsg("배열 과제 출제!");
             damageBoost = 1.1f;
         }
         else
