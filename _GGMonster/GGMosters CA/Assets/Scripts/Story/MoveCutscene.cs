@@ -19,6 +19,9 @@ public class MoveCutscene : MonoBehaviour
     // 이동 시간
     [SerializeField] private float moveDur = 0.3f;
 
+    // 이렇게 짜면 안 되지만 귀찮았
+    [SerializeField] private AudioSource swapSound = null;
+
     // 경계
     private int currentStory = 0;
     private int maxStory = 0;
@@ -37,6 +40,8 @@ public class MoveCutscene : MonoBehaviour
         btnPrev.onClick.AddListener(MoveLeft);
 
         basePos = followObject.position;
+
+        InitQueue();
     }
 
     private void Update()
@@ -56,6 +61,7 @@ public class MoveCutscene : MonoBehaviour
         if (currentStory + 1 > maxStory - 1) { UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2); return; }
         ++currentStory;
         followObject.transform.DOMoveX(cutscenePos[currentStory].position.x, moveDur);
+        PlaySound();
     }
 
     private void MoveLeft()
@@ -63,5 +69,33 @@ public class MoveCutscene : MonoBehaviour
         if (currentStory - 1 < 0) return;
         --currentStory;
         followObject.transform.DOMoveX(cutscenePos[currentStory].position.x, moveDur);
+        PlaySound();
+    }
+
+
+    private Queue<AudioSource> queue = new Queue<AudioSource>();
+    private void InitQueue()
+    {
+        for (int i = 0; i < 3; ++i)
+            queue.Enqueue(Instantiate(swapSound, transform));
+    }
+
+
+    private void PlaySound()
+    {
+        AudioSource temp;
+
+        if(queue.Peek().isPlaying)
+        {
+            temp = Instantiate(swapSound, transform);
+            temp.Play();
+            queue.Enqueue(temp);
+        }
+        else
+        {
+            temp = queue.Dequeue();
+            temp.Play();
+            queue.Enqueue(temp);
+        }
     }
 }

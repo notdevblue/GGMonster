@@ -12,8 +12,8 @@ public class SkillData
 
     public readonly SkillInfo info;
     public readonly SkillExample skill;
-
-    public SkillData(string n, SkillExample s, SkillInfo inf) { name = n; skill = s; info = inf; }
+    public readonly Sprite skillSprite;
+    public SkillData(string n, SkillExample s, Sprite spr, SkillInfo inf) { name = n; skill = s; skillSprite = spr; info = inf; }
 }
 
 // 스킬 정보가 담겨져 있는 클레스
@@ -63,10 +63,8 @@ abstract public class SkillBase : MonoBehaviour, ISkill
     protected bool   isAI = false;
     protected bool[] noSP = new bool[4]; // SP 체크용
 
-    [HideInInspector] public Dictionary<SkillListEnum, SkillData> skillDataDictionary = new Dictionary<SkillListEnum, SkillData>(); // 스킬 정보가 들어있는 딕셔너리
-
-
-    [SerializeField] protected List<SkillListEnum> selectedSkills = new List<SkillListEnum>(); // 선택한 스킬
+    [HideInInspector] public    Dictionary<SkillListEnum, SkillData> skillDataDictionary = new Dictionary<SkillListEnum, SkillData>(); // 스킬 정보가 들어있는 딕셔너리
+    [SerializeField]  protected List      <SkillListEnum>            selectedSkills      = new List      <SkillListEnum>();            // 선택한 스킬
 
 
     protected void InitBattleCsv()

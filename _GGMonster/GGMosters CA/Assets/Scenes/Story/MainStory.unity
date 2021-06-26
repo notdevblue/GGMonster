@@ -678,6 +678,7 @@ MonoBehaviour:
   - {fileID: 941907176}
   followObject: {fileID: 1143524504}
   moveDur: 0.3
+  swapSound: {fileID: 7085693963229207746, guid: 14c03c8d6297107438bbb0c3b0cf8dad, type: 3}
 --- !u!1 &918151094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,6 +1112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e44b3c5fb48394f89994c21a8ed0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defadeTime: 0.5
 --- !u!1001 &309216317542509316
 PrefabInstance:
   m_ObjectHideFlags: 0

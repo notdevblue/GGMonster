@@ -7,15 +7,18 @@ using DG.Tweening;
 public class NoticeUI : MonoBehaviour
 {
     [Header("표현 관련")]
-    [SerializeField] private Text   noticeText  = null; 
-    [SerializeField] private Image  standing    = null;
-    [SerializeField] private Button btnContinue = null;
-                     private bool   isOpen      = false;
-                     private bool   isAiUsing   = false;
-                     private bool   endofturn   = false;
-                     private bool   forcePlayer = false;
-                     private bool   forceEnemy  = false;
-    [SerializeField] private SpriteRenderer[] sprites = new SpriteRenderer[2];
+    [SerializeField] private Text     noticeText  = null; 
+    [SerializeField] private Image    standing    = null;
+    [SerializeField] private Image    standBG     = null;
+    [SerializeField] private Button   btnContinue = null;
+                     private bool     isOpen      = false;
+                     private bool     isAiUsing   = false;
+                     private bool     endofturn   = false;
+                     private bool     forcePlayer = false;
+                     private bool     forceEnemy  = false;
+                     private Color    enemyColor  = new Color(1.0f, 0.333f, 0.0f);
+                     private Color    playerColor = new Color(0.0f, 1.0f,   0.6f);
+    [SerializeField] private Sprite[] sprites     = new Sprite[2];
 
 
     [Header("이동 관련")]
@@ -48,7 +51,8 @@ public class NoticeUI : MonoBehaviour
     }
 
     // SetMsg로 메세지 설정 후에 불러야 함
-    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool firstCall = false, bool calledByEnemy = false, bool forcePlayer = false, bool forceEnemy = false) // TODO : 올라오는것에 버그가 있음
+    private Sprite lastSprite;
+    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool firstCall = false, bool calledByEnemy = false, bool forcePlayer = false, bool forceEnemy = false, Sprite spr = null) // TODO : 올라오는것에 버그가 있음
     {
         if (firstCall)
         {
@@ -56,23 +60,40 @@ public class NoticeUI : MonoBehaviour
         }
         isClosed = false;
 
-        isAiUsing = calledByEnemy;
-        endofturn = calledAtEndOfTurn;
+        lastSprite       = spr;
+        isAiUsing        = calledByEnemy;
+        endofturn        = calledAtEndOfTurn;
         this.forcePlayer = forcePlayer;
-        this.forceEnemy = forceEnemy;
+        this.forceEnemy  = forceEnemy;
 
-        if (forcePlayer)
+        if(calledByEnemy)
         {
-            standing.sprite = sprites[0].sprite;
-        }
-        else if(forceEnemy)
-        {
-            standing.sprite = sprites[1].sprite;
+            standBG.color = enemyColor;
         }
         else
         {
-            standing.sprite = TurnManager.instance.playerTurn ? sprites[0].sprite : sprites[1].sprite;
+            standBG.color = playerColor;
         }
+
+        #region Sets charactor sprite
+        if (spr != null)
+        {
+            // 대부분 스킬 스프라이트
+            standing.sprite = spr;
+        }
+        else if (forcePlayer)
+        {
+            standing.sprite = sprites[0];
+        }
+        else if(forceEnemy)
+        {
+            standing.sprite = sprites[1];
+        }
+        else
+        {
+            standing.sprite = TurnManager.instance.playerTurn ? sprites[0] : sprites[1];
+        }
+        #endregion
 
         DoNoticeTask();
         
@@ -118,6 +139,6 @@ public class NoticeUI : MonoBehaviour
             if (endofturn && !isClosed) { TurnManager.instance.EndTurn(); isClosed = true; }
             return;
         }
-        CallNoticeUI(endofturn, false, isAiUsing, forcePlayer, forceEnemy);
+        CallNoticeUI(endofturn, false, isAiUsing, forcePlayer, forceEnemy, lastSprite);
     }
 }

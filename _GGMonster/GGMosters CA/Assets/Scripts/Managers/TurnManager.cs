@@ -101,8 +101,6 @@ public class TurnManager : MonoBehaviour
     #endregion
 
     // 턴이 끝날때 외부에서 호출되는 함수
-
-    int callstack = 0;
     public void EndTurn()
     {
         NextTurn();

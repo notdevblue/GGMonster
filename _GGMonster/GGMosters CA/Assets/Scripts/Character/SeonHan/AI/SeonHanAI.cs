@@ -22,7 +22,7 @@ public class SeonHanAI : AIBase
     {
         //Debug.Log($"stat.myturn: {stat.myturn}, turnPlayed: {turnPlayed}");
 
-        if (turnPlayed && stat.myturn)
+        if (turnPlayed && stat.myturn && !stat.isDead)
         {
             turnPlayed = false;
             Debug.Log("turn");

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CharactorDamage : MonoBehaviour, IDamageable
 {
-    private Stat stat = null;
-    private HealthUI healthUI = null;
+    private Stat         stat         = null;
+    private HealthUI     healthUI     = null;
+    private SkillManager skillManager = null;
 
     private int decredDmg = 0;
     private int damage = 0;
@@ -42,13 +43,15 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         TurnManager.instance.turnEndTasks.Add(TickDamage);
         TurnManager.instance.turnEndTasks.Add(CheckDead);
         TurnManager.instance.turnEndTasks.Add(TickDamageEffect);
+
+        skillManager = FindObjectOfType<SkillManager>();
     }
 
-    public void OnDamage(int damage, bool isHeal = false, bool tickDamage = false, int count = 0)
+    public void OnDamage(int damage, bool isHeal = false, bool tickDamage = false, int count = 0, int skillEnum = -1)
     {
         if(tickDamage)
         {
-            SetTickDamage(damage, count);
+            SetTickDamage(damage, count, skillManager.skillSprite[(SkillListEnum)skillEnum]);
             return;
         }
 
@@ -60,8 +63,8 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         NoticeUI.instance.SetMsg(isHeal ? (TurnManager.instance.playerTurn ? $"{damage} 만큼의 HP를 회복했다!" : $"적이 {damage} 만큼의 HP를 회복했다!")
             : (TurnManager.instance.playerTurn ? $"{damage} 만큼 공격했다!" : $"{damage} 만큼 공격을 받았다!"), Damage);
 
-
-        NoticeUI.instance.CallNoticeUI(true, true);
+        Debug.Log((SkillListEnum)skillEnum);
+        NoticeUI.instance.CallNoticeUI(true, true, TurnManager.instance.enemyTurn, false, false, skillEnum != -1 ? skillManager.skillSprite[(SkillListEnum)skillEnum] : null);
         // TOOD : n 의 데미지를 받았다
     }
 
@@ -82,12 +85,12 @@ public class CharactorDamage : MonoBehaviour, IDamageable
 
     #region TickDamage
 
-    private void SetTickDamage(int damage, int count)
+    private void SetTickDamage(int damage, int count, Sprite spr)
     {
         stat.isTickDamage = true;
         stat.tickDamage = damage;
         stat.tickDamageCount = count;
-        NoticeUI.instance.CallNoticeUI(true, true);
+        NoticeUI.instance.CallNoticeUI(true, true, TurnManager.instance.enemyTurn, false, false, spr);
     }
 
 

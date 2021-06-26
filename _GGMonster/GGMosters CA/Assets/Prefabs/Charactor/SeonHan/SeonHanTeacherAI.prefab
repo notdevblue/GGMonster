@@ -51,7 +51,7 @@ MonoBehaviour:
   enemyStat: {fileID: 0}
   charactorName: "\uC120\uD55C\uC324"
   maxHp: 100
-  curHp: 150
+  curHp: 120
   isDead: 0
   sp_arr: 0a0000000a000000050000000a000000
   provoke: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thinkTimeMin: 1
   thinkTimeMax: 2
-  hp: 150
+  hp: 120
   myType: 4
 --- !u!114 &7481586108219597307
 MonoBehaviour:

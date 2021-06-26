@@ -27,6 +27,8 @@ public class HealthUI : MonoBehaviour
     public Color[]  hpColorArr    = new Color[3];
     private int[]   hpColorStd    = new int[3]; // 몇 HP 에서 색을 바꾸는지에 대한 것
 
+
+    #region Init Functions, includes Start()
     private void Start()
     {
         stat = GameObject.FindGameObjectWithTag("Player").GetComponent<Stat>();
@@ -46,8 +48,6 @@ public class HealthUI : MonoBehaviour
         TurnManager.instance.turnEndTasks.Add(ResetUI);
         TurnManager.instance.midturnTasks.Add(ResetUI);
     }
-
-    #region Init Functions
 
     private void InitHPBar()
     {
@@ -76,57 +76,6 @@ public class HealthUI : MonoBehaviour
         hpColorStd[0] = (stat.curHp / stat.maxHp) * 100 / 2;
         hpColorStd[1] = (stat.curHp / stat.maxHp) * 100 / 4;
         hpColorStd[2] = 0;
-    }
-
-    #endregion
-
-
-    ///<summary>
-    /// UI 다시 그려줌
-    ///</summary>
-    public void ResetUI()
-    {
-        ResetColor();
-        ResetStatusText();
-        ResetHPBar();
-    }
-
-    private void ResetHPBar()
-    {
-        hpBar[(int)ArrayEnum.Player].value = stat.curHp;
-        hpBar[(int)ArrayEnum.Enemy].value  = stat.enemyStat.curHp;
-
-        hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}";
-        hpTextArr[(int)ArrayEnum.Enemy].text  = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
-    }
-    private void ResetStatusText()
-    {
-        string playerContinuesText = $"{stat.tickDamage}데미지를 턴 시작 마다 받습니다. ({stat.tickDamageCount}회 남음)";
-        string enemyContinuesText  = $"{stat.enemyStat.tickDamage}데미지를 턴 시작 마다 받습니다. ({stat.enemyStat.tickDamageCount}회 남음)";
-
-        statTextArr[0].text = $"상태 / {(stat.provoke           ? $"{(stat.isTickDamage           ? $"도발, 지속 데미지\r\n{playerContinuesText}" : "도발")}" : $"{(stat.isTickDamage           ? $"지속 데미지\r\n{playerContinuesText}" : "건강")}") }";
-        statTextArr[1].text = $"상태 / {(stat.enemyStat.provoke ? $"{(stat.enemyStat.isTickDamage ? $"도발, 지속 데미지\r\n{enemyContinuesText}"  : "도발")}" : $"{(stat.enemyStat.isTickDamage ? $"지속 데미지\r\n{playerContinuesText}" : "건강")}") }";
-    }
-    private void ResetColor()
-    {
-        float hpPercent = ((float)stat.curHp / (float)stat.maxHp) * 100.0f;
-
-        for(int i = 2; i >= 0; --i)
-        {
-            hpBarColor[0].color = hpPercent > hpColorStd[i] ? hpColorArr[i] : hpBarColor[0].color;
-        }
-
-        hpPercent = ((float)stat.enemyStat.curHp / (float)stat.enemyStat.maxHp) * 100;
-
-        for(int i = 2; i >= 0; --i)
-        {
-            hpBarColor[1].color = hpPercent > hpColorStd[i] ? hpColorArr[i] : hpBarColor[1].color;
-        }
-    }
-
-    public void Dead()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
     #region nullcheck function
@@ -172,5 +121,74 @@ public class HealthUI : MonoBehaviour
 
 #endif
     #endregion
+
+    #endregion
+
+    ///<summary>
+    /// UI 다시 그려줌
+    ///</summary>
+    public void ResetUI()
+    {
+        ResetColor();
+        ResetStatusText();
+        ResetHPBar();
+    }
+    #region ResetUI functions
+
+    // HP 바 값, 수치 리셋
+    private void ResetHPBar()
+    {
+        hpBar[(int)ArrayEnum.Player].value = stat.curHp;
+        hpBar[(int)ArrayEnum.Enemy].value  = stat.enemyStat.curHp;
+
+        hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}";
+        hpTextArr[(int)ArrayEnum.Enemy].text  = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
+    }
+
+    // 상태 메세지 리셋
+    private void ResetStatusText()
+    {
+        string playerContinuesText = $"{stat.tickDamage}데미지를 턴 시작 마다 받습니다. ({stat.tickDamageCount + 1}회 남음)";
+        string enemyContinuesText  = $"{stat.enemyStat.tickDamage}데미지를 턴 시작 마다 받습니다. ({stat.enemyStat.tickDamageCount + 1}회 남음)";
+
+        statTextArr[0].text = $"상태 / {(stat.provoke           ? $"{(stat.isTickDamage           ? $"도발, 지속 데미지\r\n{playerContinuesText}" : "도발")}" : $"{(stat.isTickDamage           ? $"지속 데미지\r\n{playerContinuesText}" : "건강")}") }";
+        statTextArr[1].text = $"상태 / {(stat.enemyStat.provoke ? $"{(stat.enemyStat.isTickDamage ? $"도발, 지속 데미지\r\n{enemyContinuesText}"  : "도발")}" : $"{(stat.enemyStat.isTickDamage ? $"지속 데미지\r\n{playerContinuesText}" : "건강")}") }";
+    }
+
+    // HP 바 색 리셋
+    private void ResetColor()
+    {
+        float hpPercent = ((float)stat.curHp / (float)stat.maxHp) * 100.0f;
+
+        for(int i = 2; i >= 0; --i)
+        {
+            hpBarColor[0].color = hpPercent > hpColorStd[i] ? hpColorArr[i] : hpBarColor[0].color;
+        }
+
+        hpPercent = ((float)stat.enemyStat.curHp / (float)stat.enemyStat.maxHp) * 100;
+
+        for(int i = 2; i >= 0; --i)
+        {
+            hpBarColor[1].color = hpPercent > hpColorStd[i] ? hpColorArr[i] : hpBarColor[1].color;
+        }
+    }
+
+    #endregion
+
+    public void Dead()
+    {
+        if(stat.curHp < 0)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            // 플레이어 사망
+        }
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(3); // 컷신
+            // 적 사망
+        }
+
+        
+    }
 
 }

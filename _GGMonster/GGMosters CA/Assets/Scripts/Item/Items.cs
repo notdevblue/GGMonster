@@ -16,9 +16,8 @@ public class Items : MonoBehaviour
 {
     public void Heal(Stat stat)
     {
-        Debug.Log("Heal item used");
-        if (stat.curHp == stat.maxHp) { Debug.Log("이미 최대 HP"); return; }
-        if (stat.healItemCnt < 1) { Debug.Log("아이탬 부족"); return; }
+        if (stat.curHp == stat.maxHp) { return; }
+        if (stat.healItemCnt < 1) { Debug.Log("아이탬 부족"); return; } // TODO : 부족도 시각화 해야함
 
         --stat.healItemCnt;
         stat.curHp = (stat.curHp + stat.healAmout > stat.maxHp) ? stat.maxHp : stat.curHp + stat.healAmout;
