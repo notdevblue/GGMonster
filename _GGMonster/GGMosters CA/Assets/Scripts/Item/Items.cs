@@ -7,8 +7,8 @@ public class ItemData
 {
     public string name;
     public string info;
-
-    public ItemData(string name, string info) { this.name = name; this.info = info; }
+    public string stat;
+    public ItemData(string name, string info, string stat) { this.name = name; this.info = info; this.stat = stat; }
 }
 
 
@@ -22,6 +22,8 @@ public class Items : MonoBehaviour
 
         --stat.healItemCnt;
         stat.curHp = (stat.curHp + stat.healAmout > stat.maxHp) ? stat.maxHp : stat.curHp + stat.healAmout;
+
+        DamageEffects.instance.HealEffect(stat.transform);
 
         CallMidturnTask();
     }

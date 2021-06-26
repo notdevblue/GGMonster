@@ -21,6 +21,7 @@ public class HealthUI : MonoBehaviour
     public Image[]  hpBarColor    = new Image[2];
     public Text[]   nameTextArr   = new Text[2];
     public Text[]   hpTextArr     = new Text[2];
+    public Text[]   statTextArr   = new Text[2];
 
     [Header("50% 25% 0% 보다 클 때 채력 바의 색상")]
     public Color[]  hpColorArr    = new Color[3];
@@ -29,7 +30,6 @@ public class HealthUI : MonoBehaviour
     private void Start()
     {
         stat = GameObject.FindGameObjectWithTag("Player").GetComponent<Stat>();
-        Debug.Log($"stat: {stat.maxHp}");
         ResetColor();
 
         #region nullcheck function call
@@ -40,6 +40,7 @@ public class HealthUI : MonoBehaviour
 
         InitHPBar();
         InitInfoText();
+        ResetStatusText();
         InitColorStd();
 
         TurnManager.instance.turnEndTasks.Add(ResetUI);
@@ -64,9 +65,10 @@ public class HealthUI : MonoBehaviour
         // Info text Init
         nameTextArr[(int)ArrayEnum.Player].text  = stat.charactorName;
         nameTextArr[(int)ArrayEnum.Enemy].text   = stat.enemyStat.charactorName;
-        hpTextArr[(int)ArrayEnum.Player].text    = $"HP : {stat.curHp} / {stat.maxHp}"; Debug.Log($"init: {stat.maxHp}");
+        hpTextArr[(int)ArrayEnum.Player].text    = $"HP : {stat.curHp} / {stat.maxHp}";
         hpTextArr[(int)ArrayEnum.Enemy].text     = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
     }
+
 
     private void InitColorStd()
     {
@@ -85,15 +87,26 @@ public class HealthUI : MonoBehaviour
     public void ResetUI()
     {
         ResetColor();
+        ResetStatusText();
+        ResetHPBar();
+    }
 
+    private void ResetHPBar()
+    {
         hpBar[(int)ArrayEnum.Player].value = stat.curHp;
         hpBar[(int)ArrayEnum.Enemy].value  = stat.enemyStat.curHp;
 
         hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}";
         hpTextArr[(int)ArrayEnum.Enemy].text  = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
-
     }
+    private void ResetStatusText()
+    {
+        string playerContinuesText = $"{stat.tickDamage}데미지를 턴 시작 마다 받습니다. ({stat.tickDamageCount}회 남음)";
+        string enemyContinuesText  = $"{stat.enemyStat.tickDamage}데미지를 턴 시작 마다 받습니다. ({stat.enemyStat.tickDamageCount}회 남음)";
 
+        statTextArr[0].text = $"상태 / {(stat.provoke           ? $"{(stat.isTickDamage           ? $"도발, 지속 데미지\r\n{playerContinuesText}" : "도발")}" : $"{(stat.isTickDamage           ? $"지속 데미지\r\n{playerContinuesText}" : "건강")}") }";
+        statTextArr[1].text = $"상태 / {(stat.enemyStat.provoke ? $"{(stat.enemyStat.isTickDamage ? $"도발, 지속 데미지\r\n{enemyContinuesText}"  : "도발")}" : $"{(stat.enemyStat.isTickDamage ? $"지속 데미지\r\n{playerContinuesText}" : "건강")}") }";
+    }
     private void ResetColor()
     {
         float hpPercent = ((float)stat.curHp / (float)stat.maxHp) * 100.0f;

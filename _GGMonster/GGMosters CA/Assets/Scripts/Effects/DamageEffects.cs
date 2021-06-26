@@ -10,6 +10,8 @@ public class DamageEffects : MonoBehaviour
     private float             decAmount = 100.0f;
     private Vector2           originPos;
 
+    [SerializeField] private ParticleSystem healEffect = null;
+
     public static DamageEffects instance = null;
 
     private void Awake()
@@ -38,5 +40,14 @@ public class DamageEffects : MonoBehaviour
         }
 
         obj.position = originPos;
+    }
+
+
+    public void HealEffect(Transform obj)
+    {
+        Transform pos = obj.GetChild(0);
+
+        healEffect.transform.position = new Vector3(pos.position.x, pos.position.y - 1.3f, healEffect.transform.position.z);
+        healEffect.Play();
     }
 }

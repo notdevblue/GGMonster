@@ -18,7 +18,8 @@ public class AIBase : CharactorBase
 
     #region AI 판단 변수
     [Header("판단 대기 시간")]
-    [SerializeField] private float thinkTime = 2.0f; 
+    [SerializeField] private float thinkTimeMin = 2.0f; 
+    [SerializeField] private float thinkTimeMax = 2.0f; 
 
     #region item 관련
 
@@ -160,7 +161,7 @@ public class AIBase : CharactorBase
     // 랜덤 스킬 사용이지만 추후 바꿔야 함
     protected void OnTurn()
     {
-        Invoke(nameof(ThinkComplete), thinkTime);
+        Invoke(nameof(ThinkComplete), Random.Range(thinkTimeMin, thinkTimeMax));
     }
 
     private void ThinkComplete()
@@ -168,9 +169,6 @@ public class AIBase : CharactorBase
         CheckMyStatus();
         UseItem();
         UseSkill();
-        Debug.Log("TC");
-        //NoticeUI.instance.CallNoticeUI(true, true);
-        Debug.Log("Called");
     }
     
     private void CheckMyStatus()

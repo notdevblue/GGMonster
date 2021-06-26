@@ -101,7 +101,6 @@ abstract public partial class Skills : SkillBase
         int damage = skillDataDictionary[SkillListEnum.InsultCodeDesign].info.damage;
 
         --skillPoint;
-        Debug.Log("코드 설계 욕하기");
         if (!SkillSuccess())
         {
             SkillFailedRoutine();
@@ -132,7 +131,6 @@ abstract public partial class Skills : SkillBase
         int damage = skillDataDictionary[SkillListEnum.PowerfulSholderMassage].info.damage;
 
         --skillPoint;
-        Debug.Log("강력한 어깨 안마");
         if (!SkillSuccess())
         {
             SkillFailedRoutine();
@@ -144,7 +142,6 @@ abstract public partial class Skills : SkillBase
         if(rand > 95)
         {
             damageable.OnDamage((int)(damage * 0.2f), true);
-            Debug.Log("상대가 안마를 편한하게 받아드렸다...");
             return;
         }
 
@@ -156,7 +153,6 @@ abstract public partial class Skills : SkillBase
         int damage = skillDataDictionary[SkillListEnum.Naruto].info.damage;
 
         --skillPoint;
-        Debug.Log("나선환");
         if (!SkillSuccess())
         {
             SkillFailedRoutine();
@@ -169,7 +165,6 @@ abstract public partial class Skills : SkillBase
     public void Tsundere(ref int skillPoint) // 츤츤거리기, 선한쌤 용 코드, 도발기
     {
         --skillPoint;
-        Debug.Log("츤츤거리기");
         if(!SkillSuccess())
         {
             SkillFailedRoutine();
@@ -186,7 +181,6 @@ abstract public partial class Skills : SkillBase
         int damage = skillDataDictionary[SkillListEnum.ReTest].info.damage / damageCount;
 
         --skillPoint;
-        Debug.Log("재시험");
         if (!SkillSuccess())
         {
             SkillFailedRoutine();
@@ -217,7 +211,6 @@ abstract public partial class Skills : SkillBase
         int damageCount = skillDataDictionary[SkillListEnum.ALGOHOMEWORK].info.continuesCount;
 
         --skillPoint;
-        Debug.Log("알고리즘 과제 출제");
         if (!SkillSuccess())
         {
             SkillFailedRoutine();
@@ -229,31 +222,26 @@ abstract public partial class Skills : SkillBase
         int rnd = Random.Range(0, 100);
         if (rnd > treeProv)
         {
-            Debug.Log("트리 과제");
             NoticeUI.instance.SetMsg("트리 과제 출제!");
             damageBoost = 2.0f;
         }
         else if(rnd > stackProv)
         {
-            Debug.Log("스택 과제");
             NoticeUI.instance.SetMsg("스택 과제 출제!");
             damageBoost = 1.5f;
         }
         else if(rnd > listProv)
         {
-            Debug.Log("리스트 과제");
             NoticeUI.instance.SetMsg("리스트 과제 출제!");
             damageBoost = 1.2f;
         }
         else if(rnd > arrayProv)
         {
-            Debug.Log("배열 과제");
             NoticeUI.instance.SetMsg("배열 과제 출제!");
             damageBoost = 1.1f;
         }
         else
         {
-            Debug.Log("반복문 과제");
             NoticeUI.instance.SetMsg("반복문 과제 출제!");
             damageBoost = 1.0f;
         }
@@ -271,7 +259,6 @@ abstract public partial class Skills : SkillBase
         int damage = skillDataDictionary[SkillListEnum.AMONGUS].info.damage;
 
         --skillPoint;
-        Debug.Log("임포스터 관심법으로 찾기");
 
         if(Random.Range(0, 100) < 60)
         {
@@ -287,7 +274,6 @@ abstract public partial class Skills : SkillBase
         int damage = skillDataDictionary[SkillListEnum.UNFRIEDMANDU].info.damage;
 
         --skillPoint;
-        Debug.Log("덜 익은 만두 대접");
 
         damageable.OnDamage(damage);
     }
@@ -297,7 +283,6 @@ abstract public partial class Skills : SkillBase
         int damage = skillDataDictionary[SkillListEnum.HWANJU].info.damage;
 
         --skillPoint;
-        Debug.Log("환쥬바라기");
 
         damageable.OnDamage(stat.enemyType == Stat.ClassType.HWANJU ? damage * 2 : damage);
     }
@@ -307,7 +292,6 @@ abstract public partial class Skills : SkillBase
         int damage = skillDataDictionary[SkillListEnum.GUDIAKGAE].info.damage;
 
         --skillPoint;
-        Debug.Log("구디악개");
 
         damageable.OnDamage(stat.enemyType == Stat.ClassType.GUDIGAN ? damage * 2 : damage);
     }
@@ -380,7 +364,6 @@ abstract public partial class Skills : SkillBase
             case true:
                 if (rand > stat.provokeCount * stat.ProvMissRate)
                 {
-                    Debug.Log("Skill success");
                     return true;
                 }
                 break;
@@ -388,7 +371,6 @@ abstract public partial class Skills : SkillBase
             case false:
                 if (rand > stat.missRate)
                 {
-                    Debug.Log("Skill success");
                     return true;
                 }
                 break;

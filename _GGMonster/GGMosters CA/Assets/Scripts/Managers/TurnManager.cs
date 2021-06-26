@@ -13,15 +13,6 @@ public class TurnManager : MonoBehaviour
     // 나중에 이걸 따로 제네릭 클래스로 만들어서 써보는것도 재미있을듯함
     // 테스크메니저 (작업관리자)
 
-    private void Awake()
-    {
-        if(instance != null)
-        {
-            Debug.LogWarning("TurnManager: There are more then one TurnManager running on same scene");
-        }
-        instance = this;
-    }
-
     public uint turn = 2;
     public bool playerTurn = false;
     public bool enemyTurn = false;
@@ -34,8 +25,14 @@ public class TurnManager : MonoBehaviour
 
 
     #region Init Functions. Includes Awake
-    private void Start()
+    private void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogWarning("TurnManager: There are more then one TurnManager running on same scene");
+        }
+        instance = this;
+
         player = GameObject.FindGameObjectWithTag("Player");
         enemy  = GameObject.FindGameObjectWithTag("Enemy");
 
@@ -108,7 +105,6 @@ public class TurnManager : MonoBehaviour
     int callstack = 0;
     public void EndTurn()
     {
-        Debug.Log($"callstack {++callstack}");
         NextTurn();
         CallPassiveSkill();
         SetTurnStatus();
@@ -116,7 +112,7 @@ public class TurnManager : MonoBehaviour
         DoTurnEndTasks();
 
         MidTurn();
-        Debug.LogWarning($"턴 바뀜. 턴: {turn}");
+        Debug.Log($"턴 바뀜. 턴: {turn}");
     }
 
     #region Task foreach
@@ -158,8 +154,6 @@ public class TurnManager : MonoBehaviour
 
         if (turn % 2 == (stat.enemyStat.startFirst ? 0 : 1)) // TODO : 어느한 변수 만들어서 계속 부르는거 막아야 함, TurnEnd() 에서
         {
-            Debug.Log($"AI: Turn: {TurnManager.instance.turn}, boolean: {(TurnManager.instance.turn % 2 == (stat.enemyStat.startFirst ? 0 : 1))}");
-
             AIBase.turnPlayed = true;
         }
     }

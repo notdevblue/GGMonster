@@ -57,7 +57,6 @@ abstract public class CharactorBase : MonoBehaviour
 
         // HP 초기화
         stat.maxHp = hp;
-        Debug.Log(stat.maxHp + " asdasd"); // TODO : init 전에 UI초기화가 들어감
         stat.curHp = hp;
 
         // myType 초기화

@@ -10,10 +10,12 @@ public class NoticeUI : MonoBehaviour
     [SerializeField] private Text   noticeText  = null; 
     [SerializeField] private Image  standing    = null;
     [SerializeField] private Button btnContinue = null;
-    private bool             isOpen    = false;
-    private bool             isAiUsing = false;
-    private bool             endofturn = false;
-    [SerializeField] private SpriteRenderer[] sprites   = new SpriteRenderer[2];
+                     private bool   isOpen      = false;
+                     private bool   isAiUsing   = false;
+                     private bool   endofturn   = false;
+                     private bool   forcePlayer = false;
+                     private bool   forceEnemy  = false;
+    [SerializeField] private SpriteRenderer[] sprites = new SpriteRenderer[2];
 
 
     [Header("이동 관련")]
@@ -46,16 +48,31 @@ public class NoticeUI : MonoBehaviour
     }
 
     // SetMsg로 메세지 설정 후에 불러야 함
-    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool firstCall = false, bool calledByEnemy = false) // TODO : 올라오는것에 버그가 있음
+    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool firstCall = false, bool calledByEnemy = false, bool forcePlayer = false, bool forceEnemy = false) // TODO : 올라오는것에 버그가 있음
     {
         if (firstCall)
         {
             OpenClose();
         }
+        isClosed = false;
 
         isAiUsing = calledByEnemy;
         endofturn = calledAtEndOfTurn;
-        standing.sprite = TurnManager.instance.playerTurn ? sprites[0].sprite : sprites[1].sprite;
+        this.forcePlayer = forcePlayer;
+        this.forceEnemy = forceEnemy;
+
+        if (forcePlayer)
+        {
+            standing.sprite = sprites[0].sprite;
+        }
+        else if(forceEnemy)
+        {
+            standing.sprite = sprites[1].sprite;
+        }
+        else
+        {
+            standing.sprite = TurnManager.instance.playerTurn ? sprites[0].sprite : sprites[1].sprite;
+        }
 
         DoNoticeTask();
         
@@ -91,16 +108,16 @@ public class NoticeUI : MonoBehaviour
         isOpen = !isOpen;
     }
 
+    private bool isClosed = false;
     private void ContinueInfo()
     {
         if(msgQueue.Count == 0)
         {
             OpenClose();
 
-            if (endofturn) { TurnManager.instance.EndTurn(); }
+            if (endofturn && !isClosed) { TurnManager.instance.EndTurn(); isClosed = true; }
             return;
         }
-
-        CallNoticeUI(endofturn, false, isAiUsing);
+        CallNoticeUI(endofturn, false, isAiUsing, forcePlayer, forceEnemy);
     }
 }

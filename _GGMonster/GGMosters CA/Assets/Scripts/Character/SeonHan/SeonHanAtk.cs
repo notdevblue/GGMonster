@@ -111,17 +111,19 @@ public class SeonHanAtk : Skills
 
     public override void Passive()
     {
-        if(TurnManager.instance.turn % salaryTurn == 0)
+        if (TurnManager.instance.turn % salaryTurn == 0)
         {
-            Debug.Log("SeonHanAtk: ¿ù±Þ ¼ö·É");
-            if(stat.curHp + salaryHp <= stat.maxHp)
+            NoticeUI.instance.SetMsg("¼±ÇÑ½ÜÀÇ ¿ù±Þ ¼ö·É!");
+            if (stat.curHp + salaryHp <= stat.maxHp)
             {
                 stat.curHp += salaryHp;
             }
             else
             {
-                Debug.Log("SeonHanAtk: ¾Ñ ¿ù±ÞÀÌ ¹Ð·È´Ù...");
+                NoticeUI.instance.SetMsg("¾Ñ ¿ù±ÞÀÌ ¹Ð·È´Ù...");
             }
+
+            NoticeUI.instance.CallNoticeUI(false, true, true, false, true);
         }
     }
 }

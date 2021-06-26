@@ -74,6 +74,10 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         {
             StartCoroutine(DamageEffects.instance.ShakeEffect(damage, transform));
         }
+        else
+        {
+            DamageEffects.instance.HealEffect(transform);
+        }
     }
 
     #region TickDamage

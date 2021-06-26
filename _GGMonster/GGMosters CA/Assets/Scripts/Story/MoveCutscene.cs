@@ -53,7 +53,7 @@ public class MoveCutscene : MonoBehaviour
 
     private void MoveRight()
     {
-        if (currentStory + 1 > maxStory - 1) UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2);
+        if (currentStory + 1 > maxStory - 1) { UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2); return; }
         ++currentStory;
         followObject.transform.DOMoveX(cutscenePos[currentStory].position.x, moveDur);
     }

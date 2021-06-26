@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStat: {fileID: 0}
-  charactorName: "\uCD5C\uC120\uD55C \uC120\uC0DD\uB2D8"
+  charactorName: "\uC120\uD55C\uC324"
   maxHp: 100
   curHp: 150
   isDead: 0
@@ -118,7 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883554dc21aa47141b3ac31f0fdc2fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thinkTime: 2
+  thinkTimeMin: 1
+  thinkTimeMax: 2
   hp: 150
   myType: 4
 --- !u!114 &7481586108219597307
@@ -204,7 +205,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3191122964850554743, guid: 16dbf335eae8a764d87ce05abf00c5a9, type: 3}
+  m_Sprite: {fileID: 1608238646095267973, guid: 1df9a3bb0496ca345b31dbe0edf3f9eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

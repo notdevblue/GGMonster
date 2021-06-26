@@ -108,15 +108,17 @@ public class HaEunAtk : Skills
     {
         if (TurnManager.instance.turn % salaryTurn == 0)
         {
-            Debug.Log("HaEunAtk: 월급 수령");
+            NoticeUI.instance.SetMsg("하은쌤의 월급 수령!");
             if (stat.curHp + salaryHp <= stat.maxHp)
             {
                 stat.curHp += salaryHp;
             }
             else
             {
-                Debug.Log("HaEunAtk: 앗 월급이 밀렸다...");
+                NoticeUI.instance.SetMsg("앗 월급이 밀렸다...");
             }
+
+            NoticeUI.instance.CallNoticeUI(false, true, false, true, false);
         }
     }
 }
