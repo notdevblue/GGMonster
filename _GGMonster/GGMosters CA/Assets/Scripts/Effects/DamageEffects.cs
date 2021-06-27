@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class DamageEffects : MonoBehaviour
 {
@@ -40,6 +42,25 @@ public class DamageEffects : MonoBehaviour
         }
 
         obj.position = originPos;
+    }
+
+    public void TextEffect(int damage, Text txt, bool isHeal = false)
+    {
+        Vector3 txtOrigin;
+
+        txt.gameObject.SetActive(true);
+        txtOrigin = txt.transform.position;
+        txt.text = isHeal ? $"HP + {damage}" : $"HP - {damage}";
+
+        txt.gameObject.transform.DOMoveY(txtOrigin.y + effectDuration, effectDuration).OnComplete(() =>
+        {
+            txt.DOFade(0, effectDuration).OnComplete(() =>
+            {
+                txt.color = new Color(txt.color.r, txt.color.g, txt.color.b, 1);
+                txt.gameObject.SetActive(false);
+                txt.transform.position = txtOrigin;
+            });
+        });
     }
 
 

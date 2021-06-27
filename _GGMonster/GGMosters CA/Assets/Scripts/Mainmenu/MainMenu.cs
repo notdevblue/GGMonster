@@ -35,4 +35,12 @@ public class MainMenu : MonoBehaviour
             konamiText.SetActive(true);
         }
     }
+
+    private void OnDestroy()
+    {
+        if (input.konami)
+        {
+            SceneHistory.sceneHistory.Push("KONAMI");
+        }
+    }
 }

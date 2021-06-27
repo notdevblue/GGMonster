@@ -31,6 +31,8 @@ public class InfoUI : MonoBehaviour
     private void Close()
     {
         infoObject.DOMove(closePos.position, moveDur).SetEase(Ease.InCubic).OnComplete(() =>{ isOpen = false; });
+        prevItemData = null;
+        prevSkillData = null;
     }
 
     public void CallItemInfo(ItemData data)

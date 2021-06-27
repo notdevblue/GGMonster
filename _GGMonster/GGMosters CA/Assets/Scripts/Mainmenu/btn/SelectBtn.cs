@@ -32,7 +32,7 @@ public class SelectBtn : MonoBehaviour
         curPosIdx = 0;
 
 
-        menuFunc[0] = () => { UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(1); };
+        menuFunc[0] = () => { UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(input.konami ? "Loading" : "MainStory"); };
         menuFunc[1] = () => { };
         menuFunc[2] = () => { Application.Quit(0); };
 
@@ -86,4 +86,6 @@ public class SelectBtn : MonoBehaviour
             { onAnimation = false; menuFunc[curPosIdx % 3](); });
         });
     }
+
+
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 // 좀더 직관적이기 위해서
 public enum ArrayEnum
@@ -15,6 +16,9 @@ public enum ArrayEnum
 public class HealthUI : MonoBehaviour
 {
     private Stat stat = null;
+
+    [Header("HP바 감소 시간")]
+    [SerializeField] private float decDur = 1.0f;
 
     [Header("첫 원소에는 플레이어가 들어가야 합니다")]
     public Slider[] hpBar         = new Slider[2];
@@ -138,8 +142,8 @@ public class HealthUI : MonoBehaviour
     // HP 바 값, 수치 리셋
     private void ResetHPBar()
     {
-        hpBar[(int)ArrayEnum.Player].value = stat.curHp;
-        hpBar[(int)ArrayEnum.Enemy].value  = stat.enemyStat.curHp;
+        hpBar[(int)ArrayEnum.Player].DOValue(stat.curHp, decDur);
+        hpBar[(int)ArrayEnum.Enemy].DOValue(stat.enemyStat.curHp, decDur);
 
         hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}";
         hpTextArr[(int)ArrayEnum.Enemy].text  = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
@@ -152,7 +156,7 @@ public class HealthUI : MonoBehaviour
         string enemyContinuesText  = $"{stat.enemyStat.tickDamage}데미지를 턴 시작 마다 받습니다. ({stat.enemyStat.tickDamageCount + 1}회 남음)";
 
         statTextArr[0].text = $"상태 / {(stat.provoke           ? $"{(stat.isTickDamage           ? $"도발, 지속 데미지\r\n{playerContinuesText}" : "도발")}" : $"{(stat.isTickDamage           ? $"지속 데미지\r\n{playerContinuesText}" : "건강")}") }";
-        statTextArr[1].text = $"상태 / {(stat.enemyStat.provoke ? $"{(stat.enemyStat.isTickDamage ? $"도발, 지속 데미지\r\n{enemyContinuesText}"  : "도발")}" : $"{(stat.enemyStat.isTickDamage ? $"지속 데미지\r\n{playerContinuesText}" : "건강")}") }";
+        statTextArr[1].text = $"상태 / {(stat.enemyStat.provoke ? $"{(stat.enemyStat.isTickDamage ? $"도발, 지속 데미지\r\n{enemyContinuesText}"  : "도발")}" : $"{(stat.enemyStat.isTickDamage ? $"지속 데미지\r\n{enemyContinuesText }" : "건강")}") }";
     }
 
     // HP 바 색 리셋
@@ -175,20 +179,24 @@ public class HealthUI : MonoBehaviour
 
     #endregion
 
+
+    [SerializeField] private Image fader;
     public void Dead()
     {
         if(stat.curHp < 0)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("LoadScene");
             // 플레이어 사망
         }
-        else
+        else if( stat.enemyStat.curHp < 0)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(3); // 컷신
+            fader.DOFade(1, 1.0f).OnComplete(() =>
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("SeonHanScene"); // 컷신
+            });
             // 적 사망
         }
-
-        
     }
+
 
 }

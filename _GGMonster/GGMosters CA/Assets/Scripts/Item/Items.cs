@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class ItemData
@@ -14,6 +15,9 @@ public class ItemData
 
 public class Items : MonoBehaviour
 {
+    [SerializeField] private Text playerDamageText;
+    [SerializeField] private Text enemyDamageText;
+
     public void Heal(Stat stat)
     {
         if (stat.curHp == stat.maxHp) { return; }
@@ -23,7 +27,9 @@ public class Items : MonoBehaviour
         stat.curHp = (stat.curHp + stat.healAmout > stat.maxHp) ? stat.maxHp : stat.curHp + stat.healAmout;
 
         DamageEffects.instance.HealEffect(stat.transform);
-
+        DamageEffects.instance.TextEffect((stat.curHp + stat.healAmout > stat.maxHp) ? (stat.curHp + stat.healAmout - stat.maxHp) : stat.healAmout,
+                                           stat.CompareTag("Player") ? playerDamageText : enemyDamageText,
+                                           true);
         CallMidturnTask();
     }
 

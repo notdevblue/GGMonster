@@ -60,8 +60,9 @@ abstract public class SkillBase : MonoBehaviour, ISkill
     protected Button[]      btnSkillArr     = new Button[4];
     protected Button[]      btnInfoArr      = new Button[4]; // 스킬 설명을 담은 버튼
 
-    protected bool   isAI = false;
-    protected bool[] noSP = new bool[4]; // SP 체크용
+    protected bool   isAI      = false;
+    protected bool[] noSP      = new bool[4]; // SP 체크용
+    protected bool   skillUsed = false;
 
     [HideInInspector] public    Dictionary<SkillListEnum, SkillData> skillDataDictionary = new Dictionary<SkillListEnum, SkillData>(); // 스킬 정보가 들어있는 딕셔너리
     [SerializeField]  protected List      <SkillListEnum>            selectedSkills      = new List      <SkillListEnum>();            // 선택한 스킬
@@ -98,7 +99,12 @@ abstract public class SkillBase : MonoBehaviour, ISkill
     abstract public void SkillE();
     abstract public void Passive();
 
-    abstract public void Skill(int n);
+    public virtual bool Skill(int n)
+    {
+        if (skillUsed) { Debug.LogError("isTrue"); return false; };
+        skillUsed = true;
+        return true;
+    }
     protected void CheckSkillNameList()
     {
         #region List check
@@ -138,6 +144,11 @@ abstract public class SkillBase : MonoBehaviour, ISkill
         }
 
         #endregion
+    }
+
+    protected void ResetSkillUsed()
+    {
+        skillUsed = false;
     }
 
     /// <summary>

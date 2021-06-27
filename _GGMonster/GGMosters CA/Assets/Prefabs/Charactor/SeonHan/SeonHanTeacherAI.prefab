@@ -51,7 +51,7 @@ MonoBehaviour:
   enemyStat: {fileID: 0}
   charactorName: "\uC120\uD55C\uC324"
   maxHp: 100
-  curHp: 120
+  curHp: 150
   isDead: 0
   sp_arr: 0a0000000a000000050000000a000000
   provoke: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoUI: {fileID: 0}
-  selectedSkills: 00000000020000000500000003000000
+  selectedSkills: 00000000020000000300000005000000
   salaryTurn: 10
   salaryHp: 7
 --- !u!114 &7481586108219597311
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thinkTimeMin: 1
   thinkTimeMax: 2
-  hp: 120
+  hp: 150
   myType: 4
 --- !u!114 &7481586108219597307
 MonoBehaviour:
@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1e166ecbd2bab4a962b761c7b1ecce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageText: {fileID: 0}
 --- !u!1 &7481586108220956350
 GameObject:
   m_ObjectHideFlags: 0

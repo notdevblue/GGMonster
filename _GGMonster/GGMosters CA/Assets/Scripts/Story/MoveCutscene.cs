@@ -58,7 +58,7 @@ public class MoveCutscene : MonoBehaviour
 
     private void MoveRight()
     {
-        if (currentStory + 1 > maxStory - 1) { UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2); return; }
+        if (currentStory + 1 > maxStory - 1) { LoadScene(); return; }
         ++currentStory;
         followObject.transform.DOMoveX(cutscenePos[currentStory].position.x, moveDur);
         PlaySound();
@@ -70,6 +70,11 @@ public class MoveCutscene : MonoBehaviour
         --currentStory;
         followObject.transform.DOMoveX(cutscenePos[currentStory].position.x, moveDur);
         PlaySound();
+    }
+
+    private void LoadScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Loading");
     }
 
 
@@ -97,5 +102,10 @@ public class MoveCutscene : MonoBehaviour
             temp.Play();
             queue.Enqueue(temp);
         }
+    }
+
+    private void OnDestroy()
+    {
+        SceneHistory.sceneHistory.Push(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }

@@ -32,6 +32,7 @@ abstract public partial class Skills : SkillBase
     protected void InitDictionary() // 함수명은 이렇긴 한데 여기서 IDamageable 찾아서 초기화 해줘요.
     {
         skillSprite = FindObjectOfType<SkillManager>();
+        TurnManager.instance.turnEndTasks.Add(ResetSkillUsed);
 
         InitSkillDictionary();
         InitInterface();
@@ -84,13 +85,13 @@ abstract public partial class Skills : SkillBase
             new SkillData("어몽어스", Amongus, skillSprite.skillSprite[SkillListEnum.AmongUs], new SkillInfo("학생들과 어몽어스 플레이 도중 관심법을 이용하여 임포스터를 찾아냅니다.\r\n실패 확률이 60%, 성공 확률이 40%인 스킬입니다.", 50)));
         
         skillDataDictionary.Add(SkillListEnum.UnfriedMandu,
-            new SkillData("덜 익은 만두", UnFriedMandu, skillSprite.skillSprite[SkillListEnum.UnfriedMandu], new SkillInfo("덜 익은 만두를 식탁에 올립니다.", 10)));
+            new SkillData("덜 익은 만두", UnFriedMandu, skillSprite.skillSprite[SkillListEnum.UnfriedMandu], new SkillInfo("덜 익은 만두를 식탁에 올립니다.", 20, Stat.ClassType.NOTYPE, Stat.ClassType.NOTYPE, true, 5)));
         
         skillDataDictionary.Add(SkillListEnum.HwanJu,
-            new SkillData("환쥬바라기", HwanJu, skillSprite.skillSprite[SkillListEnum.HwanJu], new SkillInfo("환주 팬클럽을 설립힙니다.\r\n적이 환주라면 두 배의 데미지를 입힙니다.\r\n스킬이 실패하지 않습니다.", 10, Stat.ClassType.HWANJU, Stat.ClassType.NOTYPE)));
+            new SkillData("환쥬바라기", HwanJu, skillSprite.skillSprite[SkillListEnum.HwanJu], new SkillInfo("환주 팬클럽을 설립힙니다.\r\n적이 환주라면 두 배의 데미지를 입힙니다.\r\n스킬이 실패하지 않습니다.", 15, Stat.ClassType.HWANJU, Stat.ClassType.NOTYPE)));
         
         skillDataDictionary.Add(SkillListEnum.GudiAkgae,
-            new SkillData("구디악개", GudiAkGae, skillSprite.skillSprite[SkillListEnum.GudiAkgae], new SkillInfo("구디 악성 개인 팬클럽 회장이 됩니다.\r\n적이 구디라면 두 배의 데미지를 입힙니다.\r\n스킬이 실패하지 않습니다.", 10, Stat.ClassType.GUDIGAN, Stat.ClassType.NOTYPE)));
+            new SkillData("구디악개", GudiAkGae, skillSprite.skillSprite[SkillListEnum.GudiAkgae], new SkillInfo("구디 악성 개인 팬클럽 회장이 됩니다.\r\n적이 구디라면 두 배의 데미지를 입힙니다.\r\n스킬이 실패하지 않습니다.", 15, Stat.ClassType.GUDIGAN, Stat.ClassType.NOTYPE)));
     }
 
     #endregion
@@ -145,7 +146,7 @@ abstract public partial class Skills : SkillBase
         int rand = Random.Range(1, 100);
         if(rand > 95)
         {
-            damageable.OnDamage((int)(damage * 0.2f), true);
+            damageable.OnDamage((int)(damage * 0.2f), true, false, 0, (int)SkillListEnum.PowerfulSholderMassage);
             return;
         }
 
@@ -228,22 +229,22 @@ abstract public partial class Skills : SkillBase
         int rnd = Random.Range(0, 100);
         if (rnd > treeProv)
         {
-            NoticeUI.instance.SetMsg("트리 과제 출제!\r\n데미지 2배!");
+            NoticeUI.instance.SetMsg("트리 과제 출제! 데미지 2배!");
             damageBoost = 2.0f;
         }
         else if(rnd > stackProv)
         {
-            NoticeUI.instance.SetMsg("스택 과제 출제!\r\n데미지 1.5배!");
+            NoticeUI.instance.SetMsg("스택 과제 출제! 데미지 1.5배!");
             damageBoost = 1.5f;
         }
         else if(rnd > listProv)
         {
-            NoticeUI.instance.SetMsg("리스트 과제 출제!\r\n데미지 1.2배!");
+            NoticeUI.instance.SetMsg("리스트 과제 출제! 데미지 1.2배!");
             damageBoost = 1.2f;
         }
         else if(rnd > arrayProv)
         {
-            NoticeUI.instance.SetMsg("배열 과제 출제!\r\n데미지 1.1배!");
+            NoticeUI.instance.SetMsg("배열 과제 출제! 데미지 1.1배!");
             damageBoost = 1.1f;
         }
         else
@@ -257,7 +258,7 @@ abstract public partial class Skills : SkillBase
             damageBoost += 0.1f;
         }
 
-        damageable.OnDamage((int)(damage * damageBoost), false, true, damageCount, (int)SkillListEnum.AlgoHomework);
+        damageable.OnDamage((int)(damage * damageBoost), false, false, damageCount, (int)SkillListEnum.AlgoHomework);
     }
 
     private void Amongus(ref int skillPoint)
@@ -277,11 +278,12 @@ abstract public partial class Skills : SkillBase
 
     private void UnFriedMandu(ref int skillPoint)
     {
-        int damage = skillDataDictionary[SkillListEnum.UnfriedMandu].info.damage;
+        int damageCount = skillDataDictionary[SkillListEnum.UnfriedMandu].info.continuesCount;
+        int damage = skillDataDictionary[SkillListEnum.UnfriedMandu].info.damage / damageCount;
 
         --skillPoint;
 
-        damageable.OnDamage(damage, false, false, 0, (int)SkillListEnum.UnfriedMandu);
+        damageable.OnDamage(damage, false, true, damageCount, (int)SkillListEnum.UnfriedMandu);
     }
 
     private void HwanJu(ref int skillPoint)
@@ -383,13 +385,26 @@ abstract public partial class Skills : SkillBase
         return false;
     }
 
-    public override void Skill(int n)
+    public override bool Skill(int n)
     {
+        if (!base.Skill(n))
+        {
+            return false;
+        }
+
+        
         if (stat.sp_arr[n] > 0)
         {
             NoticeUI.instance.SetMsg($"{stat.charactorName}의 {skillDataDictionary[selectedSkills[n]].name}!");
             skillDataDictionary[selectedSkills[n]].skill(ref stat.sp_arr[n]);
         }
+        else
+        {
+            NoticeUI.instance.SetMsg($"더이상 {skillDataDictionary[selectedSkills[n]].name} 을 사용할 수 없다!", () => skillUsed = false);
+            NoticeUI.instance.CallNoticeUI(false, true, false, true, false, null);
+        }
+
+        return true;
     }
 
     abstract protected void InitBtn();

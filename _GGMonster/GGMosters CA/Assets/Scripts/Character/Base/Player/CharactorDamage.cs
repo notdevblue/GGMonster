@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CharactorDamage : MonoBehaviour, IDamageable
 {
+    [SerializeField] private UnityEngine.UI.Text damageText = null;
+
+
     private Stat         stat         = null;
     private HealthUI     healthUI     = null;
     private SkillManager skillManager = null;
@@ -16,6 +19,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
     {
         stat = GetComponent<Stat>();
         healthUI = GameObject.FindGameObjectWithTag("CVSHealth").GetComponent<HealthUI>();
+        damageText.gameObject.SetActive(false);
         #region null check
 #if UNITY_EDITOR
         bool stop = false;
@@ -63,7 +67,6 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         NoticeUI.instance.SetMsg(isHeal ? (TurnManager.instance.playerTurn ? $"{damage} 만큼의 HP를 회복했다!" : $"적이 {damage} 만큼의 HP를 회복했다!")
             : (TurnManager.instance.playerTurn ? $"{damage} 만큼 공격했다!" : $"{damage} 만큼 공격을 받았다!"), Damage);
 
-        Debug.Log((SkillListEnum)skillEnum);
         NoticeUI.instance.CallNoticeUI(true, true, TurnManager.instance.enemyTurn, false, false, skillEnum != -1 ? skillManager.skillSprite[(SkillListEnum)skillEnum] : null);
         // TOOD : n 의 데미지를 받았다
     }
@@ -76,10 +79,12 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         if (!isHeal)
         {
             StartCoroutine(DamageEffects.instance.ShakeEffect(damage, transform));
+            DamageEffects.instance.TextEffect(damage, damageText);
         }
         else
         {
             DamageEffects.instance.HealEffect(transform);
+            DamageEffects.instance.TextEffect(damage, damageText);
         }
     }
 
@@ -112,7 +117,8 @@ public class CharactorDamage : MonoBehaviour, IDamageable
     {
         if(stat.isTickDamage)
         {
-            StartCoroutine(DamageEffects.instance.ShakeEffect(stat.tickDamage, transform)); // TODO : 스킬 시전 시 부르게 되고, 턴 종료 시 부르게 됨                                                      
+            StartCoroutine(DamageEffects.instance.ShakeEffect(stat.tickDamage, transform)); // TODO : 스킬 시전 시 부르게 되고, 턴 종료 시 부르게 됨
+            DamageEffects.instance.TextEffect(stat.tickDamage, damageText);
         }
     }
 

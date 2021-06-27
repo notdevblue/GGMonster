@@ -183,7 +183,6 @@ public class AIBase : CharactorBase
     private void UseSkill()
     {
         skillList.Skill(SelectSkill());
-        
     }
 
     private void UseItem()
@@ -240,8 +239,8 @@ public class AIBase : CharactorBase
         while(true)
         {
             ++r;
-            idx = Random.Range(0, 3);
-            if(stat.sp_arr[idx] > 1)
+            idx = Random.Range(0, 4);
+            if(stat.sp_arr[idx] > 0)
             {
                 break;
             }

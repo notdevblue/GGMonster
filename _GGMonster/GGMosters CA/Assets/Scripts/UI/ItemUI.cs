@@ -35,10 +35,12 @@ public class ItemUI : MonoBehaviour
 
     private void CallHeal()
     {
+        if (!stat.myturn) return;
         item.Heal(stat);
     }
     private void CallResetProvokeCount()
     {
+        if (!stat.myturn) return;
         item.ResetProvokeCount(stat);
     }
 

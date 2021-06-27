@@ -12,9 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Story/MainStory.unity
     guid: f0c72e81fc7b4e142aff2b1c1b0ff3e2
   - enabled: 1
-    path: Assets/Scenes/SeonhanBattle.unity
+    path: Assets/Scenes/Battle/SeonhanBattle.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Story/SeonHanScene.unity
     guid: 29b86c234f14b09468b1160200b14325
+  - enabled: 1
+    path: Assets/Scenes/Loading/Loading.unity
+    guid: 54fe78a2f50329e4fa9d555d1f42076a
   m_configObjects: {}

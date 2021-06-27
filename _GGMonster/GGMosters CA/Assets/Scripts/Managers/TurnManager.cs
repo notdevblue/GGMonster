@@ -110,7 +110,6 @@ public class TurnManager : MonoBehaviour
         DoTurnEndTasks();
 
         MidTurn();
-        Debug.Log($"ео ╧ы╡Я. ео: {turn}");
     }
 
     #region Task foreach
