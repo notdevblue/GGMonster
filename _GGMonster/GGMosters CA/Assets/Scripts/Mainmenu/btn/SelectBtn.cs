@@ -12,6 +12,7 @@ public class SelectBtn : MonoBehaviour
     [SerializeField] private float           moveDur         = 0.2f;
     [SerializeField] private RectTransform[] targetLocations = new RectTransform[3];
                      private int             curPosIdx       = 0;
+    [SerializeField] private Button[]        btnMenus        = new Button[3];
 
     // 버튼 선택 관련
     [SerializeField] private MenuFunctions[] menuFunc = new MenuFunctions[3];
@@ -31,10 +32,51 @@ public class SelectBtn : MonoBehaviour
 
         curPosIdx = 0;
 
+        btnMenus[0].onClick.AddListener(() =>
+        {
+            if (curPosIdx % 3 != 0)
+            {
+                transform.DOMove(targetLocations[0].position, moveDur);
+                curPosIdx = 0;
+                return;
+            }
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(input.konami ? "Loading" : "MainStory");
+        });
+        
+        btnMenus[1].onClick.AddListener(() =>
+        {
+            if (curPosIdx % 3 != 1)
+            {
+                transform.DOMove(targetLocations[1].position, moveDur);
+                curPosIdx = 1;
+                return;
+            }
+
+        });
+
+        btnMenus[2].onClick.AddListener(() =>
+        {
+            if (curPosIdx % 3 != 2)
+            {
+                transform.DOMove(targetLocations[2].position, moveDur);
+                curPosIdx = 2;
+                return;
+            }
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            Application.Quit(0);
+        });
 
         menuFunc[0] = () => { UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(input.konami ? "Loading" : "MainStory"); };
         menuFunc[1] = () => { };
-        menuFunc[2] = () => { Application.Quit(0); };
+        menuFunc[2] = () =>
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            Application.Quit(0); 
+        };
 
         onAnimation = false;
     }

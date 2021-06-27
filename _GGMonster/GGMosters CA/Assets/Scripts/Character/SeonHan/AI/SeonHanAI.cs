@@ -25,7 +25,7 @@ public class SeonHanAI : AIBase
         if (turnPlayed && stat.myturn && !stat.isDead)
         {
             turnPlayed = false;
-            Debug.Log("turn");
+            Debug.Log($"Enemy turn\r\nturn: {TurnManager.instance.turn}");
             OnTurn();
         }
     }

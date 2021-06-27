@@ -125,13 +125,18 @@ public class NoticeUI : MonoBehaviour
 
     private void OpenClose()
     {
-        noticeObj.DOMove(isOpen ? closePos.position : originPos.position, dur).SetEase(isOpen ? Ease.InCubic : Ease.OutCubic);
+        btnContinue.enabled = false;
+        closing = true;
+        noticeObj.DOMove(isOpen ? closePos.position : originPos.position, dur).SetEase(isOpen ? Ease.InCubic : Ease.OutCubic).OnComplete(() => { closing = false; btnContinue.enabled = true; });
         isOpen = !isOpen;
     }
 
     private bool isClosed = false;
+    private bool closing = false;
     private void ContinueInfo()
     {
+        if (closing) return;
+
         if(msgQueue.Count == 0)
         {
             OpenClose();
