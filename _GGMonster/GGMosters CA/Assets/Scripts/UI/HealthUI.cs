@@ -185,7 +185,7 @@ public class HealthUI : MonoBehaviour
     {
         if(stat.curHp < 0)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("LoadScene");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Loading");
             // 플레이어 사망
         }
         else if( stat.enemyStat.curHp < 0)
