@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
         mainMenuPanel.SetActive(true);
 
         exitButtons[0] = skillPannel.transform.GetChild(4).GetComponent<Button>(); // TODO : 이것은 하드 코딩
-        exitButtons[1] = itemPanel.transform.GetChild(2).GetComponent<Button>();
+        exitButtons[1] = itemPanel.transform.GetChild(itemPanel.transform.childCount - 1).GetComponent<Button>();
 
         // 메인 선택 화면으로 돌아감
         foreach(Button btn in exitButtons)

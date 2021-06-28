@@ -8,6 +8,9 @@ public class SceneHistory : MonoBehaviour
 
     private void OnDestroy()
     {
-        sceneHistory.Push(gameObject.scene.name);
+        if (!PauseUI.returned)
+        {
+            sceneHistory.Push(gameObject.scene.name);
+        }
     }
 }

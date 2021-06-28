@@ -106,6 +106,7 @@ public class MoveCutscene : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneHistory.sceneHistory.Push(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        if (!PauseUI.returned)
+            SceneHistory.sceneHistory.Push(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); 
     }
 }

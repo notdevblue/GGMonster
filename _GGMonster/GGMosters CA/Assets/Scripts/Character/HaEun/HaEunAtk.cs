@@ -118,7 +118,7 @@ public class HaEunAtk : Skills
                 NoticeUI.instance.SetMsg("æ— «œ¿∫Ω‹¿« ø˘±ﬁ¿Ã π–∑»¥Ÿ...");
             }
 
-            NoticeUI.instance.CallNoticeUI(false, true, false, false, false);
+            NoticeUI.instance.CallNoticeUI(false, true, false, true, false);
         }
     }
 }

@@ -78,6 +78,8 @@ abstract public class SkillBase : MonoBehaviour, ISkill
             btnInfoArr[index]       = temp.GetChild(1).GetComponent<Button>();
         }
 
+        
+
         // 버튼 이름 텍스트
         for (int i = 0; i < 4; ++i)
         {
@@ -87,8 +89,17 @@ abstract public class SkillBase : MonoBehaviour, ISkill
         for(int i = 0; i < 4; ++i)
         {
             int num = i;
-            btnInfoArr[i].onClick.AddListener(() => infoUI.CallSkillInfo(skillDataDictionary[selectedSkills[num]]));
+            try
+            {
+                btnInfoArr[i].onClick.AddListener(() => infoUI.CallSkillInfo(skillDataDictionary[selectedSkills[num]]));
+            }
+            catch
+            {
+                Debug.LogError("Something is not working fine.\r\nSKillBase InitBattleCsv()");
+            }
         }
+
+
     }
 
     abstract public void SkillA();

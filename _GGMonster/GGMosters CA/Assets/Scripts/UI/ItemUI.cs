@@ -44,12 +44,59 @@ public class ItemUI : MonoBehaviour
     {
         if (!stat.myturn) return;
         item.Heal(stat);
+        RemainBBG();
     }
     private void CallResetProvokeCount()
     {
         if (!stat.myturn) return;
         item.ResetProvokeCount(stat);
+        RemainElbow();
     }
 
+
+    [SerializeField] private GameObject[] bbgs = new GameObject[3];
+    [SerializeField] private GameObject   elbow;
+    private void RemainBBG()
+    {
+        switch(stat.healItemCnt)
+        {
+            case 3:
+                bbgs[0].SetActive(true);
+                bbgs[1].SetActive(true);
+                bbgs[2].SetActive(true);
+                break;
+
+            case 2:
+                bbgs[0].SetActive(true);
+                bbgs[1].SetActive(true);
+                bbgs[2].SetActive(false);
+                break;
+
+            case 1:
+                bbgs[0].SetActive(true);
+                bbgs[1].SetActive(false);
+                bbgs[2].SetActive(false);
+                break;
+
+            default:
+                bbgs[0].SetActive(false);
+                bbgs[1].SetActive(false);
+                bbgs[2].SetActive(false);
+                break;
+        }
+    }
     
+    private void RemainElbow()
+    {
+        switch(stat.provItemCnt)
+        {
+            case 1:
+                elbow.SetActive(true);
+                break;
+
+            default:
+                elbow.SetActive(false);
+                break;
+        }
+    }
 }

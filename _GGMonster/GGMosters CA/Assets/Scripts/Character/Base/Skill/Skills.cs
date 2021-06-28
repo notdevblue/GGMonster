@@ -208,10 +208,11 @@ abstract public partial class Skills : SkillBase
 
     private void AlgorithmHomework(ref int skillPoint)
     {
-        const int   treeProv    = 95;
-        const int   stackProv   = 70;
-        const int   listProv    = 60;
-        const int   arrayProv   = 50;
+        const float insta       = 99.99f; 
+        const float treeProv    = 95.0f;
+        const float stackProv   = 70.0f;
+        const float listProv    = 60.0f;
+        const float arrayProv   = 50.0f;
               float damageBoost;
 
         int damage = skillDataDictionary[SkillListEnum.AlgoHomework].info.damage;
@@ -226,8 +227,13 @@ abstract public partial class Skills : SkillBase
 
 
         // 과제들
-        int rnd = Random.Range(0, 100);
-        if (rnd > treeProv)
+        float rnd = Random.Range(0.0f, 100.0f);
+        if (rnd > insta)
+        {
+            NoticeUI.instance.SetMsg("이진트리 2번 출제! 데미지 10배!");
+            damageBoost = 10.0f;
+        }
+        else if (rnd > treeProv)
         {
             NoticeUI.instance.SetMsg("트리 과제 출제! 데미지 2배!");
             damageBoost = 2.0f;

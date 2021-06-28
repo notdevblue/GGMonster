@@ -96,7 +96,7 @@ public class SeonHanAtk : Skills
 
     public override void SkillE() // 샌드위치 구매하기 (SP 다 떨어진 경우)
     {
-        Debug.Log("SeonHanAtk: 샌드위치 구매하기");
+        // TODO : SkillE
         BuySandwich();
     }
 

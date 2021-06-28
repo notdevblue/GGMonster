@@ -35,16 +35,20 @@ public class LoadingManager : MonoBehaviour
         {
             switch (SceneHistory.sceneHistory.Peek()) // TODO : 객채지향 원칙에 어긋나는 코드
             {
+                case "ETM":
+                    scene = "Title";
+                    break;
+
+                case "SeonhanBattle":
+                    scene = "Title";
+                    break;
+
                 case "MainStory":
                     scene = "SeonhanBattle";
                     break;
 
-                case "SeonhanBattle":
-                    scene = "MainMenu";
-                    break;
-
                 case "KONAMI":
-                    scene = "ShivaBattle";
+                    scene = "SeonhanBattle"; // 스토리 스킵
                     break;
 
                 case "SeonHanScene":

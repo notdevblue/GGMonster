@@ -98,8 +98,6 @@ abstract public class CharactorBase : MonoBehaviour
             stat.enemyStat = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Stat>();
         }
 
-        Debug.LogWarning(stat.enemyStat.name);
-
         #region null üũ
 #if UNITY_EDITOR
         if (stat.enemyStat == null)

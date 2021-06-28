@@ -156,7 +156,9 @@ public class HealthUI : MonoBehaviour
         string enemyContinuesText  = $"{stat.enemyStat.tickDamage}데미지를 턴 시작 마다 받습니다. ({stat.enemyStat.tickDamageCount + 1}회 남음)";
 
         statTextArr[0].text = $"상태 / {(stat.provoke           ? $"{(stat.isTickDamage           ? $"도발, 지속 데미지\r\n{playerContinuesText}" : "도발")}" : $"{(stat.isTickDamage           ? $"지속 데미지\r\n{playerContinuesText}" : "건강")}") }";
+        statTextArr[0].color = stat.isTickDamage ? new Color(0.7f, 0.1f, 0.1f) : new Color(0.2f, 0.2f, 0.2f);
         statTextArr[1].text = $"상태 / {(stat.enemyStat.provoke ? $"{(stat.enemyStat.isTickDamage ? $"도발, 지속 데미지\r\n{enemyContinuesText}"  : "도발")}" : $"{(stat.enemyStat.isTickDamage ? $"지속 데미지\r\n{enemyContinuesText }" : "건강")}") }";
+        statTextArr[1].color = stat.enemyStat.isTickDamage ? new Color(0.7f, 0.1f, 0.1f) : new Color(0.2f, 0.2f, 0.2f);
     }
 
     // HP 바 색 리셋
@@ -183,15 +185,17 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private Image fader;
     public void Dead()
     {
-        if(stat.curHp < 0)
+        if(stat.isDead)
         {
+            DOTween.Clear();
             UnityEngine.SceneManagement.SceneManager.LoadScene("Loading");
             // 플레이어 사망
         }
-        else if( stat.enemyStat.curHp < 0)
+        else if( stat.enemyStat.isDead)
         {
             fader.DOFade(1, 1.0f).OnComplete(() =>
             {
+                DOTween.Clear();
                 UnityEngine.SceneManagement.SceneManager.LoadScene("SeonHanScene"); // 컷신
             });
             // 적 사망

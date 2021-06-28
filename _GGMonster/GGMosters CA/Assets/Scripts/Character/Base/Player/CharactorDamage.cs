@@ -127,13 +127,13 @@ public class CharactorDamage : MonoBehaviour, IDamageable
 
     private void CheckDead()
     {
-        if (stat.curHp < 1 && !stat.isDead)
+        if (stat.curHp < 1 && !stat.isDead && !stat.enemyStat.isDead)
         {
             NoticeUI.instance.SetMsg($"{stat.charactorName}은 쓰러졌다!");
             NoticeUI.instance.SetMsg($"앗 아아아...");
             NoticeUI.instance.SetMsg($"앗 아아아...", healthUI.Dead);
             stat.isDead = true;
-            NoticeUI.instance.CallNoticeUI(true, true);
+            NoticeUI.instance.CallNoticeUI(true, true, stat.enemyStat.isDead, false, false, null, true);
         }
     }
 

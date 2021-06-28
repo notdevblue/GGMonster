@@ -54,12 +54,18 @@ public class NoticeUI : MonoBehaviour
 
     // SetMsg로 메세지 설정 후에 불러야 함
     private Sprite lastSprite;
-    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool firstCall = false, bool calledByEnemy = false, bool forcePlayer = false, bool forceEnemy = false, Sprite spr = null) // TODO : 올라오는것에 버그가 있음
+    public void CallNoticeUI(bool calledAtEndOfTurn = false, bool firstCall = false, bool calledByEnemy = false, bool forcePlayer = false, bool forceEnemy = false, Sprite spr = null, bool forceOpen = false)
     {
         if (firstCall)
         {
-            if(isClosed)
+            if(forceOpen)
+            {
                 OpenClose();
+            }
+            else if(isClosed)
+            {
+                OpenClose();
+            }
         }
         isClosed = false;
 
@@ -143,6 +149,7 @@ public class NoticeUI : MonoBehaviour
             OpenClose();
 
             if (endofturn && !isClosed) { TurnManager.instance.EndTurn(); isClosed = true; }
+            else { isClosed = true; }
             return;
         }
         CallNoticeUI(endofturn, false, isAiUsing, forcePlayer, forceEnemy, lastSprite);

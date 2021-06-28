@@ -30,7 +30,10 @@ public class SelectBtn : MonoBehaviour
     {
         input = FindObjectOfType<MenuKeyInput>();
 
-        curPosIdx = 0;
+        curPosIdx   = 0;
+        onAnimation = false;
+
+        #region AddListener
 
         btnMenus[0].onClick.AddListener(() =>
         {
@@ -40,6 +43,8 @@ public class SelectBtn : MonoBehaviour
                 curPosIdx = 0;
                 return;
             }
+
+            DOTween.Clear();
             UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(input.konami ? "Loading" : "MainStory");
         });
         
@@ -67,8 +72,10 @@ public class SelectBtn : MonoBehaviour
 #endif
             Application.Quit(0);
         });
+        #endregion
+        #region Delegate Init
 
-        menuFunc[0] = () => { UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(input.konami ? "Loading" : "MainStory"); };
+        menuFunc[0] = () => { DOTween.Clear(); UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(input.konami ? "Loading" : "MainStory"); };
         menuFunc[1] = () => { };
         menuFunc[2] = () =>
         {
@@ -77,8 +84,8 @@ public class SelectBtn : MonoBehaviour
 #endif
             Application.Quit(0); 
         };
+        #endregion
 
-        onAnimation = false;
     }
 
     void Update()

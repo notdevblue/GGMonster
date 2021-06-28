@@ -167,7 +167,7 @@ public class AIBase : CharactorBase
     private void ThinkComplete()
     {
         CheckMyStatus();
-        UseItem();
+        if (UseItem()) return;
         UseSkill();
     }
     
@@ -185,16 +185,17 @@ public class AIBase : CharactorBase
         skillList.Skill(SelectSkill());
     }
 
-    private void UseItem()
+    private bool UseItem()
     {
-        ProvokeItem();
-        RecoveryItem();
+        if (RecoveryItem()) return true;
+        if (ProvokeItem()) return true;
+        return false;
 
         #region Function inside Function
 
-        void ProvokeItem()
+        bool ProvokeItem()
         {
-            if(!stat.provoke || stat.provItemCnt < 1) { return; }
+            if(!stat.provoke || stat.provItemCnt < 1) { return false; }
             int probSave = (aiStat.isHighProvoke ? onHighProvokeItemUseProb : onProvokeItemUseProb);
             int provokeProb = aiStat.lowHp ? probSave * onLowHpProvokeItemUseMul : probSave;
 
@@ -202,19 +203,25 @@ public class AIBase : CharactorBase
             if (Random.Range(0, 100) > provokeProb)
             {
                 item.ResetProvokeCount(stat);
+                return true;
             }
+
+            return false;
         }
 
-        void RecoveryItem()
+        bool RecoveryItem()
         {
-            if(stat.healItemCnt < 1) { return; }
+            if(stat.healItemCnt < 1) { return false; }
             // ¿À¿ì
             int hpProb = ((aiStat.exLowHpAmount >= stat.curHp) ? onExtremelyLowHpUseProb : (aiStat.lowHp ? onLowHpItemUseProb : 154));
 
             if(Random.Range(0, 100) > hpProb)
             {
                 item.Heal(stat);
+                return true;
             }
+
+            return false;
         }
         #endregion
     }

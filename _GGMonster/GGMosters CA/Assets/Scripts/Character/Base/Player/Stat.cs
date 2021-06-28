@@ -37,7 +37,7 @@ public class Stat : MonoBehaviour
     [HideInInspector] public readonly int       ProvMissRate  = 15;                 // 도발 미스율
     [HideInInspector] public readonly int       missRate      = 5;                  // 미스율
     [HideInInspector] public          int       healItemCnt   = 3;                  // 힐 아이탬 소지 수
-    [HideInInspector] public readonly int       healAmout     = 10;                 // 힐 아이탬 힐량
+    [HideInInspector] public readonly int       healAmout     = 20;                 // 힐 아이탬 힐량
     [HideInInspector] public          int       provItemCnt   = 1;                  // 도발 스텟 초기화 아이탬 소지 수
     [HideInInspector] public readonly int       provUseCost   = 5;                  // 도발 스켓 초기화 아이탬 데미지 양
                       public          ClassType myType        = ClassType.NOTYPE;   // 내 타입
