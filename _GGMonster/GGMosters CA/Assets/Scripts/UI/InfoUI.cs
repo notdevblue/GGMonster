@@ -28,15 +28,22 @@ public class InfoUI : MonoBehaviour
         infoObject.position = closePos.position;
         btnClose.onClick.AddListener(Close); // 자신을 눌렀을 경우 닫아줌
     }
+
+    bool isClosing = false;
     private void Close()
     {
-        infoObject.DOMove(closePos.position, moveDur).SetEase(Ease.InCubic).OnComplete(() =>{ isOpen = false; });
+        if (isClosing) return;
+
+        isClosing = true;
+        infoObject.DOMove(closePos.position, moveDur).SetEase(Ease.InCubic).OnComplete(() =>{ isOpen = false; isClosing = false; });
         prevItemData = null;
         prevSkillData = null;
     }
 
     public void CallItemInfo(ItemData data)
     {
+        if (isClosing) return;
+
         if(prevItemData != data)
         {
             if (isOpen)
@@ -52,6 +59,8 @@ public class InfoUI : MonoBehaviour
     }
     public void CallSkillInfo(SkillData data)
     {
+        if (isClosing) return;
+
         if(prevSkillData != data)
         {
             if (isOpen)
@@ -62,7 +71,6 @@ public class InfoUI : MonoBehaviour
             {
                 SetAndOpen(data);
             }
-
         }
         prevSkillData = data;
     }
@@ -90,18 +98,15 @@ public class InfoUI : MonoBehaviour
 
     private void SetPopupData(SkillData data)
     {
-        string effectiveClass;
-        string continues;
-        string damage;
-
         // 한줄로 만들고 싶은 욕망이 불러 이르킨 참사
+        string effectiveClass = $"효과적인 타입: {(data.info.effectiveClass == Stat.ClassType.NOTYPE ? "없음" : data.info.effectiveClass.ToString()[0].ToString().ToUpper() + data.info.effectiveClass.ToString().Substring(1).ToLower())}\r\n효과적이지 않은 타입: {(data.info.uneffectiveClass == Stat.ClassType.NOTYPE ? "없음" : data.info.uneffectiveClass.ToString()[0].ToString().ToUpper() + data.info.uneffectiveClass.ToString().Substring(1).ToLower())}";
+        string continues      = $"{(data.info.isContinues ? $"{data.info.damage} 데미지가 {data.info.continuesCount} 번 나뉘어 들어갑니다." : "")}";
+        string damage         = $"{data.info.damage} 데미지를 가합니다.";
+
         skillName.text = data.name;
         skillInfo.text = data.info.info;
-        skillData.text = "";
-        effectiveClass = $"효과적인 타입: {(data.info.effectiveClass == Stat.ClassType.NOTYPE ? "없음" : data.info.effectiveClass.ToString()[0].ToString().ToUpper() + data.info.effectiveClass.ToString().Substring(1).ToLower())}\r\n효과적이지 않은 타입: {(data.info.uneffectiveClass == Stat.ClassType.NOTYPE ? "없음" : data.info.uneffectiveClass.ToString()[0].ToString().ToUpper() + data.info.uneffectiveClass.ToString().Substring(1).ToLower())}";
-        continues      = $"{(data.info.isContinues ? $"{data.info.damage} 데미지가 {data.info.continuesCount} 번 나뉘어 들어갑니다." : "")}";
-        damage         = $"{data.info.damage} 데미지를 가합니다.";
         skillData.text = $"{effectiveClass}\r\n{(continues != "" ? $"{continues}\r\n" : damage)}";
+
     }
     #endregion
 

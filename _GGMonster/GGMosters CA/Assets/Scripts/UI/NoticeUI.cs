@@ -41,6 +41,8 @@ public class NoticeUI : MonoBehaviour
     }
     #endregion
 
+    private bool isClosed = true;
+    private bool closing  = false;
 
     void Start()
     {
@@ -56,7 +58,8 @@ public class NoticeUI : MonoBehaviour
     {
         if (firstCall)
         {
-            OpenClose();
+            if(isClosed)
+                OpenClose();
         }
         isClosed = false;
 
@@ -131,8 +134,6 @@ public class NoticeUI : MonoBehaviour
         isOpen = !isOpen;
     }
 
-    private bool isClosed = false;
-    private bool closing = false;
     private void ContinueInfo()
     {
         if (closing) return;

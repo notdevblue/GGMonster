@@ -12,11 +12,19 @@ public class ItemData
     public ItemData(string name, string info, string stat) { this.name = name; this.info = info; this.stat = stat; }
 }
 
+public enum ItemEnum
+{
+    RiceBurger,
+    StrongElbow
+}
+
 
 public class Items : MonoBehaviour
 {
     [SerializeField] private Text playerDamageText;
     [SerializeField] private Text enemyDamageText;
+
+    public Dictionary<ItemEnum, ItemData> itemDictionary = new Dictionary<ItemEnum, ItemData>();
 
     public void Heal(Stat stat)
     {
