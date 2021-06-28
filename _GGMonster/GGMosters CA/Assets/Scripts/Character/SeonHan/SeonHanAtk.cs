@@ -97,7 +97,7 @@ public class SeonHanAtk : Skills
     public override void SkillE() // 샌드위치 구매하기 (SP 다 떨어진 경우)
     {
         // TODO : SkillE
-        BuySandwich();
+        NoticeUI.instance.SetMsg("선한쌤의 센드위치 구매하기!", BuySandwich);
     }
 
     // 렌덤한 스킬포인트 상승
@@ -105,6 +105,9 @@ public class SeonHanAtk : Skills
     {
         int index = Random.Range(0, 4);
         ++stat.sp_arr[index];
+
+        NoticeUI.instance.SetMsg($"{skillDataDictionary[selectedSkills[index]].name} 스킬을 다시 사용할 수 있다!");
+        NoticeUI.instance.CallNoticeUI(true, true, true, false, false);
     }
 
     #endregion
@@ -113,7 +116,8 @@ public class SeonHanAtk : Skills
     {
         if (TurnManager.instance.turn % salaryTurn == 0)
         {
-            //NoticeUI.instance.SetMsg("선한쌤의 월급 수령!");
+            NoticeUI.instance.SetMsg("선한쌤의 월급 받는 날!");
+            NoticeUI.instance.SetMsg("선한쌤의 월급 받는 날!");
             if (stat.curHp + salaryHp <= stat.maxHp)
             {
                 stat.curHp += salaryHp;
@@ -123,7 +127,7 @@ public class SeonHanAtk : Skills
                 NoticeUI.instance.SetMsg("앗 선한샘의 월급이 밀렸다...");
             }
 
-            //NoticeUI.instance.CallNoticeUI(false, true, true, false, true);
+            NoticeUI.instance.CallNoticeUI(false, true, true, false, true);
         }
     }
 }

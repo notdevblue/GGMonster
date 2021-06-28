@@ -75,7 +75,7 @@ abstract public class SkillBase : MonoBehaviour, ISkill
             Transform temp          = cvsBattle.transform.GetChild(0).GetChild(index);
             btnSkillArr[index]      = temp.GetComponent<Button>();
             txtSkillnameArr[index]  = temp.GetChild(0).GetComponent<Text>();
-            btnInfoArr[index]       = temp.GetChild(1).GetComponent<Button>();
+            btnInfoArr[index]       = temp.GetChild(2).GetComponent<Button>();
         }
 
         

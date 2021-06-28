@@ -88,8 +88,7 @@ public class HaEunAtk : Skills
 
     public override void SkillE() // 휴식하기 (SP 다 떨어진 경우)
     {
-        Debug.Log("HaEunAtk: 휴식하기");
-        RestAtHome();
+        NoticeUI.instance.SetMsg("하은쌤의 휴식하기!", RestAtHome);
     }
 
     // 스킬포인트 1 상승
@@ -99,6 +98,9 @@ public class HaEunAtk : Skills
         ++stat.sp_arr[1];
         ++stat.sp_arr[2];
         ++stat.sp_arr[3];
+
+        NoticeUI.instance.SetMsg("모든 스킬을 다시 한번 사용할 수 있다!");
+        NoticeUI.instance.CallNoticeUI(true, false, false, true, false);
     }
 
     #endregion
@@ -108,7 +110,8 @@ public class HaEunAtk : Skills
     {
         if (TurnManager.instance.turn % salaryTurn == 0)
         {
-            NoticeUI.instance.SetMsg("선생님의 월급 받는 날!");
+            NoticeUI.instance.SetMsg("하은쌤의 월급 받는 날!");
+            NoticeUI.instance.SetMsg("하은쌤의 월급 받는 날!");
             if (stat.curHp + salaryHp <= stat.maxHp)
             {
                 stat.curHp += salaryHp;

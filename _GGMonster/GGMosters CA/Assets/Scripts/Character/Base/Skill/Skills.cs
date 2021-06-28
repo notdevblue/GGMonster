@@ -82,10 +82,10 @@ abstract public partial class Skills : SkillBase
             new SkillData("알고리즘 과제 출제", AlgorithmHomework, skillSprite.skillSprite[SkillListEnum.AlgoHomework], new SkillInfo("알고리즘 과제를 내 줍니다.\r\n과제에 따라서 최대 두 배의 데미지를 입힙니다.", 12, Stat.ClassType.PROGRAMMER, Stat.ClassType.NOTYPE)));
         
         skillDataDictionary.Add(SkillListEnum.AmongUs,
-            new SkillData("어몽어스", Amongus, skillSprite.skillSprite[SkillListEnum.AmongUs], new SkillInfo("학생들과 어몽어스 플레이 도중 관심법을 이용하여 임포스터를 찾아냅니다.\r\n실패 확률이 60%, 성공 확률이 40%인 스킬입니다.", 50)));
+            new SkillData("어몽어스", Amongus, skillSprite.skillSprite[SkillListEnum.AmongUs], new SkillInfo("학생들과 어몽어스 플레이 도중 관심법을 이용하여 임포스터를 찾아냅니다.\r\n실패 확률이 90%, 성공 확률이 10%인 스킬입니다.", 100)));
         
         skillDataDictionary.Add(SkillListEnum.UnfriedMandu,
-            new SkillData("덜 익은 만두", UnFriedMandu, skillSprite.skillSprite[SkillListEnum.UnfriedMandu], new SkillInfo("덜 익은 만두를 식탁에 올립니다.", 20, Stat.ClassType.NOTYPE, Stat.ClassType.NOTYPE, true, 5)));
+            new SkillData("덜 익은 만두", UnFriedMandu, skillSprite.skillSprite[SkillListEnum.UnfriedMandu], new SkillInfo("덜 익은 만두를 식탁에 올립니다.", 30, Stat.ClassType.NOTYPE, Stat.ClassType.NOTYPE, true, 5)));
         
         skillDataDictionary.Add(SkillListEnum.HwanJu,
             new SkillData("환쥬바라기", HwanJu, skillSprite.skillSprite[SkillListEnum.HwanJu], new SkillInfo("환주 팬클럽을 설립힙니다.\r\n적이 환주라면 두 배의 데미지를 입힙니다.\r\n스킬이 실패하지 않습니다.", 15, Stat.ClassType.HWANJU, Stat.ClassType.NOTYPE)));
@@ -230,8 +230,8 @@ abstract public partial class Skills : SkillBase
         float rnd = Random.Range(0.0f, 100.0f);
         if (rnd > insta)
         {
-            NoticeUI.instance.SetMsg("이진트리 2번 출제! 데미지 10배!");
-            damageBoost = 10.0f;
+            NoticeUI.instance.SetMsg("이진트리 2번 출제! 데미지 15배!");
+            damageBoost = 15.0f;
         }
         else if (rnd > treeProv)
         {
