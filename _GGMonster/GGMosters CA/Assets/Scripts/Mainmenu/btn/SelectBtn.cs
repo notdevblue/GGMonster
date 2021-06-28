@@ -26,6 +26,11 @@ public class SelectBtn : MonoBehaviour
     // 페이드 아웃
     [SerializeField] private Image fader = null;
 
+    // 여기 있으면 안되지만
+    // 전채화면 코드
+    bool isFullscreen = true;
+
+
     void Start()
     {
         input = FindObjectOfType<MenuKeyInput>();
@@ -45,7 +50,7 @@ public class SelectBtn : MonoBehaviour
             }
 
             DOTween.Clear();
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(input.konami ? "Loading" : "MainStory");
+            menuFunc[0]();
         });
         
         btnMenus[1].onClick.AddListener(() =>
@@ -57,6 +62,8 @@ public class SelectBtn : MonoBehaviour
                 return;
             }
 
+            menuFunc[1]();
+
         });
 
         btnMenus[2].onClick.AddListener(() =>
@@ -67,16 +74,13 @@ public class SelectBtn : MonoBehaviour
                 curPosIdx = 2;
                 return;
             }
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
-            Application.Quit(0);
+            menuFunc[2]();
         });
         #endregion
         #region Delegate Init
 
         menuFunc[0] = () => { DOTween.Clear(); UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(input.konami ? "Loading" : "MainStory"); };
-        menuFunc[1] = () => { };
+        menuFunc[1] = () => { isFullscreen = !isFullscreen;  Screen.SetResolution(isFullscreen ? 1920 : 1280, isFullscreen ? 1080 : 720, isFullscreen); };
         menuFunc[2] = () =>
         {
 #if UNITY_EDITOR

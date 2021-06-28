@@ -19,6 +19,13 @@ public enum SkillListEnum
     GudiAkgae,
     HAEUNEND,
 
+    //ScoreDiscount,
+    //SHIBAEND,
+
+
+    //MenTwi,
+    //HWANJUEND,
+
     WaterAttack,
     DEFAULTEND
 }
@@ -82,7 +89,7 @@ abstract public partial class Skills : SkillBase
             new SkillData("알고리즘 과제 출제", AlgorithmHomework, skillSprite.skillSprite[SkillListEnum.AlgoHomework], new SkillInfo("알고리즘 과제를 내 줍니다.\r\n과제에 따라서 최대 두 배의 데미지를 입힙니다.", 12, Stat.ClassType.PROGRAMMER, Stat.ClassType.NOTYPE)));
         
         skillDataDictionary.Add(SkillListEnum.AmongUs,
-            new SkillData("어몽어스", Amongus, skillSprite.skillSprite[SkillListEnum.AmongUs], new SkillInfo("학생들과 어몽어스 플레이 도중 관심법을 이용하여 임포스터를 찾아냅니다.\r\n실패 확률이 90%, 성공 확률이 10%인 스킬입니다.", 100)));
+            new SkillData("어몽어스", Amongus, skillSprite.skillSprite[SkillListEnum.AmongUs], new SkillInfo("학생들과 어몽어스 플레이 도중 관심법을 이용하여 임포스터를 찾아냅니다.\r\n실패 확률이 90%, 성공 확률이 10%인 스킬입니다.", 90)));
         
         skillDataDictionary.Add(SkillListEnum.UnfriedMandu,
             new SkillData("덜 익은 만두", UnFriedMandu, skillSprite.skillSprite[SkillListEnum.UnfriedMandu], new SkillInfo("덜 익은 만두를 식탁에 올립니다.", 30, Stat.ClassType.NOTYPE, Stat.ClassType.NOTYPE, true, 5)));
@@ -92,6 +99,9 @@ abstract public partial class Skills : SkillBase
         
         skillDataDictionary.Add(SkillListEnum.GudiAkgae,
             new SkillData("구디악개", GudiAkGae, skillSprite.skillSprite[SkillListEnum.GudiAkgae], new SkillInfo("구디 악성 개인 팬클럽 회장이 됩니다.\r\n적이 구디라면 두 배의 데미지를 입힙니다.\r\n스킬이 실패하지 않습니다.", 15, Stat.ClassType.GUDIGAN, Stat.ClassType.NOTYPE)));
+
+    //    skillDataDictionary.Add(SkillListEnum.ScoreDiscount,
+    //        new SkillData("점수 할인", ScoreDiscount, skillSprite.skillSprite[SkillListEnum.ScoreDiscount], new SkillInfo("상대방의 점수를 할인합니다.\r\n상대방의 보유 채력 중 50%을 할인힙니다.", 154)));
     }
 
     #endregion
@@ -273,7 +283,7 @@ abstract public partial class Skills : SkillBase
 
         --skillPoint;
 
-        if(Random.Range(0, 100) < 60)
+        if(Random.Range(0, 100) < 90)
         {
             SkillFailedRoutine(SkillListEnum.AmongUs);
             return;
@@ -311,6 +321,22 @@ abstract public partial class Skills : SkillBase
     }
 
     #endregion
+}
+
+// 한승쌤 스킬
+abstract public partial class Skills : SkillBase
+{
+    //private void ScoreDiscount(ref int skillPoint)
+    //{
+    //    --skillPoint;
+    //    if (!SkillSuccess())
+    //    {
+    //        SkillFailedRoutine(SkillListEnum.ScoreDiscount);
+    //        return;
+    //    }
+
+        
+    //}
 }
 
 // 공용 스킬

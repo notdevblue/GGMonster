@@ -142,8 +142,8 @@ public class HealthUI : MonoBehaviour
     // HP 바 값, 수치 리셋
     private void ResetHPBar()
     {
-        hpBar[(int)ArrayEnum.Player].DOValue(stat.curHp, decDur);
-        hpBar[(int)ArrayEnum.Enemy].DOValue(stat.enemyStat.curHp, decDur);
+        hpBar[(int)ArrayEnum.Player].DOValue(stat.curHp, decDur + (hpBar[(int)ArrayEnum.Player].value - stat.curHp) / 50);
+        hpBar[(int)ArrayEnum.Enemy].DOValue(stat.enemyStat.curHp, decDur + (hpBar[(int)ArrayEnum.Player].value - stat.curHp) / 50);
 
         hpTextArr[(int)ArrayEnum.Player].text = $"HP : {stat.curHp} / {stat.maxHp}";
         hpTextArr[(int)ArrayEnum.Enemy].text  = $"HP : {stat.enemyStat.curHp} / {stat.enemyStat.maxHp}";
