@@ -7,6 +7,8 @@ using DG.Tweening;
 public class SelectBtn : MonoBehaviour
 {
     private MenuKeyInput input = null;
+    private WindowEffects window = null;
+
 
     // 버튼 이동 관련
     [SerializeField] private float           moveDur         = 0.2f;
@@ -33,7 +35,8 @@ public class SelectBtn : MonoBehaviour
 
     void Start()
     {
-        input = FindObjectOfType<MenuKeyInput>();
+        input  = FindObjectOfType<MenuKeyInput>();
+        window = FindObjectOfType<WindowEffects>();
 
         curPosIdx   = 0;
         onAnimation = false;

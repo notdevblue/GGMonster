@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class WindowCore : MonoBehaviour
+abstract public class WindowCore : MonoBehaviour
 {
     #region WinAPI import
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
@@ -46,10 +46,15 @@ public class WindowCore : MonoBehaviour
         SetWindowPos(activeHwnd, 0, pos.x, pos.y, screen.x, screen.y, 1);
     }
 
-    // Returns currnet application's window postiion
-    protected void GetLocation()
+    ///<summary>
+    /// Returns currnet application's window postiion
+    ///</summary>
+    protected Vector2Int GetLocation()
     {
-        //GetWindowRect(activeHwnd, out rc)
+        RECT rect;
+        GetWindowRect(new HandleRef(this, this.activeHwnd), out rect);
+
+        return new Vector2Int(rect.Right - rect.Left, rect.Bottom - rect.Top);
     }
 
     // Has current window's handle

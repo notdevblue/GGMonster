@@ -35,6 +35,8 @@ public class WindowEffects : WindowCore
         while (degree < Mathf.PI / 2.0f)
         {
             degree += speed; // TODO : 끝내지 않음
+            
+
             //SetLocation();
         }
     }
@@ -50,13 +52,15 @@ public class WindowEffects : WindowCore
     /// <returns></returns>
     public IEnumerator UpBounce(float speed, float amount, WindowCallBack callback = null)
     {
+        Vector2Int pos = GetLocation();
+
         float degree = 0.0f;
         speed /= 100.0f;
 
         while (degree < Mathf.PI)
         {
             degree += speed;
-            SetLocation(MidPosX, MidPosY - (int)(Mathf.Sin(degree) * amount)); // TODO : 위치
+            SetLocation(pos.x, pos.y - (int)(Mathf.Sin(degree) * amount)); // TODO : 위치
             yield return wait;
         }
 
@@ -72,13 +76,15 @@ public class WindowEffects : WindowCore
     /// <returns></returns>
     public IEnumerator DownBounce(float speed, float amount, WindowCallBack callback = null)
     {
+        Vector2Int pos = GetLocation();
+
         float degree = 0.0f;
         speed /= 100.0f;
 
         while (degree < Mathf.PI)
         {
             degree += speed;
-            SetLocation(MidPosX, MidPosY + (int)(Mathf.Sin(degree) * amount));
+            SetLocation(pos.x, pos.y + (int)(Mathf.Sin(degree) * amount));
             yield return wait;
         }
 
@@ -94,13 +100,15 @@ public class WindowEffects : WindowCore
     /// <returns></returns>
     public IEnumerator RightBounce(float speed, float amount, WindowCallBack callback = null)
     {
+        Vector2Int pos = GetLocation();
+
         float degree = 0.0f;
         speed /= 100.0f;
 
         while (degree < Mathf.PI)
         {
             degree += speed;
-            SetLocation(MidPosX + (int)(Mathf.Sin(degree) * amount), MidPosY);
+            SetLocation(pos.x + (int)(Mathf.Sin(degree) * amount), pos.y);
             yield return wait;
         }
 
@@ -116,13 +124,15 @@ public class WindowEffects : WindowCore
     /// <returns></returns>
     public IEnumerator LeftBounce(float speed, float amount, WindowCallBack callback = null)
     {
+        Vector2Int pos = GetLocation();
+
         float degree = 0.0f;
         speed /= 100.0f;
 
         while (degree < Mathf.PI)
         {
             degree += speed;
-            SetLocation(MidPosX - (int)(Mathf.Sin(degree) * amount), MidPosY);
+            SetLocation(pos.x - (int)(Mathf.Sin(degree) * amount), pos.y);
             yield return wait;
         }
 
@@ -136,7 +146,6 @@ public class WindowEffects : WindowCore
     /// </summary>
     /// <param name="pos">이동시킬 위치</param>
     /// <param name="speed">이동 속도</param>
-    /// <param name="callBack"></param>
     /// <param name="snap">에니에이션 없이 이동 여부</param>
     /// <returns></returns>
     public IEnumerator MoveWindow(Vector2Int pos, float speed, bool snap = false)
