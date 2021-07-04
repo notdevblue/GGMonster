@@ -7,6 +7,13 @@ public class WindowEffects : WindowCore
     private WaitForEndOfFrame wait = new WaitForEndOfFrame();
 
 
+    /*
+    Pre-maded effects for your convenience
+
+    Have fun :3
+    */
+
+
     // TODO : Coroutine 으로 호출해야 한다는 매우 귀찮은 단점이 존재함
 
     /// <summary>
@@ -16,7 +23,7 @@ public class WindowEffects : WindowCore
     /// <param name="callBack"></param>
     /// <param name="snap">에니에이션 없이 이동 여부</param>
     /// <returns></returns>
-    
+
     //public WindowCallback ToMiddle(float speed, bool snap = false)
     //{
 
@@ -50,7 +57,11 @@ public class WindowEffects : WindowCore
     /// <param name="amount">바운스 될 거리</param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public IEnumerator UpBounce(float speed, float amount, WindowCallBack callback = null)
+    public void BounceUp(float speed, float amount, WindowCallBack callback = null)
+    {
+        StartCoroutine(UpBounce(speed, amount, callback));
+    }
+    private IEnumerator UpBounce(float speed, float amount, WindowCallBack callback = null)
     {
         Vector2Int pos = GetLocation();
 
@@ -74,7 +85,11 @@ public class WindowEffects : WindowCore
     /// <param name="amount">바운스 될 거리</param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public IEnumerator DownBounce(float speed, float amount, WindowCallBack callback = null)
+    public void BounceDown(float speed, float amount, WindowCallBack callback = null)
+    {
+        StartCoroutine(DownBounce(speed, amount, callback));
+    }
+    private IEnumerator DownBounce(float speed, float amount, WindowCallBack callback = null)
     {
         Vector2Int pos = GetLocation();
 
@@ -98,7 +113,11 @@ public class WindowEffects : WindowCore
     /// <param name="amount">바운스 될 거리</param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public IEnumerator RightBounce(float speed, float amount, WindowCallBack callback = null)
+    public void BounceRight(float speed, float amount, WindowCallBack callback = null)
+    {
+        StartCoroutine(RightBounce(speed, amount, callback));
+    }
+    private IEnumerator RightBounce(float speed, float amount, WindowCallBack callback = null)
     {
         Vector2Int pos = GetLocation();
 
@@ -122,7 +141,11 @@ public class WindowEffects : WindowCore
     /// <param name="amount">바운스 될 거리</param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public IEnumerator LeftBounce(float speed, float amount, WindowCallBack callback = null)
+    public void BounceLeft(float speed, float amount, WindowCallBack callback = null)
+    {
+        StartCoroutine(LeftBounce(speed, amount, callback));
+    }
+    private IEnumerator LeftBounce(float speed, float amount, WindowCallBack callback = null)
     {
         Vector2Int pos = GetLocation();
 

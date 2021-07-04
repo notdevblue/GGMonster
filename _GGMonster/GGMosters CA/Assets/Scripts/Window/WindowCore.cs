@@ -13,12 +13,15 @@ abstract public class WindowCore : MonoBehaviour
 
     [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
     private static extern bool SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
+
     [DllImport("user32.dll", EntryPoint = "FindWindow")]
     private static extern IntPtr FindWindow(string className, string windowName);
 
     [DllImport("user32.dll")]
     private static extern bool GetWindowRect(HandleRef hwnd, out RECT lpRect);
 
+    [DllImport("user32.dll", SetLastError = true)]
+    internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
 
     [StructLayout(LayoutKind.Sequential)]
     public struct RECT
@@ -33,28 +36,87 @@ abstract public class WindowCore : MonoBehaviour
 
     // Sets current application's window position
     // do not work when fullscreen
-    protected void SetLocation(int xPos, int yPos, int xScale = 1280, int yScale = 720)
+
+    /// <summary>
+    /// Changes Location of application
+    /// </summary>
+    /// <param name="xPos">x position of target location</param>
+    /// <param name="yPos">y position of target location</param>
+    /// <param name="xScale">not using</param>
+    /// <param name="yScale">not using</param>
+    public void SetLocation(int xPos, int yPos, int xScale = 1280, int yScale = 720)
     {
         SetWindowPos(activeHwnd, 0, xPos, yPos, xScale, yScale, 1);
     }
-    protected void SetLocation(Vector2Int pos, int xScale = 1280, int yScale = 720)
+    /// <summary>
+    /// Changes Location of application
+    /// </summary>
+    /// <param name="pos">Position of target location</param>
+    /// <param name="xScale">not using</param>
+    /// <param name="yScale">not using</param>
+    public void SetLocation(Vector2Int pos, int xScale = 1280, int yScale = 720)
     {
         SetWindowPos(activeHwnd, 0, pos.x, pos.y, xScale, yScale, 1);
     }
-    protected void SetLocation(Vector2Int pos, Vector2Int screen)
+    /// <summary>
+    /// ## Do not use ## Changes Location of application
+    /// </summary>
+    public void SetLocation(Vector2Int pos, Vector2Int screen)
     {
         SetWindowPos(activeHwnd, 0, pos.x, pos.y, screen.x, screen.y, 1);
     }
 
+    /// <summary>
+    /// Changes size of application
+    /// </summary>
+    /// <param name="x">x size of application</param>
+    /// <param name="y">y size of application</param>
+    public void SetWindowSize(int x, int y)
+    {
+        Vector2Int curLot = GetLocation();
+        MoveWindow(activeHwnd, curLot.x, curLot.y, x, y, true);
+    }
+    /// <summary>
+    /// Changes size of application
+    /// </summary>
+    /// <param name="size">size of application</param>
+    public void SetWindowSize(Vector2Int size)
+    {
+        Vector2Int location = GetLocation();
+        MoveWindow(activeHwnd, location.x, location.y, size.x, size.y, true);
+    }
+    /// <summary>
+    /// Chagnes size of application
+    /// </summary>
+    /// <param name="x">x size of application</param>
+    /// <param name="y">y size of application</param>
+    /// <param name="xSize">x location of application</param>
+    /// <param name="ySize">y location of application</param>
+    public void SetWindowSize(int x, int y, int xSize, int ySize)
+    {
+        MoveWindow(activeHwnd, xSize, ySize, x, y, true);
+    }
+    /// <summary>
+    /// Changes size of application
+    /// </summary>
+    /// <param name="size">size of application</param>
+    /// <param name="location">location of application</param>
+    public void SetWindowSize(Vector2Int size, Vector2Int location)
+    {
+        MoveWindow(activeHwnd, location.x, location.y, size.x, size.y, true);
+    }
+
+    
+
     ///<summary>
     /// Returns currnet application's window postiion
     ///</summary>
-    protected Vector2Int GetLocation()
+    public Vector2Int GetLocation()
     {
         RECT rect;
         GetWindowRect(new HandleRef(this, this.activeHwnd), out rect);
 
-        return new Vector2Int(rect.Right - rect.Left, rect.Bottom - rect.Top);
+        return new Vector2Int(rect.Left, rect.Top);
     }
 
     // Has current window's handle

@@ -23,7 +23,10 @@ public class SelectBtn : MonoBehaviour
 
     // 선택 에니메이션 관련
     [SerializeField] private float selectMoveAmount = 0.4f;
+    [SerializeField] private float animSpeed = 2.0f;
+    [SerializeField] private float bounceAmount = 100.0f;
                      public  bool  onAnimation      { get; private set; }
+
 
     // 페이드 아웃
     [SerializeField] private Image fader = null;
@@ -41,49 +44,10 @@ public class SelectBtn : MonoBehaviour
         curPosIdx   = 0;
         onAnimation = false;
 
-        #region AddListener
-
-        btnMenus[0].onClick.AddListener(() =>
-        {
-            if (curPosIdx % 3 != 0)
-            {
-                transform.DOMove(targetLocations[0].position, moveDur);
-                curPosIdx = 0;
-                return;
-            }
-
-            DOTween.Clear();
-            menuFunc[0]();
-        });
-        
-        btnMenus[1].onClick.AddListener(() =>
-        {
-            if (curPosIdx % 3 != 1)
-            {
-                transform.DOMove(targetLocations[1].position, moveDur);
-                curPosIdx = 1;
-                return;
-            }
-
-            menuFunc[1]();
-
-        });
-
-        btnMenus[2].onClick.AddListener(() =>
-        {
-            if (curPosIdx % 3 != 2)
-            {
-                transform.DOMove(targetLocations[2].position, moveDur);
-                curPosIdx = 2;
-                return;
-            }
-            menuFunc[2]();
-        });
-        #endregion
         #region Delegate Init
 
         menuFunc[0] = () => { DOTween.Clear(); UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(input.konami ? "Loading" : "MainStory"); };
-        menuFunc[1] = () => { isFullscreen = !isFullscreen;  Screen.SetResolution(isFullscreen ? 1920 : 1280, isFullscreen ? 1080 : 720, isFullscreen); };
+        menuFunc[1] = () => {  };
         menuFunc[2] = () =>
         {
 #if UNITY_EDITOR
@@ -108,11 +72,33 @@ public class SelectBtn : MonoBehaviour
     {
         if(input.inputUp)
         {
-            transform.DOMove(targetLocations[curPosIdx <= 0 ? curPosIdx = 2 : --curPosIdx % 3].position, moveDur);
+            if(curPosIdx <= 0)
+            {
+                curPosIdx = 2;
+                transform.DOMove(targetLocations[curPosIdx].position, moveDur);
+                window.BounceUp(animSpeed, bounceAmount, () => { window.BounceDown(animSpeed, bounceAmount); });
+            }
+            else
+            {
+                transform.DOMove(targetLocations[--curPosIdx % 3].position, moveDur);
+                window.BounceUp(animSpeed, bounceAmount);
+            }
         }
         if(input.inputDown)
         {
-            transform.DOMove(targetLocations[++curPosIdx % 3].position, moveDur);
+            if (curPosIdx >= 2)
+            {
+                curPosIdx = 0;
+                transform.DOMove(targetLocations[curPosIdx].position, moveDur);
+                window.BounceDown(animSpeed, bounceAmount, () => { window.BounceUp(animSpeed, bounceAmount); });
+            }
+            else
+            {
+                transform.DOMove(targetLocations[++curPosIdx % 3].position, moveDur);
+                window.BounceDown(animSpeed, bounceAmount);
+            }
+
+
         }
     }
 
@@ -131,15 +117,18 @@ public class SelectBtn : MonoBehaviour
     private void SelectAnimation()
     {
         // 신 전환 에니메이션
-        if(curPosIdx % 3 == 0)
+        if (curPosIdx % 3 == 0)
         {
             fader.DOFade(1, moveDur);
         }
 
+        // 창 움직임
+        window.BounceRight(animSpeed, bounceAmount / 2.0f, () => { onAnimation = false; menuFunc[curPosIdx % 3](); });
+
         // 선택
         transform.DOMoveX(transform.position.x + selectMoveAmount, moveDur / 2.0f).OnComplete(() =>
-            { transform.DOMoveX(transform.position.x - selectMoveAmount, moveDur / 2.0f).OnComplete(() =>
-            { onAnimation = false; menuFunc[curPosIdx % 3](); });
+        {
+                transform.DOMoveX(transform.position.x - selectMoveAmount, moveDur / 2.0f);
         });
     }
 

@@ -1986,10 +1986,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1978005833}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1add7a533991a4e40832da74be32d53c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7311dbda7052d3c4590fbae94057463b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 275283093}
 --- !u!1 &2063280327
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,4 +2087,6 @@ MonoBehaviour:
   - {fileID: 572427183}
   - {fileID: 97588867}
   selectMoveAmount: 0.2
+  animSpeed: 20
+  bounceAmount: 30
   fader: {fileID: 1371958641}
