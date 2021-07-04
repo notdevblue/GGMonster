@@ -117,7 +117,6 @@ public class SeonHanAtk : Skills
         if (TurnManager.instance.turn % salaryTurn == 0)
         {
             NoticeUI.instance.SetMsg("선한쌤의 월급 받는 날!");
-            NoticeUI.instance.SetMsg("선한쌤의 월급 받는 날!");
             if (stat.curHp + salaryHp <= stat.maxHp)
             {
                 stat.curHp += salaryHp;
@@ -127,7 +126,12 @@ public class SeonHanAtk : Skills
                 NoticeUI.instance.SetMsg("앗 선한샘의 월급이 밀렸다...");
             }
 
-            NoticeUI.instance.CallNoticeUI(false, true, true, false, true);
+            Invoke(nameof(Wait), 1.0f);
         }
+    }
+
+    private void Wait()
+    {
+        NoticeUI.instance.CallNoticeUI(false, true, true, false, true);
     }
 }
