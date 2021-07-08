@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindowCallback : MonoBehaviour
+public class WCallback : MonoBehaviour
 {
     // callback delegate
     public delegate void WindowCallBack();

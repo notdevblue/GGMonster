@@ -21,12 +21,12 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
-        if(input.inputUp || input.inputDown)
+        if(!SelectBtn.onAnimation && (input.inputUp || input.inputDown))
         {
             PlaySound();
         }
 
-        if(!select.isPlaying && (input.inputSelect || input.inputRight))
+        if(!select.isPlaying && !SelectBtn.onAnimation && (input.inputSelect || input.inputRight))
         {
             select.Play();
         }

@@ -5,11 +5,13 @@ using UnityEngine;
 public class CharactorDamage : MonoBehaviour, IDamageable
 {
     [SerializeField] private UnityEngine.UI.Text damageText = null;
+    [SerializeField] private float shakeSpeed = 120.0f;
 
 
-    private Stat         stat         = null;
-    private HealthUI     healthUI     = null;
-    private SkillManager skillManager = null;
+    private WindowEffects effects      = null;
+    private Stat          stat         = null;
+    private HealthUI      healthUI     = null;
+    private SkillManager  skillManager = null;
 
     private int decredDmg = 0;
     private int damage = 0;
@@ -38,11 +40,12 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         if (stop) UnityEditor.EditorApplication.isPlaying = false;
 #endif
         #endregion
-        
     }
 
     private void Start()
     {
+        effects = FindObjectOfType<WindowEffects>();
+
         TurnManager.instance.midturnTasks.Add(CheckDead);
         TurnManager.instance.turnEndTasks.Add(TickDamage);
         TurnManager.instance.turnEndTasks.Add(CheckDead);
@@ -78,6 +81,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
 
         if (!isHeal)
         {
+            effects.ShakeX(shakeSpeed, damage * 1.5f, 2);
             StartCoroutine(DamageEffects.instance.ShakeEffect(damage, transform));
             DamageEffects.instance.TextEffect(damage, damageText);
         }
@@ -109,7 +113,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         {
             --stat.tickDamageCount;
             stat.curHp -= stat.tickDamage;
-            
+            effects.ShakeX(shakeSpeed, stat.tickDamage * 1.5f, 2);
         }
     }
 
@@ -130,7 +134,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         if (stat.curHp < 1 && !stat.isDead && !stat.enemyStat.isDead)
         {
             NoticeUI.instance.SetMsg($"{stat.charactorName}은 쓰러졌다!");
-            NoticeUI.instance.SetMsg($"앗 아아아...");
+            NoticeUI.instance.SetMsg($"앗 아아아...", () => { effects.ShakeY(25, 70, 1); });
             NoticeUI.instance.SetMsg($"앗 아아아...", healthUI.Dead);
             stat.isDead = true;
             NoticeUI.instance.CallNoticeUI(true, true, stat.enemyStat.isDead, false, false, null, true);
