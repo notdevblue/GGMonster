@@ -12,7 +12,7 @@ public class SelectBtn : MonoBehaviour
 
     // 버튼 이동 관련
     [SerializeField] private float           moveDur         = 0.2f;
-                     private float           originX;
+                     private RectTransform   originPos;
     [SerializeField] private RectTransform[] targetLocations = new RectTransform[3];
                      private int             curPosIdx       = 0;
     [SerializeField] private Button[]        btnMenus        = new Button[3];
@@ -34,14 +34,12 @@ public class SelectBtn : MonoBehaviour
 
     void Start()
     {
-        input  = FindObjectOfType<MenuKeyInput>();
-        window = FindObjectOfType<WindowEffects>();
-
+        input     = FindObjectOfType<MenuKeyInput>();
+        window    = FindObjectOfType<WindowEffects>();
+        originPos = GetComponent<RectTransform>();
         curPosIdx   = 0;
         onAnimation = false;
 
-        // 선택 버튼을 광클하는 경우 조금씩 오른쪽으로 가는 버그가 있기 때문
-        originX = transform.position.x;
 
         #region Delegate Init
 
@@ -62,6 +60,9 @@ public class SelectBtn : MonoBehaviour
         window.ToWindowed(1280, 720, 0, true);
         window.ResetPositionVar();
         window.Middle(0, true);
+
+        // 선택 버튼을 광클하는 경우 조금씩 오른쪽으로 가는 버그가 있기 때문
+        originPos.position = targetLocations[0].position;
     }
 
     void Update()
@@ -135,9 +136,9 @@ public class SelectBtn : MonoBehaviour
         window.BounceRight(animSpeed, bounceAmount / 2.0f, () => { onAnimation = false; window.Middle(0, true); menuFunc[curPosIdx % 3](); });
 
         // 선택
-        transform.DOMoveX(originX + selectMoveAmount, moveDur / 2.0f).OnComplete(() =>
+        transform.DOMoveX(originPos.position.x + selectMoveAmount, moveDur / 2.0f).OnComplete(() =>
         {
-                transform.DOMoveX(originX, moveDur / 2.0f);
+                transform.DOMoveX(originPos.position.x, moveDur / 2.0f);
         });
     }
 
