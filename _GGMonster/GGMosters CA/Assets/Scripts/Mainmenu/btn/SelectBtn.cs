@@ -32,11 +32,12 @@ public class SelectBtn : MonoBehaviour
     // 페이드 아웃
     [SerializeField] private Image fader = null;
 
+    float temp = 0.0f;
     void Start()
     {
-        input     = FindObjectOfType<MenuKeyInput>();
-        window    = FindObjectOfType<WindowEffects>();
-        originPos = GetComponent<RectTransform>();
+        input       = FindObjectOfType<MenuKeyInput>();
+        window      = FindObjectOfType<WindowEffects>();
+        originPos   = GetComponent<RectTransform>();
         curPosIdx   = 0;
         onAnimation = false;
 
@@ -62,7 +63,7 @@ public class SelectBtn : MonoBehaviour
         window.Middle(0, true);
 
         // 선택 버튼을 광클하는 경우 조금씩 오른쪽으로 가는 버그가 있기 때문
-        originPos.position = targetLocations[0].position;
+        temp = originPos.position.x;
     }
 
     void Update()
@@ -136,9 +137,9 @@ public class SelectBtn : MonoBehaviour
         window.BounceRight(animSpeed, bounceAmount / 2.0f, () => { onAnimation = false; window.Middle(0, true); menuFunc[curPosIdx % 3](); });
 
         // 선택
-        transform.DOMoveX(originPos.position.x + selectMoveAmount, moveDur / 2.0f).OnComplete(() =>
+        transform.DOMoveX(temp + selectMoveAmount, moveDur / 2.0f).OnComplete(() =>
         {
-                transform.DOMoveX(originPos.position.x, moveDur / 2.0f);
+                transform.DOMoveX(temp, moveDur / 2.0f);
         });
     }
 
