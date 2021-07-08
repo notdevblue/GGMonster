@@ -43,6 +43,8 @@ public class HaEunAtk : Skills
         {
             isAI = true;
         }
+
+        salaryTurn = stat.startFirst ? 12 : 13;
     }
 
 
