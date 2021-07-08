@@ -6573,6 +6573,19 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3006894005761078380, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
+      propertyPath: m_Text
+      value: "    \uC7AC\uBB38\uC774\uC758 \uC624\uB9AC\uC18C\uB9AC \uB0B4\uAE30!\n\uC7AC\uBB38\uC774\uC758
+        \uC624\uB9AC\uC18C\uB9AC\uB294 \uAC15\uB825\uD558\uC600\uB2E4!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006894005761078381, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -105
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006894005761078381, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.500002
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e9410b04e6cd704dbd2a722827ba9cb, type: 3}
 --- !u!224 &3006894005866960288 stripped

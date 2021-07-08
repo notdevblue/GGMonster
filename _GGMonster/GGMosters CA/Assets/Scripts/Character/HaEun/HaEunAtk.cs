@@ -44,7 +44,7 @@ public class HaEunAtk : Skills
             isAI = true;
         }
 
-        salaryTurn = stat.startFirst ? 12 : 13;
+        salaryTurn = TurnManager.instance.playerTurn ? 12 : 13;
     }
 
 

@@ -64,13 +64,13 @@ public class Items : MonoBehaviour
     public void ResetProvokeCount(Stat stat) // hp - 5 하는 대신 도발 상태를 없엔다.
     {
         if (isUsed) { return; }
-        if (!stat.provoke)
+        if (!stat.isTickDamage)
         {
-            NoticeUI.instance.SetMsg("강력한 엘보 한방은\r\n도발 상태일때만 사용할 수 있다!");
+            NoticeUI.instance.SetMsg("    강력한 엘보 한방은\r\n지속 데미지 상태일 때만 사용할 수 있다!");
             NoticeUI.instance.CallNoticeUI(false, true);
             return; 
         }
-        if (stat.provItemCnt < 1)
+        if (stat.tickDamageItemCount < 1)
         {
             NoticeUI.instance.SetMsg("이미 강력한 엘보를 사용했다!");
             NoticeUI.instance.CallNoticeUI(false, true);
@@ -78,11 +78,11 @@ public class Items : MonoBehaviour
         }
         isUsed = true;
 
-        --stat.provItemCnt;
+        --stat.tickDamageItemCount;
 
-        stat.curHp -= stat.provUseCost; // TODO : 이거는 왜 이걸로 했지
-        stat.provoke = false;
-        stat.provokeCount = 0;
+        stat.curHp -= stat.tickDamageItemCost; // TODO : 이거는 왜 이걸로 했지
+        stat.isTickDamage = false;
+        stat.tickDamageCount = 0;
 
         NoticeUI.instance.SetMsg($"{stat.charactorName}은 강력한 엘보를 사용했다!", ResetUsedBoolean);
         NoticeUI.instance.CallNoticeUI(true, true, TurnManager.instance.enemyTurn, false, false, null, false);

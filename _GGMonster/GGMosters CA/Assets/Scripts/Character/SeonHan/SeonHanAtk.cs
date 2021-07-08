@@ -52,7 +52,7 @@ public class SeonHanAtk : Skills
             isAI = true;
         }
 
-        salaryTurn = stat.startFirst ? 12 : 13;
+        salaryTurn = TurnManager.instance.enemyTurn ? 12 : 13;
 
     }
 

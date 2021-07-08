@@ -195,7 +195,7 @@ public class AIBase : CharactorBase
 
         bool ProvokeItem()
         {
-            if(!stat.provoke || stat.provItemCnt < 1) { return false; }
+            if(!stat.provoke || stat.tickDamageItemCount < 1) { return false; }
             int probSave = (aiStat.isHighProvoke ? onHighProvokeItemUseProb : onProvokeItemUseProb);
             int provokeProb = aiStat.lowHp ? probSave * onLowHpProvokeItemUseMul : probSave;
 
