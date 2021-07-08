@@ -66,7 +66,7 @@ public class Items : MonoBehaviour
         if (isUsed) { return; }
         if (!stat.provoke)
         {
-            NoticeUI.instance.SetMsg("강력한 엘보 한방은 도발 상태일때만 사용할 수 있다!");
+            NoticeUI.instance.SetMsg("강력한 엘보 한방은\r\n도발 상태일때만 사용할 수 있다!");
             NoticeUI.instance.CallNoticeUI(false, true);
             return; 
         }

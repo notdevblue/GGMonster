@@ -6924,5 +6924,9 @@ PrefabInstance:
       propertyPath: enemyStat
       value: 
       objectReference: {fileID: 863298410}
+    - target: {fileID: 7481586108219597311, guid: 7af918272d3310847ac8259424381416, type: 3}
+      propertyPath: thinkTimeMin
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7af918272d3310847ac8259424381416, type: 3}

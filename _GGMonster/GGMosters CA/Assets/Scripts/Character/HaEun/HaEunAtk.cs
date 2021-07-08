@@ -113,19 +113,25 @@ public class HaEunAtk : Skills
             NoticeUI.instance.SetMsg("하은쌤의 월급 받는 날!");
             if (stat.curHp + salaryHp <= stat.maxHp)
             {
-                stat.curHp += salaryHp;
+                NoticeUI.instance.SetMsg($"{salaryHp} 만큼의 HP을 회복했다!", () =>
+                {
+                    stat.curHp += salaryHp;
+                    DamageEffects.instance.HealEffect(transform);
+                    DamageEffects.instance.TextEffect(salaryHp, GetComponent<CharactorDamage>().damageText);
+                    TurnManager.instance.MidTurn();
+                });
             }
             else
             {
-                NoticeUI.instance.SetMsg("앗 하은쌤의 월급이 밀렸다...");
+                NoticeUI.instance.SetMsg("앗 하은쌤의 월급이 밀렸다...", () => { Debug.LogWarning($"HaEunATK: {stat.curHp}, {salaryHp}"); });
             }
-
+            
             Invoke(nameof(Wait), 1.0f);
         }
     }
 
     private void Wait()
     {
-        NoticeUI.instance.CallNoticeUI(false, true, false, true, true);
+        NoticeUI.instance.CallNoticeUI(false, true, false, true, false);
     }
 }

@@ -119,11 +119,17 @@ public class SeonHanAtk : Skills
             NoticeUI.instance.SetMsg("선한쌤의 월급 받는 날!");
             if (stat.curHp + salaryHp <= stat.maxHp)
             {
-                stat.curHp += salaryHp;
+                NoticeUI.instance.SetMsg($"{salaryHp} 만큼의 HP을 회복했다!", () =>
+                {
+                    stat.curHp += salaryHp;
+                    DamageEffects.instance.HealEffect(transform);
+                    DamageEffects.instance.TextEffect(salaryHp, GetComponent<CharactorDamage>().damageText);
+                    TurnManager.instance.MidTurn();
+                });
             }
             else
             {
-                NoticeUI.instance.SetMsg("앗 선한샘의 월급이 밀렸다...");
+                NoticeUI.instance.SetMsg("앗 선한샘의 월급이 밀렸다...", () => { Debug.LogWarning($"SeonHanATK: {stat.curHp}, {salaryHp}"); });
             }
 
             Invoke(nameof(Wait), 1.0f);

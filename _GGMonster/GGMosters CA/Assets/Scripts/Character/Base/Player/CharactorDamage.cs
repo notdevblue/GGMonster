@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharactorDamage : MonoBehaviour, IDamageable
 {
-    [SerializeField] private UnityEngine.UI.Text damageText = null;
+                     public UnityEngine.UI.Text damageText = null;
     [SerializeField] private float shakeSpeed = 120.0f;
 
 
@@ -54,7 +54,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         skillManager = FindObjectOfType<SkillManager>();
     }
 
-    public void OnDamage(int damage, bool isHeal = false, bool tickDamage = false, int count = 0, int skillEnum = -1)
+    public void OnDamage(int damage, bool isHeal = false, bool tickDamage = false, int count = 0, int skillEnum = -1, bool doNotEndTurn = false)
     {
         if(tickDamage)
         {
@@ -70,7 +70,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         NoticeUI.instance.SetMsg(isHeal ? (TurnManager.instance.playerTurn ? $"{damage} 만큼의 HP를 회복했다!" : $"적이 {damage} 만큼의 HP를 회복했다!")
             : (TurnManager.instance.playerTurn ? $"{damage} 만큼 공격했다!" : $"{damage} 만큼 공격을 받았다!"), Damage);
 
-        NoticeUI.instance.CallNoticeUI(true, true, TurnManager.instance.enemyTurn, false, false, skillEnum != -1 ? skillManager.skillSprite[(SkillListEnum)skillEnum] : null);
+        NoticeUI.instance.CallNoticeUI(!doNotEndTurn, true, TurnManager.instance.enemyTurn, false, false, skillEnum != -1 ? skillManager.skillSprite[(SkillListEnum)skillEnum] : null);
         // TOOD : n 의 데미지를 받았다
     }
 

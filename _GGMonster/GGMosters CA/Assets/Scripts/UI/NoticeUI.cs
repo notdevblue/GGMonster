@@ -43,6 +43,8 @@ public class NoticeUI : MonoBehaviour
 
     private bool isClosed = true;
     private bool closing  = false;
+    // 이미 올라와 있는 상태에서 또 불린 경우
+    private bool onMsg = false;
 
     void Start()
     {
@@ -54,19 +56,21 @@ public class NoticeUI : MonoBehaviour
 
     // SetMsg로 메세지 설정 후에 불러야 함
     private Sprite lastSprite;
+
     public void CallNoticeUI(bool calledAtEndOfTurn = false, bool firstCall = false, bool calledByEnemy = false, bool forcePlayer = false, bool forceEnemy = false, Sprite spr = null, bool forceOpen = false)
     {
         if (firstCall)
         {
-            if(forceOpen)
+            if(forceOpen || isClosed)
             {
                 OpenClose();
             }
-            else if(isClosed)
+            else if (!isClosed)
             {
-                OpenClose();
+                onMsg = true;
             }
         }
+
         isClosed = false;
 
         lastSprite       = spr;
@@ -75,6 +79,10 @@ public class NoticeUI : MonoBehaviour
         this.forcePlayer = forcePlayer;
         this.forceEnemy  = forceEnemy;
 
+        DoNoticeTask();
+
+        if (onMsg) return;
+        
         if(calledByEnemy)
         {
             standBG.color = enemyColor;
@@ -103,9 +111,6 @@ public class NoticeUI : MonoBehaviour
             standing.sprite = TurnManager.instance.playerTurn ? sprites[0] : sprites[1];
         }
         #endregion
-
-        DoNoticeTask();
-        
     }
 
     // queue 에 msg 가 없을때까지 돌림
@@ -115,8 +120,21 @@ public class NoticeUI : MonoBehaviour
         taskQueue.Enqueue(task);
     }
 
+    // TODO : UI 가 올라와 있는 상태에서 이걸 한번 더 부르면 강재로 하나가 넘어가게 됨
     private void DoNoticeTask()
     {
+        // Msg
+        if (msgQueue.Count != 0 && !onMsg)
+        {
+            noticeText.text = msgQueue.Dequeue();
+        }
+        else
+        {
+            onMsg = false;
+            return;
+        }
+
+        // Task
         if (taskQueue.Count == 0) { }
         else if (taskQueue.Peek() != null)
         {
@@ -125,10 +143,6 @@ public class NoticeUI : MonoBehaviour
         else
         {
             taskQueue.Dequeue();
-        }
-        if (msgQueue.Count != 0)
-        {
-            noticeText.text = msgQueue.Dequeue();
         }
     }
 
@@ -147,8 +161,8 @@ public class NoticeUI : MonoBehaviour
         if(msgQueue.Count == 0)
         {
             OpenClose();
-
-            if (endofturn && !isClosed) { TurnManager.instance.EndTurn(); isClosed = true; }
+            msgQueue.Clear();
+            if (endofturn && !isClosed) { TurnManager.instance.EndTurn(); isClosed = true;}
             else { isClosed = true; }
             return;
         }
