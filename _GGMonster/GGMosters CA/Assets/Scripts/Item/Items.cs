@@ -64,17 +64,17 @@ public class Items : MonoBehaviour
     public void ResetProvokeCount(Stat stat) // hp - 5 하는 대신 도발 상태를 없엔다.
     {
         if (isUsed) { return; }
-        if (!stat.isTickDamage)
-        {
-            NoticeUI.instance.SetMsg("    강력한 엘보 한방은\r\n지속 데미지 상태일 때만 사용할 수 있다!");
-            NoticeUI.instance.CallNoticeUI(false, true);
-            return; 
-        }
         if (stat.tickDamageItemCount < 1)
         {
             NoticeUI.instance.SetMsg("이미 강력한 엘보를 사용했다!");
             NoticeUI.instance.CallNoticeUI(false, true);
             return;
+        }
+        if (!stat.isTickDamage)
+        {
+            NoticeUI.instance.SetMsg("    강력한 엘보 한방은\r\n지속 데미지 상태일 때만 사용할 수 있다!");
+            NoticeUI.instance.CallNoticeUI(false, true);
+            return; 
         }
         isUsed = true;
 
