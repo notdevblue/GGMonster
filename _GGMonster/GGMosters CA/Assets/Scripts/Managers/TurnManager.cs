@@ -158,6 +158,8 @@ public class TurnManager : MonoBehaviour
     // 페시브 스킬 호출
     private void CallPassiveSkill()
     {
+        if (stat.isDead || stat.enemyStat.isDead) return;
+
         skill = player.GetComponent<ISkill>();
         TurnTask(skill);
 
