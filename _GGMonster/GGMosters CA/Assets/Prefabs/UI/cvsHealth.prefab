@@ -504,7 +504,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 409234240494827759}
   m_HandleRect: {fileID: 0}
@@ -975,6 +975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d29ef8705d3665438ae71f76135f3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decDur: 0.5
   hpBar:
   - {fileID: 409234241892332566}
   - {fileID: 409234240331223810}
@@ -1154,7 +1155,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 409234240928568593}
   m_HandleRect: {fileID: 0}
