@@ -77,6 +77,9 @@ public class CharactorDamage : MonoBehaviour, IDamageable
     private void Damage()
     {
         stat.curHp = decredDmg;
+
+
+
         healthUI.ResetUI();
 
         if (!isHeal)
@@ -84,11 +87,17 @@ public class CharactorDamage : MonoBehaviour, IDamageable
             effects.ShakeX(shakeSpeed, damage * 1.5f, 2);
             StartCoroutine(DamageEffects.instance.ShakeEffect(damage, transform));
             DamageEffects.instance.TextEffect(damage, damageText);
+
+            // 피격 효과음 재생
+            BattleSoundManager.PlaySound(SoundEnum.Damaged);
         }
         else
         {
             DamageEffects.instance.HealEffect(transform);
             DamageEffects.instance.TextEffect(damage, damageText);
+
+            // 치료 효과음 재생
+            BattleSoundManager.PlaySound(SoundEnum.Healed);
         }
     }
 

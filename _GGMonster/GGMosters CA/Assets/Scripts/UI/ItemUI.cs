@@ -37,7 +37,7 @@ public class ItemUI : MonoBehaviour
     private void InitDictionary()
     {
         item.itemDictionary.Add(ItemEnum.RiceBurger, new ItemData("밥버거", "채력을 10 회복시켜줍니다.", $"{stat.healItemCnt} 개 남았습니다."));
-        item.itemDictionary.Add(ItemEnum.StrongElbow, new ItemData("강력한 엘보 한방", "채력을 5 소모하는 대신 지속 데미지 상태를 해재합니다.", $"{stat.tickDamageItemCount} 개 남았습니다."));
+        item.itemDictionary.Add(ItemEnum.StrongElbow, new ItemData("강력한 엘보 한방", "지속 데미지 1회분의 데미지를 즉시 입는 대신 지속 데미지 상태를 해재합니다.", $"{stat.tickDamageItemCount} 개 남았습니다."));
     }
 
     private void CallHeal()

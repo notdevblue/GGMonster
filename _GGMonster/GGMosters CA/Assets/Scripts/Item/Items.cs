@@ -56,7 +56,8 @@ public class Items : MonoBehaviour
                                            true);
         CallMidturnTask();
 
-        NoticeUI.instance.SetMsg($"{stat.charactorName}은 밥버거를 사용했다!", ResetUsedBoolean);
+        // 힐 효과음 재생을 여기서 해 줌
+        NoticeUI.instance.SetMsg($"{stat.charactorName}은 밥버거를 사용했다!", () => { ResetUsedBoolean(); BattleSoundManager.PlaySound(SoundEnum.Healed); });
         NoticeUI.instance.CallNoticeUI(true, true, TurnManager.instance.enemyTurn, false, false, null, false);
     }
 
@@ -80,7 +81,6 @@ public class Items : MonoBehaviour
 
         --stat.tickDamageItemCount;
 
-        stat.curHp -= stat.tickDamageItemCost; // TODO : 이거는 왜 이걸로 했지
         stat.isTickDamage = false;
         stat.tickDamageCount = 0;
 

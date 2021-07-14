@@ -424,6 +424,9 @@ abstract public partial class Skills : SkillBase
             return false;
         }
 
+        // 공격 효과음 재생
+        BattleSoundManager.PlaySound(SoundEnum.Attacked);
+
         
         if (stat.sp_arr[n] > 0)
         {
