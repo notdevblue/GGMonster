@@ -185,6 +185,9 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private Image fader;
     public void Dead()
     {
+        // È¿°úÀ½
+        BattleSoundManager.PlaySound(SoundEnum.Dead);
+
         if(stat.isDead)
         {
             DOTween.Clear();

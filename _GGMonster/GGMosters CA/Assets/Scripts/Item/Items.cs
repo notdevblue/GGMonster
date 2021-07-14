@@ -81,6 +81,10 @@ public class Items : MonoBehaviour
 
         --stat.tickDamageItemCount;
 
+        // 효과음
+        // 바로 UI 나오니 이렇게 작성
+        BattleSoundManager.PlaySound(SoundEnum.TickDamaged);
+
         stat.isTickDamage = false;
         stat.tickDamageCount = 0;
 

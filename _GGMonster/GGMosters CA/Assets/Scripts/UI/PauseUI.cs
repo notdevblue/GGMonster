@@ -49,7 +49,9 @@ public class PauseUI : MonoBehaviour
 
     private void OnESC()
     {
+
         pausePannel.SetActive(!pausePannel.activeSelf);
         Time.timeScale = pausePannel.activeSelf ? 0.0f : 1.0f;
+        BattleSoundManager.PlaySound(pausePannel.activeSelf ? SoundEnum.UISelect : SoundEnum.UIBack);
     }
 }

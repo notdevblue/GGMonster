@@ -148,6 +148,8 @@ public class NoticeUI : MonoBehaviour
 
     private void OpenClose()
     {
+        BattleSoundManager.PlaySound(isOpen ? SoundEnum.UIBack : SoundEnum.UISelect);
+
         btnContinue.enabled = false;
         closing = true;
         noticeObj.DOMove(isOpen ? closePos.position : originPos.position, dur).SetEase(isOpen ? Ease.InCubic : Ease.OutCubic).OnComplete(() => { closing = false; btnContinue.enabled = true; });
@@ -166,6 +168,8 @@ public class NoticeUI : MonoBehaviour
             else { isClosed = true; }
             return;
         }
+
+        BattleSoundManager.PlaySound(SoundEnum.UISelect);
         CallNoticeUI(endofturn, false, isAiUsing, forcePlayer, forceEnemy, lastSprite);
     }
 }

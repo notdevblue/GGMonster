@@ -5,9 +5,14 @@ using UnityEngine;
 
 public enum SoundEnum
 {
-    Damaged = 0,
+    LowDamaged = 0,
+    HighDamaged,
+    TickDamaged,
     Attacked,
     Healed,
+    Dead,
+    UISelect,
+    UIBack,
     SOUNDEND
 }
 

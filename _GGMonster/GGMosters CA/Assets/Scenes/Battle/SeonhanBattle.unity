@@ -777,9 +777,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios:
+  - {fileID: 713970796882309247, guid: 8ce043f4f4cd7774a9c9b7e2937929dc, type: 3}
   - {fileID: 7851831303670845135, guid: cd6c3473910178040a37d4ca90826ee9, type: 3}
+  - {fileID: 4352599560563303933, guid: 49575c713ebb2c943a49da9a80eb2cd5, type: 3}
   - {fileID: 6541289317951455517, guid: f463c9f6838de2344a067f9b8764a4e4, type: 3}
   - {fileID: 6349994703888559274, guid: 92091e35774cd8143b2a44225568bb7e, type: 3}
+  - {fileID: 1567956583713840769, guid: 4dafe9226c4526f49959cc5c4320e85f, type: 3}
+  - {fileID: 2300380265715525036, guid: 5465cb7eb5509004fbf8c156dc52e292, type: 3}
+  - {fileID: 8175653623943882752, guid: a2896c8072f1e2f4592d1ae4ff52ceca, type: 3}
 --- !u!4 &1162393787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1162393787, guid: c781492dd20b0f74d9cc66b8008a1b64, type: 3}

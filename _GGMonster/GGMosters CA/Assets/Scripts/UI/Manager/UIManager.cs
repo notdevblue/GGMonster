@@ -45,27 +45,21 @@ public class UIManager : MonoBehaviour
         CloseCanvas(itemPanel);
         CloseCanvas(skillPannel);
         OpenCanvas(mainMenuPanel);
-
-        //skillPannel.SetActive(false);
-        //itemPanel.SetActive(false);
-        //mainMenuPanel.SetActive(true);
+        BattleSoundManager.PlaySound(SoundEnum.UIBack);
     }
 
     public void ToSkillPannel()
     {
         CloseCanvas(mainMenuPanel);
         OpenCanvas(skillPannel);
-
-        //mainMenuPanel.SetActive(false);
-        //skillPannel.SetActive(true);
+        BattleSoundManager.PlaySound(SoundEnum.UISelect);
     }
 
     public void ToItemPannel()
     {
         CloseCanvas(mainMenuPanel);
         OpenCanvas(itemPanel);
-        //mainMenuPanel.SetActive(false);
-        //itemPanel.SetActive(true);
+        BattleSoundManager.PlaySound(SoundEnum.UISelect);
     }
 
 

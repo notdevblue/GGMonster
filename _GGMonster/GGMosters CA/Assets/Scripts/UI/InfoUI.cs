@@ -34,6 +34,9 @@ public class InfoUI : MonoBehaviour
     {
         if (isClosing) return;
 
+        // È¿°úÀ½
+        BattleSoundManager.PlaySound(SoundEnum.UIBack);
+
         isClosing = true;
         infoObject.DOMove(closePos.position, moveDur).SetEase(Ease.InCubic).OnComplete(() =>{ isOpen = false; isClosing = false; });
         prevItemData = null;
@@ -114,7 +117,12 @@ public class InfoUI : MonoBehaviour
 
     private void ToPos(InfoUICallback callback = null)
     {
+        BattleSoundManager.PlaySound(isOpen ? SoundEnum.UIBack : SoundEnum.UISelect);
+
         infoObject.DOMove((isOpen ? closePos.position : openPos.position), moveDur).SetEase(isOpen ? Ease.InCubic : Ease.OutCubic).OnComplete(() =>
-        { isOpen = !isOpen; if(callback != null) callback(); });
+        {
+            isOpen = !isOpen;
+            callback?.Invoke();
+        });
     }
 }

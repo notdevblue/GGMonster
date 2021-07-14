@@ -17,6 +17,8 @@ public class CharactorDamage : MonoBehaviour, IDamageable
     private int damage = 0;
     private bool isHeal = false;
 
+    private readonly int highDamageBase = 30;
+
     private void Awake()
     {
         stat = GetComponent<Stat>();
@@ -78,8 +80,6 @@ public class CharactorDamage : MonoBehaviour, IDamageable
     {
         stat.curHp = decredDmg;
 
-
-
         healthUI.ResetUI();
 
         if (!isHeal)
@@ -89,7 +89,7 @@ public class CharactorDamage : MonoBehaviour, IDamageable
             DamageEffects.instance.TextEffect(damage, damageText);
 
             // 피격 효과음 재생
-            BattleSoundManager.PlaySound(SoundEnum.Damaged);
+            BattleSoundManager.PlaySound(damage > highDamageBase ? SoundEnum.HighDamaged : SoundEnum.LowDamaged);
         }
         else
         {
@@ -120,6 +120,9 @@ public class CharactorDamage : MonoBehaviour, IDamageable
         }
         else
         {
+            // 효과음
+            BattleSoundManager.PlaySound(SoundEnum.TickDamaged);
+
             --stat.tickDamageCount;
             stat.curHp -= stat.tickDamage;
             effects.ShakeX(shakeSpeed, stat.tickDamage * 1.5f, 2);
